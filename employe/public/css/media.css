@@ -1,0 +1,50 @@
+@media screen and (max-width: 1000px) {
+    .child_para_1 p {
+        font-size: 14px;
+    }
+    .child_input {
+        font-size: 14px;
+    }
+    .review_div_2 {
+        width: 100%;
+    }
+    .review_btn {
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width: 840px) {
+    .child_para_1 {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .child_have_div_3 {
+        width: 100%;
+        justify-content: start;
+        margin-bottom: 10px;
+    }
+    .child_have_div_3 span {
+        font-size: 16px;
+    }
+    .header_title_div {
+        width: 45%;
+    }
+}
+@media screen and (max-width: 620px) {
+    .child_para_1 {
+        width: 70%;
+    }
+    .dataTables_length {
+        width: 100%;
+    }
+    #users-table_filter {
+        width: 100%;
+    }
+    .dataTables_info {
+        width: 100%;
+    }
+    #users-table_paginate {
+        width: 100%;
+    }
+}

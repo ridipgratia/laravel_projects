@@ -1,0 +1,7 @@
+@media screen and (max-width: 800px) {
+    .registration_td {
+        width: 40%;
+    }
+}
+@media screen and (max-width: 500px) {
+}

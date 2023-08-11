@@ -1,0 +1,224 @@
+.main_div {
+    box-shadow: 4px 4px 7px grey;
+    background-color: #0069d9;
+    width: 100%;
+}
+.header_title_div {
+    flex-direction: column;
+    flex-flow: column;
+    width: 30%;
+    /* justify-content: flex-start; */
+}
+.header_title_para {
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    width: 80%;
+    text-align: left;
+    font-family: "Times New Roman", Times, serif;
+    margin-bottom: 0px;
+}
+.header_title_div p {
+    width: 80%;
+    font-family: "Times New Roman", Times, serif;
+}
+.header_title_select {
+    width: 100%;
+    background: transparent;
+    border: 2px solid grey;
+    outline: none;
+    font-size: 17px;
+    color: white;
+    cursor: pointer;
+}
+.header_title_select::selection {
+    color: black;
+}
+.header_title_select option {
+    color: black;
+}
+.search_icon {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+}
+.content_div {
+    width: 100%;
+}
+.content_para_div {
+    width: 90%;
+    /* border: 1px solid grey; */
+    margin-top: 10px;
+}
+.content_para {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    width: 100%;
+    margin-top: 10px;
+    color: black;
+    margin-top: 3px;
+    justify-content: start;
+}
+.content_para span {
+    width: 20%;
+    border-radius: 2px;
+    background: #0069d9;
+    text-align: center;
+    color: white;
+}
+.content_para_1 {
+    font-weight: bold;
+    font-size: 14px;
+    width: 50%;
+    justify-content: start;
+    text-transform: capitalize;
+    color: black;
+    font-family: "Roboto", sans-serif;
+}
+.image_modal_div {
+    width: 10%;
+}
+.content_para_1 span {
+    width: 100%;
+}
+.content_para_1 span:first-child {
+    font-size: 15px;
+    color: grey;
+    font-weight: 500;
+}
+.content_para_1 span:last-child {
+    font-size: 17px;
+}
+.approved_btn {
+    display: none;
+}
+.main_table {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: start;
+    overflow-x: scroll;
+}
+.main_table::-webkit-scrollbar {
+    height: 5px;
+    background: grey;
+}
+#users-table_wrapper {
+    width: 100%;
+    /* display: flex; */
+}
+.dataTables_length {
+    width: 45%;
+    text-align: center;
+}
+#users-table_filter {
+    width: 45%;
+    text-align: center;
+}
+.dataTable {
+    background: #0069d9;
+    color: white;
+}
+.dataTable tbody {
+    color: black;
+}
+.view_btn {
+    border: none;
+    background: transparent;
+    outline: none;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    padding: 5px 0px 8px 0px;
+    transition: 1s;
+}
+/* .view_btn:hover {
+    background: rgb(128, 128, 255);
+    color: white;
+} */
+/* .view_btn:hover .Approved {
+    color: white;
+}
+.view_btn:hover .Reject {
+    color: white;
+}
+.view_btn:hover .Not_Yet {
+    color: white;
+} */
+.eyes {
+    margin-top: 0px;
+    font-size: 20px;
+}
+.view_btn span {
+    font-size: 14px;
+}
+.Approved {
+    padding: 3px 20px 3px 20px;
+    color: white;
+    background: green;
+    font-weight: bold;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+}
+
+.Rejected {
+    border: none;
+    outline: none;
+    padding: 3px 28px 3px 28px;
+    color: white;
+    background: red;
+    font-weight: bold;
+    border-radius: 3px;
+}
+.Pending {
+    border: none;
+    outline: none;
+    padding: 3px 30px 3px 30px;
+    color: white;
+    background: orange;
+    font-weight: bold;
+    border-radius: 3px;
+}
+.dataTables_info {
+    width: 45%;
+    text-align: center;
+}
+#users-table_paginate {
+    width: 45%;
+    text-align: center;
+}
+.btn-close {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 22px;
+}
+.show_img_modal {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 22px;
+}
+.view_hr {
+    width: 100%;
+    background: #9d9d9d;
+
+    /* height: 1px; */
+}
+.modal-header {
+    border-bottom: 1px solid grey;
+}
+.view_btn_1 {
+    background-color: blue;
+    color: white;
+    padding: 3px 40px 3px 40px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border: 1px solid grey;
+    cursor: pointer;
+}

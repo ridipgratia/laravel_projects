@@ -1,0 +1,13 @@
+@media screen and (max-width: 800px) {
+    .leaveFrom {
+        width: 90%;
+    }
+    .leave_div_1 {
+        width: 45%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .leave_div_1 {
+        width: 85%;
+    }
+}

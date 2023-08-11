@@ -1,0 +1,85 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.header_div {
+    width: 100%;
+    margin-top: 5px;
+    padding: 20px 0px 20px 0px;
+    background: #e8f3f3;
+    box-shadow: 3px 3px 10px grey;
+}
+.header_div p {
+    font-weight: bold;
+    font-size: 17px;
+    width: 30%;
+    font-family: "Courier New", Courier, monospace;
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+}
+.header_div a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 30px;
+}
+.main_div {
+    background: #e2f1f1;
+    margin-top: 20px;
+    height: 100vh;
+    align-content: start;
+}
+.leave_div {
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+}
+
+.leave_div_1 {
+    background: #e8f3f3;
+    box-shadow: 3px 3px 6px grey;
+    padding: 3px 0px 3px 0px;
+    width: 30%;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: 1s;
+    cursor: pointer;
+}
+.leave_div_1:hover {
+    box-shadow: 3px 3px 20px grey;
+}
+.leave_div_1 p {
+    font-size: 17px;
+    width: 90%;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family: "Courier New", Courier, monospace;
+}
+.leave_div_1 p:first-child {
+    font-weight: bold;
+}
+.leave_div_2 {
+    width: 100%;
+    margin-top: 20px;
+}
+.leave_div_2 a {
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    background: #33426a;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    color: white;
+    padding: 5px 30px 5px 30px;
+    border-radius: 4px;
+}
+.icon {
+    transition: 1s;
+}
+.leave_div_2 a:hover .icon {
+    transform: rotate(60deg);
+}

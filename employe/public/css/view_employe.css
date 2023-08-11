@@ -1,0 +1,36 @@
+.employe_div {
+    width: 100%;
+    border: 2px solid black;
+}
+.employe_div_1 {
+    width: 90%;
+    border: 1px solid black;
+    flex-direction: column;
+    flex-flow: column;
+    margin: 0px;
+}
+.employe_data_div {
+    width: 100%;
+    margin: 0px;
+}
+.employe_data_div p {
+    width: 30%;
+    text-align: center;
+}
+.child_have_div {
+    width: 90%;
+    justify-content: space-between;
+}
+.child_have_count {
+    display: none;
+    width: 40%;
+}
+.update_child_div {
+    width: 100%;
+}
+.update_child_div_1 {
+    width: 100%;
+}
+.update_child_form {
+    width: 100%;
+}

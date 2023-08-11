@@ -1,0 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #d9eceb;
+}
+.registration_div {
+    width: 100%;
+}
+.registration_form {
+    width: 100%;
+}
+.registration_div_1 {
+    width: 80%;
+    background: #f0f5f4;
+    margin: 10px 0px;
+    padding: 10px 0px;
+    box-shadow: 2px 2px 7px grey;
+}
+
+.registration_div_1 tbody {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    text-align: left;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.registration_tr {
+    width: 100%;
+}
+.registration_td {
+    width: 30%;
+    margin: 2px 0px;
+}
+.registration_td h1 {
+    font-size: 20px;
+    font-family: "REM", sans-serif;
+    font-weight: bold;
+    width: 100%;
+    text-transform: uppercase;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.registration_td p {
+    font-weight: 18px;
+    font-weight: bold;
+    width: 100%;
+    font-family: "Roboto Mono", monospace;
+    margin: 5px 0px;
+}
+.registration_td input {
+    width: 100%;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: "Courier New", Courier, monospace;
+    outline: none;
+    border: 2px solid black;
+    padding: 0px 0px;
+    border-radius: 3px;
+}
+.registration_td select {
+    width: 100%;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 15px;
+    outline: none;
+    border: 2px solid black;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0px 0px;
+    border-radius: 3px;
+}
+.registration_td button {
+    padding: 2px 30px;
+    font-size: 20px;
+    font-family: "Roboto Mono", monospace;
+    cursor: pointer;
+    color: white;
+    border: none;
+    outline: none;
+    background: #084cdf;
+    border-radius: 5px;
+}
+.registration_tr_1 {
+    width: 90%;
+    box-shadow: 2px 2px 7px grey;
+    margin: 10px 0px;
+    padding: 10px 0px;
+}
+.registration_td_1 {
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid grey;
+}
+.registration_td_1 span {
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+}
+.registration_td_1 span:last-child {
+    color: red;
+}
+.reg_head {
+    margin-top: 10px;
+    font-size: 20px;
+    font-family: "REM", sans-serif;
+    font-weight: bold;
+    width: 100%;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.tested {
+    display: none;
+}
+.wrong {
+    display: none;
+}
+.spin {
+    display: none;
+}
+input::file-selector-button {
+    content: "";
+    margin-right: 20px;
+    background: #084cdf;
+    border: none;
+    padding: 5px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+input::file-selector-button:hover {
+    background: #0d45a5;
+}
+.error_div {
+    width: 100%;
+    background: #d9eceb;
+    box-shadow: 2px 2px 7px grey;
+    flex-direction: column;
+    flex-flow: column;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 0px;
+}
+.error_div p {
+    width: 90%;
+    text-align: center;
+    color: red;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+}
+.btn-close {
+    font-size: 22px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+#reg_1 {
+    display: flex;
+}
+#reg_2 {
+    display: none;
+}
+#reg_3 {
+    display: none;
+}
+#reg_4 {
+    display: none;
+}
+.ani_1 {
+    animation: reg_div_ani_1 0.3s linear;
+}
+@keyframes reg_div_ani_1 {
+    from {
+        translate: 0px -60px 0px;
+    }
+    to {
+        translate: 0px 0px 0px;
+    }
+}
+.step_div {
+    width: 100%;
+    margin-top: 10px;
+}
+.step_div_2 {
+    width: 60%;
+}
+.step_div_1 {
+    width: 30%;
+    /* background: #2184be; */
+    background: #eee;
+    color: #aaa;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 17px;
+    font-family: "Courier New", Courier, monospace;
+    padding: 5px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
