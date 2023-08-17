@@ -1,0 +1,25 @@
+<div class="flex_div main_side_nav_div">
+    <h1 class="compnay_name">Company Name</h1>
+    <div class="flex_div side_nav_text">
+        <div class="flex_div side_nav_head">
+            <p class="circle_text">RG</p>
+            <a href="{{ route('logout') }}" id="log_out"><i class="fas fa-sign-out-alt"></i> </a>
+        </div>
+        <div class="flex_div menu_nav_btn">
+            <button onclick="menu_btn_fun()"><i class="fa fa-bars"></i></button>
+        </div>
+        <p class="user_text">{{ $emp_code }}</p>
+        <p class="user_text">ridipgoswami147@gmail.com</p>
+    </div>
+    <div class="flex_div side_nav_link">
+        <a href="{{ route('dashboard') }}" class="flex_div side_nav_a"><span><i class="fa fa-info"></i> </span>
+            <span>Basic
+                Information</span></a>
+        <a href="leaveFrom" class="flex_div side_nav_a"><span><i class="fas fa-leave"></i> </span>
+            <span>Leave Apply</span></a>
+        <a href="" class="flex_div side_nav_a"><span><i class="fas fa-clipboard"></i> </span>
+            <span>Attendace</span></a>
+        <a href="" class="flex_div side_nav_a"><span><i class="fas fa-pen"></i> </span>
+            <span>Modify Information</span></a>
+    </div>
+</div>

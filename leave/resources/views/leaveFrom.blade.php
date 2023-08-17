@@ -57,7 +57,7 @@
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script script script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $(document).on('change', '#type_leave', function() {
@@ -74,8 +74,8 @@
                 $(this).css('background', 'grey');
                 await $.ajax({
                     type: "post",
-                    // url: "{{ route('leave_form_post_1') }}",
-                    url: "{{ route('leave_controller_post') }}",
+                    url: "{{ route('leave_form_post_1') }}",
+                    // url: "{{ route('leave_controller_post') }}",
                     data: form_data,
                     contentType: false,
                     processData: false,

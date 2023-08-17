@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Unique;
@@ -19,6 +20,7 @@ class RegistrationController extends Controller
         $designations = DB::table('designations')->get();
         $blood_groups = DB::table('blood_group')->get();
         $genders = DB::table('employe_gender')->get();
+
         return view('registration', ['designations' => $designations, 'blood_groups' => $blood_groups, 'genders' => $genders]);
     }
     public function registration_post(Request $request)
@@ -181,6 +183,13 @@ class RegistrationController extends Controller
                     if ($edu_check == false) {
                         $status = 400;
                     } else {
+                        $character = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                        $password = "";
+                        for ($i = 0; $i < strlen($character); $i++) {
+                            $rand = rand(1, (strlen($character) - 1));
+                            $password .= $character[$rand];
+                        }
+
                         DB::table('all_employe_details')->insert([
                             'emp_code' => $request->emp_code,
                             'employe_name' => $request->emp_name,
@@ -200,11 +209,18 @@ class RegistrationController extends Controller
                             'created_at' => date("Y-m-d H:i:s"),
                             'updated_at' => date("Y-m-d H:i:s")
                         ]);
+
                         $emp_id = DB::table('all_employe_details')->where('emp_code', $request->emp_code)->select('id')->get();
+                        DB::table('all_employe_login')->insert([
+                            'e_id' => $emp_id[0]->id,
+                            'email' => $request->emp_email,
+                            'password' => Hash::make($password)
+                        ]);
                         for ($i = 0; $i < count($emp_board_name); $i++) {
                             $edu_certificate = $emp_education_file[$i]->store('public/images/' . strval($emp_id[0]->id));
                             DB::table('employe_education_details')->insert(['e_id' => $emp_id[0]->id, 'board' => $emp_board_name[$i], 'school_college' => $emp_schol[$i], 'degree' => $emp_degree[$i], 'year' => $emp_passing_year[$i], 'percentage' => $emp_percentage[$i], 'marks' => $emp_marks[$i], 'education_certificate' => $edu_certificate, 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")]);
                         }
+
                         for ($i = 0; $i < count($emp_com_name); $i++) {
                             $ex_certificate = $emp_ex_file[$i]->store('public/images/' . strval($emp_id[0]->id));
                             DB::table('employe_expirience')->insert(['e_id' => $emp_id[0]->id, 'company_name' => $emp_com_name[$i], 'ex_year' => $ex_year[$i], 'emp_role' => $emp_role[$i], 'to_date' => $emp_to_date[$i], 'form_date' => $emp_form_date[$i], 'ex_certificate' => $ex_certificate, 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")]);

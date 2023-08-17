@@ -19,6 +19,7 @@ class AdminRegistrationController extends Controller
             $count = DB::table('all_employe_details')->where('designation_id', $desgination->id)->count();
             array_push($count_desg, $count);
         }
+
         return view('admin_registration', ['designations' => $designations, 'count_designations' => $count_desg]);
     }
     public function get_employe_data()

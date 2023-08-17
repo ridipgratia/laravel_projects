@@ -1,0 +1,117 @@
+body {
+    background: #f8feff;
+}
+.main_side_nav_div {
+    width: 25%;
+    position: fixed;
+    height: 97%;
+    top: 0;
+    left: 0;
+    overflow: scroll;
+    margin: 7px 0px;
+    margin-left: 1%;
+    align-content: start;
+    padding: 0px;
+    background: #15aae9;
+}
+.main_side_nav_div::-webkit-scrollbar {
+    width: 0px;
+}
+
+.side_nav_text {
+    flex-direction: column;
+    flex-flow: column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    margin-top: 10px;
+}
+.circle_text {
+    font-family: "Oswald", sans-serif;
+    border-radius: 50%;
+    font-size: 20px;
+    width: 46px;
+    height: 30px;
+    padding: 6px 0px;
+    text-align: center;
+    background: white;
+    margin: 5px 0px;
+}
+.user_text {
+    margin: 5px 0px;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+    font-size: 18px;
+    font-family: "Lora", serif;
+}
+.side_nav_link {
+    width: 100%;
+    margin-top: 20px;
+    justify-content: center;
+}
+.side_nav_head {
+    width: 90%;
+    justify-content: space-between;
+}
+#log_out {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+.compnay_name {
+    font-size: 17px;
+    font-weight: normal;
+    font-family: "Roboto Mono", monospace;
+    text-transform: capitalize;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+.side_nav_a {
+    width: 100%;
+    color: white;
+    font-size: 17px;
+    font-family: "Lora", serif;
+    margin-top: 20px;
+    cursor: pointer;
+    background: #2382ab;
+    transition: 0.5s;
+    text-decoration: none;
+    justify-content: center;
+    padding: 4px 4px;
+}
+.side_nav_a:hover {
+    background: #77d5fd;
+}
+.side_nav_a span:first-child {
+    width: 8%;
+    text-align: right;
+}
+.side_nav_a span:last-child {
+    width: 92%;
+    text-align: center;
+}
+.main_div {
+    width: 72%;
+    margin-left: 27%;
+    margin-bottom: 10px;
+}
+.menu_nav_btn {
+    margin: 0px;
+    display: none;
+}
+.menu_nav_btn button {
+    font-size: 30px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
