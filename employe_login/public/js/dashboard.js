@@ -19,7 +19,7 @@ $(document).ready(function () {
                 }
                 for (var i = 0; i < result.message.length; i++) {
                     $('#education_div').append(
-                        "<div class='flex_div education_div_1 detaling_div'> <div class='flex_div education_div_3 detaling_div_1'> <p class='flex_div details_p'><span>Board Name :</span><span>" + result.message[i].board + "</span></p><p class='flex_div details_p'><span>School/College :</span><span>" + result.message[i].school_college + "</span></p><p class='flex_div details_p'><span>Degree :</span><span>" + result.message[i].degree + "</span></p><p class='flex_div details_p'><span>Passing Year :</span><span>" + result.message[i].year + "</span></p><p class='flex_div details_p'><span>Percentage :</span><span>" + result.message[i].percentage + "</span></p><p class='flex_div details_p'><span>Marks :</span><span>" + result.message[i].marks + "</span></p><div class='flex_div file_div'><button value=" + result.message[0].education_certificate + " class='file_btn'>View</button> </div> </div>"
+                        "<div class='flex_div education_div_1 detaling_div'> <div class='flex_div education_div_3 detaling_div_1'> <p class='flex_div details_p'><span>Board Name :</span><span>" + result.message[i].board + "</span></p><p class='flex_div details_p'><span>School/College :</span><span>" + result.message[i].school_college + "</span></p><p class='flex_div details_p'><span>Degree :</span><span>" + result.message[i].degree + "</span></p><p class='flex_div details_p'><span>Passing Year :</span><span>" + result.message[i].year + "</span></p><p class='flex_div details_p'><span>Percentage :</span><span>" + result.message[i].percentage + "</span></p><p class='flex_div details_p'><span>Marks :</span><span>" + result.message[i].marks + "</span></p><div class='flex_div file_div'><button value=" + result.message[i].education_certificate + " class='file_btn' id='education_file'>View</button> </div> </div>"
                     )
                 }
 
@@ -46,7 +46,7 @@ $(document).ready(function () {
                 }
                 for (var i = 0; i < result.message.length; i++) {
                     $('#expirience_div').append(
-                        "<div class='flex_div expirience_div_1 detaling_div'> <div class='flex_div expirience_div_3 detaling_div_1'> <p class='flex_div details_p'><span>Compnay Name :</span><span>" + result.message[i].company_name + "</span></p><p class='flex_div details_p'><span>Expirinece Year :</span><span>" + result.message[i].ex_year + "</span></p><p class='flex_div details_p'><span>Employe Role :</span><span>" + result.message[i].emp_role + "</span></p><p class='flex_div details_p'><span>To Date :</span><span>" + result.message[i].to_date + "</span></p><p class='flex_div details_p'><span>Form Date :</span><span>" + result.message[i].form_date + "</span></p><div class='flex_div file_div'><button value=" + result.message[i].ex_certificate + " class='file_btn'>View</button> </div> </div>"
+                        "<div class='flex_div expirience_div_1 detaling_div'> <div class='flex_div expirience_div_3 detaling_div_1'> <p class='flex_div details_p'><span>Compnay Name :</span><span>" + result.message[i].company_name + "</span></p><p class='flex_div details_p'><span>Expirinece Year :</span><span>" + result.message[i].ex_year + "</span></p><p class='flex_div details_p'><span>Employe Role :</span><span>" + result.message[i].emp_role + "</span></p><p class='flex_div details_p'><span>To Date :</span><span>" + result.message[i].to_date + "</span></p><p class='flex_div details_p'><span>Form Date :</span><span>" + result.message[i].form_date + "</span></p><div class='flex_div file_div'><button value=" + result.message[i].ex_certificate + " class='file_btn' id='expirience_file'>View</button> </div> </div>"
                     )
                 }
 
@@ -84,7 +84,57 @@ $(document).ready(function () {
         side_nav_fun(3);
         detail_show_fun(3);
     })
+    $(document).on('click', '#education_file', async function () {
+        $image_url = $(this).val();
+        var getImageUrl = await getUrl($image_url, '/dashboard/edu_file')
+        if (getImageUrl[1] == 200) {
+            $('#img_tag').attr('src', getImageUrl[0]);
+            $('#image_modal').modal('show');
+        } else {
+            Swal.fire(
+                'Error',
+                'Invalid Image Url',
+                'Ok'
+            );
+        }
+    })
+    $(document).on('click', '#expirience_file', async function () {
+        $image_url = $(this).val();
+        var getImageUrl = await getUrl($image_url, '/dashboard/ex_file');
+        if (getImageUrl[1] == 200) {
+            $('#img_tag').attr('src', getImageUrl[0]);
+            $('#image_modal').modal('show');
+        } else {
+            Swal.fire(
+                'Error',
+                'Invalid Image Url',
+                'Ok'
+            );
+        }
+
+    })
+    $
 })
+
+async function getUrl(imageUrl, routeUrl) {
+    var final_image_url;
+    var status;
+    await $.ajax({
+        type: "get",
+        url: routeUrl,
+        data: {
+            imageUrl: imageUrl
+        },
+        success: function (result) {
+            final_image_url = result.imageURL;
+            status = result.status;
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+    return [final_image_url, status];
+}
 
 function side_nav_fun($show_index) {
     $len = $('.side_nav_p').length;

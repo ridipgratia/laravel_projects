@@ -17,7 +17,7 @@
                 Information</span></a>
         <a href="leaveFrom" class="flex_div side_nav_a"><span><i class="fas fa-leave"></i> </span>
             <span>Leave Apply</span></a>
-        <a href="" class="flex_div side_nav_a"><span><i class="fas fa-clipboard"></i> </span>
+        <a href="attendance" class="flex_div side_nav_a"><span><i class="fas fa-clipboard"></i> </span>
             <span>Attendace</span></a>
         <a href="" class="flex_div side_nav_a"><span><i class="fas fa-pen"></i> </span>
             <span>Modify Information</span></a>

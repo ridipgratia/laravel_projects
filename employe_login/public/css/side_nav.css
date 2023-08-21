@@ -31,7 +31,7 @@ body {
     border-radius: 50%;
     font-size: 20px;
     width: 46px;
-    height: 30px;
+    height: 42px;
     padding: 6px 0px;
     text-align: center;
     background: white;
@@ -50,6 +50,7 @@ body {
 .side_nav_link {
     width: 100%;
     margin-top: 20px;
+    text-decoration: none;
     justify-content: center;
 }
 .side_nav_head {
@@ -83,8 +84,8 @@ body {
     cursor: pointer;
     background: #2382ab;
     transition: 0.5s;
-    text-decoration: none;
     justify-content: center;
+    text-decoration: none !important;
     padding: 4px 4px;
 }
 .side_nav_a:hover {

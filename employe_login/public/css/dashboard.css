@@ -41,6 +41,7 @@
     font-size: 20px;
     width: 46px;
     height: 44px;
+    text-transform: uppercase;
     padding: 6px 0px;
     background: white;
 
@@ -75,15 +76,22 @@
     transition: 0.5s;
     justify-content: center;
     padding: 0px 4px;
+    text-decoration: none;
 }
 .side_nav_p:hover {
     background: #77d5fd;
+    text-decoration: none;
+    color: white;
 }
 .side_nav_p.selected {
     background: #77d5fd;
+    text-decoration: none;
+    color: white;
 }
 .side_nav_p.selected:hover {
     background: #77d5fd;
+    text-decoration: none;
+    color: white;
 }
 .side_nav_p span:first-child {
     width: 8%;
@@ -251,4 +259,17 @@
     display: none;
     width: 100%;
     justify-content: center;
+}
+.image_div {
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+}
+#img_tag {
+    width: 95%;
+    height: 95%;
+}
+.btn-close {
+    font-size: 30px;
+    cursor: pointer;
 }

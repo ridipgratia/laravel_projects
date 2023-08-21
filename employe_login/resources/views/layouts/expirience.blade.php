@@ -7,7 +7,7 @@
             <p class="flex_div details_p"><span>To Date :</span><span>Web Developer</span></p>
             <p class="flex_div details_p"><span>Form Date :</span><span>01-07-1999</span></p>
             <div class="flex_div file_div">
-                <button class="file_btn">View</button>
+                <button class="file_btn" id="expirience_file">View</button>
             </div>
         </div>
     </div>

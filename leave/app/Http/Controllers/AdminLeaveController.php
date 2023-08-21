@@ -11,7 +11,7 @@ class AdminLeaveController extends Controller
 {
     public function admin_leave_show()
     {
-        $leave_data = DB::table('leave_data as l_data')->where('approval_status', NULL)->select(
+        $leave_data = DB::table('leave_data as l_data')->where('l_data.approval_status', NULL)->select(
             'l_data.id as id',
             'l_data.e_id as e_id',
             'l_data.leave_id as leave_id',
@@ -28,7 +28,7 @@ class AdminLeaveController extends Controller
             '=',
             'l_data.leave_id'
         )->join(
-            'employe_details as e_data',
+            'all_employe_details as e_data',
             'e_data.id',
             '=',
             'l_data.e_id'
@@ -55,7 +55,7 @@ class AdminLeaveController extends Controller
                 '=',
                 'day_type.id'
             )->join(
-                'employe_details as e_data',
+                'all_employe_details as e_data',
                 'e_data.id',
                 '=',
                 'l_data.e_id'
@@ -112,12 +112,14 @@ class AdminLeaveController extends Controller
                 $status = 400;
             } else {
                 if ($approval_id == 0) {
-                    $leave_allocate = DB::table('leave_day_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->get();
+                    // $leave_allocate = DB::table('leave_day_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->get();
+                    $leave_allocate = DB::table('leave_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->get();
                     $year = date('Y', strtotime($emp_data[0]->to_date));
                     if ($emp_data[0]->status == 0) {
                         $leave_balance = $leave_allocate[0]->leave_balance + $emp_data[0]->no_day;
                         DB::table('leave_data')->where('id', $id)->update(['approval_status' => 0]);
-                        DB::table('leave_day_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->where('year', $year)->update(['leave_balance' => $leave_balance]);
+                        // DB::table('leave_day_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->where('year', $year)->update(['leave_balance' => $leave_balance]);
+                        DB::table('leave_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->where('year', $year)->update(['leave_balance' => $leave_balance]);
                         $status = 200;
                         $message = "Leave Sucessfully Rejected !";
                     } else if ($emp_data[0]->status == 1) {
@@ -125,7 +127,8 @@ class AdminLeaveController extends Controller
                         if ($emp_data[0]->pay_extra_day != $emp_data[0]->no_day) {
                             $leave_balance = $emp_data[0]->no_day - $emp_data[0]->pay_extra_day;
                             $total_leave_balance = $leave_balance + $leave_allocate[0]->leave_balance;
-                            DB::table('leave_day_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->where('year', $year)->update(['leave_balance' => $total_leave_balance]);
+                            // DB::table('leave_day_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->where('year', $year)->update(['leave_balance' => $total_leave_balance]);
+                            DB::table('leave_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->where('year', $year)->update(['leave_balance' => $total_leave_balance]);
                         }
                         $status = 200;
                         $message = "Leave Sucessfully Rejected !";

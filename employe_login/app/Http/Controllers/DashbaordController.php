@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
 
 class DashbaordController extends Controller
@@ -81,6 +82,24 @@ class DashbaordController extends Controller
             return response()->json(['status' => 200, 'message' => $info]);
         } else {
             return redirect('/dashboard');
+        }
+    }
+    public function get_ex_file()
+    {
+        $imageUrl = Storage::url($_GET['imageUrl']);
+        if ($imageUrl != null) {
+            return response()->json(['status' => 200, 'imageURL' => $imageUrl]);
+        } else {
+            return response()->json(['status' => 400]);
+        }
+    }
+    public function get_edu_file()
+    {
+        $imageUrl = Storage::url($_GET['imageUrl']);
+        if ($imageUrl != null) {
+            return response()->json(['status' => 200, 'imageURL' => $imageUrl]);
+        } else {
+            return response()->json(['status' => 400]);
         }
     }
 }

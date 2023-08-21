@@ -9,6 +9,18 @@
             <p>{{ $employe_data[0]->designation_name }}</p>
         </div>
     </x-slot>
+    <x-slot name="emp_name">
+        @php
+            $emp_name_arr = explode(' ', $employe_data[0]->employe_name);
+            $emp_name = '';
+            if (count($emp_name_arr) >= 2) {
+                $emp_name = $emp_name_arr[0][0] . $emp_name_arr[1][0];
+            } else {
+                $emp_name = $emp_name_arr[0][0];
+            }
+        @endphp
+        <p id="circle_name">{{ $emp_name }}</p>
+    </x-slot>
     <x-slot name="basic">
         @include('layouts.basic', ['employe_data' => $employe_data])
     </x-slot>
