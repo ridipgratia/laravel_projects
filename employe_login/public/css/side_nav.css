@@ -116,3 +116,48 @@ body {
     cursor: pointer;
     outline: none;
 }
+.today_attend_div {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0px 10px;
+}
+.today_attend_div_1 {
+    width: 45%;
+    background: white;
+    box-shadow: 1px 1px 7px grey;
+    border-radius: 5px;
+}
+.today_attend_div_2 {
+    background: #b2c2c4;
+    width: 100%;
+    border-radius: 5px 5px 0px 0px;
+    padding: 10px 10px;
+}
+.today_attend_office {
+    font-size: 20px;
+    color: white;
+    font-family: "Lora", serif;
+}
+.today_attend_div_3 {
+    width: 100%;
+    padding: 10px 5px;
+}
+.today_attend_text {
+    width: 48%;
+    font-size: 17px;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+.today_attend_text span:last-child {
+    font-weight: bold;
+}
+.today_attend_text_1 {
+    font-size: 17px;
+    width: 100%;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+.today_attend_text_1 span:last-child {
+    font-weight: bold;
+}

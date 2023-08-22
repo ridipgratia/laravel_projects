@@ -19,7 +19,7 @@
                                 <p class="attend_icon"><i class="fa fa-building"></i></p>
                                 <p class="attend_text office_name">{{ $location->office_name }}</p>
                                 <p class="attend_text office_location">{{ $location->location_name }}</p>
-                                <button class="office_btn" id="locations_submit_btn" value={{ $location->id }}>Give
+                                <button class="office_btn" id="{{ $atten_button[2] }}" value={{ $location->id }}>Give
                                     Attendance</button>
                             </div>
                         @endforeach

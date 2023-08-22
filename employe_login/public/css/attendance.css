@@ -96,6 +96,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 3px 0px;
+    box-shadow: 1px 1px 7px grey;
 }
 .submit_attend_div p {
     width: 90%;
@@ -107,6 +108,7 @@ body {
 .submit_attend_div_1 {
     width: 70%;
     justify-content: center;
+    box-shadow: 1px 1px 7px grey;
     background-color: white;
 }
 .submit_attend_text {
@@ -214,4 +216,36 @@ button:focus {
 }
 #main_time {
     font-size: 19px;
+}
+.logout_final_div {
+    width: 70%;
+    margin-top: 10px;
+    background: white;
+    justify-content: center;
+    padding: 20px 0px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 7px grey;
+}
+.logout_final_p {
+    width: 90%;
+    font-family: "Lora", serif;
+    font-weight: bold;
+    font-size: 16px;
+}
+.logout_final_btn_div {
+    width: 90%;
+    justify-content: space-between;
+}
+.logout_final_btn {
+    padding: 5px 30px;
+    background: #292d8a;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-family: "Times New Roman", Times, serif;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.logout_final_btn:focus {
+    resize: none;
 }

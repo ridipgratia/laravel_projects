@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
-class side extends Component
+class today_attendance extends Component
 {
     /**
      * Create a new component instance.
@@ -22,10 +22,12 @@ class side extends Component
      *
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
-
+    public $name;
     public function render()
     {
-        $emp_code = DB::table('all_employe_details')->where('id', Auth::user()->e_id)->select('employe_name', 'emp_code')->get();
-        return view('components.side', ['emp_code' => $emp_code[0]->emp_code, 'employe_name' => $emp_code[0]->employe_name]);
+        date_default_timezone_set('Asia/Kolkata');
+        $today = date("Y-m-d");
+        $name = "Ok";
+        return view('components.today_attendance', ['name' => $name]);
     }
 }

@@ -3,10 +3,6 @@ $(document).ready(function () {
         $('#attend_location_modal').modal('show');
     });
     $(document).on('click', '#atten_sing_out', function () {
-        Swal.fire(
-            'Info',
-            'Already Submited !',
-            'info'
-        )
+        $('#attend_location_modal').modal('show');
     })
 })

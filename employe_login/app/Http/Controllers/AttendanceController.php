@@ -62,10 +62,27 @@ class AttendanceController extends Controller
     }
     public function create()
     {
+        // $total_days = cal_days_in_month(CAL_GREGORIAN, 1, 2023);
+        $dates = array();
+        $the_date = date('d');
+        $the_date = (int)$the_date;
+        $month = 8;
+        $year = 2023;
+        for ($i = 1; $i <= $the_date; $i++) {
+            $date = date($year . '-' . $month . '-' . $i);
+            // array_push($dates, getdate(strtotime($date)));
+            $get_date = DB::table('attendance_login')->where('e_id', 15)->where('login_date', $date)->get();
+            // array_push($dates, $date);
+            if (count($get_date) != 0) {
+                array_push($dates, $get_date);
+            }
+        }
+        dd($dates);
         $e_id = Auth::user()->e_id;
         $atten_login = $this->check_login($e_id);
         $atten_button = null;
         $atten_button_text = null;
+        $location_submit_btn = null;
         $locations = DB::table('locations')->get();
         date_default_timezone_set('Asia/Kolkata');
         $today = date("Y-m-d");
@@ -75,11 +92,19 @@ class AttendanceController extends Controller
         if (count($atten_login) == 1) {
             $atten_button = 'atten_sing_out';
             $atten_button_text = "Sign Out";
+            $location_submit_btn = "submit_sign_out";
+            $re_verify = DB::table('attendance_login')->where('e_id', $e_id)->where('login_date', $today)->select('logout_time')->get();
+            if ($re_verify[0]->logout_time != null) {
+                $atten_button = "day_over";
+                $atten_button_text = "Day Over";
+                $location_submit_btn = 'day_over';
+            }
         } else {
             $atten_button = 'atten_sign_in';
             $atten_button_text = 'Sign In';
+            $location_submit_btn = "submit_sign_in";
         }
-        return view('attendance', ['atten_button' => [$atten_button, $atten_button_text], 'locations' => $locations, 'date' => [$time, $day, $today]]);
+        return view('attendance', ['atten_button' => [$atten_button, $atten_button_text, $location_submit_btn], 'locations' => $locations, 'date' => [$time, $day, $today], 'office' => 'HRMS']);
     }
     public function store_login(Request $request)
     {
@@ -112,14 +137,14 @@ class AttendanceController extends Controller
                         return response()->json(['status' => 400, 'message' => 'Fill Reason  Filled']);
                     }
                 }
-                DB::table('attendance_login')->insert(['e_id' => $e_id, 'login_date' => $today, 'start_time' => $reach_time, 'start_lat' => $lat1, 'start_long' => $lon1, 'login_location_diff' => $diff_info[0], 'reason' => $reason]);
+                DB::table('attendance_login')->insert(['e_id' => $e_id, 'login_date' => $today, 'login_time' => $reach_time, 'login_lat' => $lat1, 'login_long' => $lon1, 'login_location_diff' => $diff_info[0], 'reason' => $reason, 'location_id' => $location_id]);
                 return response()->json(['status' => 200, 'message' => 'Attendance Successfully Submited !']);
             } else {
                 $status = 400;
                 $message = "You Are Not Able To Sign In";
             }
         }
-        // return response()->json(['status' => 200, 'message' => [$action_id, $message], 'data' => ['e_id' => $e_id, 'login_date' => $today, 'start_time' => $time, 'start_lat' => $lat1, 'start_long' => $lon1, 'login_location_diff' => $diff_location]]);
+        // return response()->json(['status' => 200, 'message' => [$action_id, $message], 'data' => ['e_id' => $e_id, 'login_date' => $today, 'login_time' => $time, 'login_lat' => $lat1, 'login_long' => $lon1, 'login_location_diff' => $diff_location]]);
     }
 
     // public function create_location(Request $request)
@@ -193,6 +218,73 @@ class AttendanceController extends Controller
             }
         } else {
             return response()->json(['status' => 400, 'message' => 'Already Sign In ']);
+        }
+    }
+    public function logout_store_location(Request $request)
+    {
+        $location_id = $request->location_id;
+        $e_id = Auth::user()->e_id;
+        if (isset($location_id)) {
+            if (count($this->check_login($e_id)) == 0) {
+                return response()->json(['status' => 400, 'message' => 'You Are Not Login !']);
+            } else {
+                $lat_1 = $request->lat_1;
+                $long_1 = $request->long_1;
+                $location_details = DB::table('locations')->where('id', $location_id)->get();
+                $today = date("Y-m-d");
+                $day = date('l');
+                $diff_info = $this->getFinalLocationDiff($lat_1, $long_1, $location_details[0]->location_lat, $location_details[0]->location_long);
+                if ($diff_info[0] < 100) {
+                    return response()->json(['status' => 200, 'message' => [$diff_info, [$today, $day], $location_details[0]->office_name], 'location_id' => $location_id]);
+                } else {
+                    return response()->json(['status' => 400, 'message' => 'You Are ' . number_format($diff_info[0]) . ' Meters Away From Office !']);
+                }
+            }
+        } else {
+            return response()->json(['status' => 400, 'message' => 'Already Sign In ']);
+        }
+    }
+    public function store_logout(Request $request)
+    {
+        $e_id = Auth::user()->e_id;
+        $check_login = $this->check_login($e_id);
+        $status = null;
+        if (count($check_login) == 0) {
+            return response()->json(['status' => 400, 'message' => 'You Are Not Login !']);
+        } else {
+            $reason = null;
+            $location_id = $request->location_id;
+            $location_details = DB::table('locations')->where('id', $location_id)->get();
+            $lat1 = $request->lat_1;
+            $lon1 = $request->long_1;
+            $today = date("Y-m-d");
+            $diff_info = $this->getFinalLocationDiff($lat1, $lon1, $location_details[0]->location_lat, $location_details[0]->location_long);
+            $reach_time =  new DateTime($diff_info[1]);
+            $str_reach_time = strtotime($diff_info[1]);
+            $login_details = DB::table('attendance_login')->where('e_id', $e_id)->where('login_date', $today)->get();
+            $forward_time = strtotime($login_details[0]->login_time) + (240 * 60);
+            $forward_time_1 = date("H:i", $forward_time);
+            $check_time = null;
+            if (strtotime($forward_time_1) < $str_reach_time) {
+                $check_time = "Big";
+            }
+            if ($check_time == null) {
+                return response()->json(['status' => 400, 'message' => 'You must be work atleast 4 hours. ']);
+            }
+            if ($diff_info[0] < 100) {
+                // DB::table('attendance_login')->insert(['e_id' => $e_id, 'login_date' => $today, 'login_time' => $reach_time, 'login_lat' => $lat1, 'login_long' => $lon1, 'login_location_diff' => $diff_info[0], 'reason' => $reason, 'location_id' => $location_id]);
+                DB::table('attendance_login')->where('e_id', $e_id)->where('login_date', $today)->update([
+                    'logout_time' => $reach_time,
+                    'logout_lat' => $lat1,
+                    'logout_long' => $lon1,
+                    'logout_diff' => $diff_info[0],
+                    'logout_location_id' => $location_id
+                ]);
+                return response()->json(['status' => 200, 'message' => 'Successfully Logout !']);
+            } else {
+                $status = 400;
+                $message = "You Are Not Able To Sign In";
+            }
         }
     }
     public function store_login_submit(Request $request)

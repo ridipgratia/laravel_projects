@@ -51,10 +51,12 @@
                     <span>{{ $atten_button[1] }}</span>
                 </button>
             </div>
+            @include('layouts.attendance.today_atendance')
         </div>
     </div>
     @include('layouts.attendance.locatins')
     @include('layouts.attend_submit_modal')
+    @include('layouts.attendance.final_logout')
     @include('links.link_1')
     {{-- <script src="{{ asset('js/attendance/atten.js') }}"></script> --}}
     <script src="{{ asset('js/attendance/submit_attendance.js') }}"></script>

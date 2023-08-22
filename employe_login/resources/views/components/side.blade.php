@@ -2,7 +2,16 @@
     <h1 class="compnay_name">Company Name</h1>
     <div class="flex_div side_nav_text">
         <div class="flex_div side_nav_head">
-            <p class="circle_text">RG</p>
+            @php
+                $emp_name_arr = explode(' ', $employe_name);
+                $emp_name = '';
+                if (count($emp_name_arr) >= 2) {
+                    $emp_name = $emp_name_arr[0][0] . $emp_name_arr[1][0];
+                } else {
+                    $emp_name = $emp_name_arr[0][0];
+                }
+            @endphp
+            <p class="circle_text" style="text-transform: uppercase">{{ $emp_name }}</p>
             <a href="{{ route('logout') }}" id="log_out"><i class="fas fa-sign-out-alt"></i> </a>
         </div>
         <div class="flex_div menu_nav_btn">
