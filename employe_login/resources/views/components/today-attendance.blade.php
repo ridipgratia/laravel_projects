@@ -27,4 +27,21 @@
             </div>
         </div>
     @endif
+    @if ($logout_check == 'no')
+        <div class="flex_div today_attend_div_1">
+            <div class="flex_div today_attend_div_2">
+                <h1 class="today_attend_office">Logout</h1>
+                <h1 class="today_attend_office">Waiting...</h1>
+            </div>
+            <div class="flex_div today_attend_div_3">
+                <p class="today_attend_text"><span>Date: </span>&nbsp;<span>Waiting...</span>
+                </p>
+                <p class="today_attend_text"><span>Time:
+                    </span>&nbsp;<span>Waiting...</span>
+                </p>
+                <p class="today_attend_text_1"><span>Distance:
+                    </span>&nbsp;<span>Waiting... Meters To Office .</span></p>
+            </div>
+        </div>
+    @endif
 @endif

@@ -249,3 +249,99 @@ button:focus {
 .logout_final_btn:focus {
     resize: none;
 }
+.chart_div {
+    width: 100%;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+#myChart {
+    width: 70% !important;
+    height: 260px !important;
+    justify-content: center;
+    background: transparent;
+}
+.chartjs-size-monitor-shrink {
+    font-size: 30px !important;
+}
+.today_attend_div_1 {
+    margin-top: 20px;
+}
+.attend_data {
+    width: 25%;
+    flex-direction: column;
+    flex-flow: column;
+    justify-content: center;
+}
+.attend_data_text {
+    font-size: 15px;
+    font-family: "Lora", serif;
+    background-color: white;
+    box-shadow: 1px 1px 7px grey;
+    border-radius: 4px;
+    padding: 5px 5px;
+    font-weight: bold;
+    width: 95%;
+    text-align: left;
+    word-spacing: 3px;
+}
+.recent_attend_div {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0px 10px;
+}
+.recent_attend_div h1 {
+    font-size: 20px;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.recent_attend_div_1 {
+    width: 46%;
+    justify-content: center;
+    margin-top: 10px;
+}
+.recent_attend_div_1 p {
+    font-family: "Oswald", sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+.recent_attend_div_1 input {
+    font-weight: bold;
+    font-size: 15px;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-family: "Lora", serif;
+    width: 70%;
+}
+.recent_attend_div_2 {
+    width: 50%;
+    justify-content: center;
+}
+.attend_history_div {
+    width: 100%;
+    background-image: linear-gradient(150deg, #f7fffe 0 55%, #aeebea 0% 100%);
+}
+.attend_history_div_1 h1 {
+    width: 45%;
+    font-size: 17px;
+}
+.load_recent_div {
+    width: 72%;
+    padding: 70px;
+    position: absolute;
+    left: 27%;
+    opacity: 0.9;
+    color: white;
+    justify-content: center;
+    z-index: 1;
+    display: none;
+    background-color: transparent;
+}
+.load_recent_div img {
+    width: 150px;
+    height: 150px;
+}

@@ -77,6 +77,10 @@
     .side_nav_a {
         width: 30%;
     }
+    .load_recent_div {
+        left: 0;
+        width: 100%;
+    }
 }
 @media screen and (max-width: 1000px) {
     .details_p span:first-child {
@@ -108,6 +112,18 @@
     .home_attend_card {
         width: 90%;
     }
+    .today_attend_office {
+        font-size: 16px;
+    }
+    .today_attend_text {
+        font-size: 15px;
+    }
+    .today_attend_text_1 {
+        font-size: 15px;
+    }
+    .attend_data_text {
+        font-size: 13px;
+    }
 }
 @media screen and (max-width: 700px) {
     .details_p span:first-child {
@@ -131,6 +147,51 @@
     .login_form {
         width: 95%;
     }
+    .recent_attend_div_2 {
+        width: 100%;
+    }
+    .load_recent_div {
+        margin-top: -20px;
+    }
+    .recent_attend_div_1 {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 700px) {
+    .today_attend_div {
+        flex-direction: column;
+        flex-flow: column;
+    }
+    .today_attend_div_1 {
+        width: 80%;
+    }
+    .attend_data {
+        width: 60%;
+        margin-top: 10px;
+    }
+    #myChart {
+        width: 100%;
+    }
+    .recent_attend_div h1 {
+        font-size: 14px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .chart_div {
+        flex-direction: column;
+        flex-flow: column;
+    }
+    .attend_data {
+        width: 90%;
+        margin: top 10px;
+    }
+    #myChart {
+        width: 90%;
+        height: 100px;
+    }
+    .attend_data_text {
+        text-align: center;
+    }
 }
 @media screen and (max-width: 450px) {
     .attend_text {
@@ -138,5 +199,14 @@
     }
     .office_btn {
         font-size: 12px;
+    }
+    .today_attend_office {
+        font-size: 15px;
+    }
+    .today_attend_text {
+        font-size: 13px;
+    }
+    .today_attend_text_1 {
+        font-size: 13px;
     }
 }

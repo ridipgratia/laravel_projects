@@ -93,4 +93,5 @@ $(document).on('click', '#final_logout_submit', function () {
 
 function final_cancel_btn() {
     $('#final_logout_model').modal('hide');
+
 }

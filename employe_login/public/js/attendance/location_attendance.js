@@ -91,7 +91,7 @@ $(document).on('click', '#submit_sign_out', function () {
                             await setLogoutText(result);
                             $('#attend_location_modal').modal('hide');
                             $('#final_logout_model').modal('show');
-                            $('#final_attend_submit_modal').css('overflow-y', 'auto');
+                            $('#final_logout_model').css('overflow-y', 'auto');
                         }
                     },
                     error: function (data) {

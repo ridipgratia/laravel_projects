@@ -51,17 +51,31 @@
                     <span>{{ $atten_button[1] }}</span>
                 </button>
             </div>
-            @include('layouts.attendance.today_atendance')
+            <div class="flex_div today_attend_div">
+                <x-today-attendance>
+                </x-today-attendance>
+            </div>
+            <x-attendance-chart :present=$attend_chart>
+            </x-attendance-chart>
+            <x-recent-attendane>
+            </x-recent-attendane>
         </div>
     </div>
     @include('layouts.attendance.locatins')
     @include('layouts.attend_submit_modal')
     @include('layouts.attendance.final_logout')
     @include('links.link_1')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     {{-- <script src="{{ asset('js/attendance/atten.js') }}"></script> --}}
     <script src="{{ asset('js/attendance/submit_attendance.js') }}"></script>
     <script src="{{ asset('js/attendance/location_attendance.js') }}"></script>
     <script src="{{ asset('js/attendance/final_attendance.js') }}"></script>
+    <script src="{{ asset('js/attendance/recent_attend.js') }}"></script>
+    <script>
+        var attend_chart = @json($attend_chart);
+    </script>
+    <script src="{{ asset('js/attendance/attendance_chart.js') }}"></script>
+
 </body>
 
 </html>

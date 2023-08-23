@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Monolog\Handler\RedisPubSubHandler;
 
+use function PHPSTORM_META\type;
+
 class AttendanceController extends Controller
 {
     public $lat_a = 26.1327768;
@@ -63,21 +65,24 @@ class AttendanceController extends Controller
     public function create()
     {
         // $total_days = cal_days_in_month(CAL_GREGORIAN, 1, 2023);
+        date_default_timezone_set('Asia/Kolkata');
         $dates = array();
         $the_date = date('d');
         $the_date = (int)$the_date;
-        $month = 8;
+        $month = (int)date('m');
+        $str_month = date('M');
         $year = 2023;
         for ($i = 1; $i <= $the_date; $i++) {
             $date = date($year . '-' . $month . '-' . $i);
             // array_push($dates, getdate(strtotime($date)));
-            $get_date = DB::table('attendance_login')->where('e_id', 15)->where('login_date', $date)->get();
+            $get_date = DB::table('attendance_login')->where('e_id', Auth::user()->e_id)->where('login_date', $date)->get();
             // array_push($dates, $date);
             if (count($get_date) != 0) {
                 array_push($dates, $get_date);
             }
         }
-        dd($dates);
+        $present = (count($dates) / $the_date) * 100;
+        $absent = (float) 100 - $present;
         $e_id = Auth::user()->e_id;
         $atten_login = $this->check_login($e_id);
         $atten_button = null;
@@ -104,7 +109,7 @@ class AttendanceController extends Controller
             $atten_button_text = 'Sign In';
             $location_submit_btn = "submit_sign_in";
         }
-        return view('attendance', ['atten_button' => [$atten_button, $atten_button_text, $location_submit_btn], 'locations' => $locations, 'date' => [$time, $day, $today], 'office' => 'HRMS']);
+        return view('attendance', ['atten_button' => [$atten_button, $atten_button_text, $location_submit_btn], 'locations' => $locations, 'date' => [$time, $day, $today], 'office' => 'HRMS', 'attend_chart' => [$present, $absent, $str_month, $the_date]]);
     }
     public function store_login(Request $request)
     {
@@ -285,6 +290,24 @@ class AttendanceController extends Controller
                 $status = 400;
                 $message = "You Are Not Able To Sign In";
             }
+        }
+    }
+    public function recent_date()
+    {
+        if (isset($_GET['recent_date'])) {
+            $recent_date = $_GET['recent_date'];
+            $recent_date = strtotime($_GET['recent_date']);
+            $recent_date = date('Y-m-d', $recent_date);
+            $recent_data = DB::table('attendance_login as attend_login')->where('attend_login.e_id', Auth::user()->e_id)->where('attend_login.login_date', $recent_date)
+                ->join('locations as loc', 'loc.id', '=', 'attend_login.location_id')
+                ->select(
+                    'attend_login.*',
+                    'loc.office_name as office_name'
+                )->get();
+            sleep(1);
+            return response()->json(['status' => 200, 'recent_data' => $recent_data]);
+        } else {
+            return redirect('/attendance');
         }
     }
     public function store_login_submit(Request $request)
