@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     @include('links.fonts')
+
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/attendance.css') }}">
@@ -64,7 +65,9 @@
     @include('layouts.attendance.locatins')
     @include('layouts.attend_submit_modal')
     @include('layouts.attendance.final_logout')
+
     @include('links.link_1')
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     {{-- <script src="{{ asset('js/attendance/atten.js') }}"></script> --}}
     <script src="{{ asset('js/attendance/submit_attendance.js') }}"></script>

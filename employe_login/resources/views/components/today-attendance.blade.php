@@ -15,7 +15,7 @@
         <div class="flex_div today_attend_div_1">
             <div class="flex_div today_attend_div_2">
                 <h1 class="today_attend_office">Logout</h1>
-                <h1 class="today_attend_office">{{ $attend_details[0]->office_name }}</h1>
+                <h1 class="today_attend_office">{{ $attend_details[0]->logout_location }}</h1>
             </div>
             <div class="flex_div today_attend_div_3">
                 <p class="today_attend_text"><span>Date: </span>&nbsp;<span>{{ $attend_details[0]->login_date }}</span>

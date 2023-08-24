@@ -1,4 +1,12 @@
+<div class="flex_div top_side_nav">
+    <h1 class="top_company_name">Company Name</h1>
+    <div class="flex_div menu_nav_btn">
+        <button onclick="menu_btn_fun()"><i class="fa fa-bars"></i></button>
+    </div>
+</div>
 <div class="flex_div main_side_nav_div">
+    <p class="flex_div nav_close" onclick="menu_side_close()"><i class="fa fa-times" aria-hidden="true"></i>
+    </p>
     <h1 class="compnay_name">Company Name</h1>
     <div class="flex_div side_nav_text">
         <div class="flex_div side_nav_head">
@@ -13,9 +21,6 @@
             @endphp
             <p class="circle_text" style="text-transform: uppercase">{{ $emp_name }}</p>
             <a href="{{ route('logout') }}" id="log_out"><i class="fas fa-sign-out-alt"></i> </a>
-        </div>
-        <div class="flex_div menu_nav_btn">
-            <button onclick="menu_btn_fun()"><i class="fa fa-bars"></i></button>
         </div>
         <p class="user_text">{{ $emp_code }}</p>
         <p class="user_text">ridipgoswami147@gmail.com</p>

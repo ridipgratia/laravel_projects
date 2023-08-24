@@ -13,6 +13,16 @@ body {
     align-content: start;
     padding: 0px;
     background: #15aae9;
+    transform: translateX(0px);
+    animation: main_side_nav_div_ani 0.6s linear;
+}
+@keyframes main_side_nav_div_ani {
+    from {
+        transform: translateX(-100px);
+    }
+    to {
+        transform: translateX(0px);
+    }
 }
 .main_side_nav_div::-webkit-scrollbar {
     width: 0px;
@@ -62,18 +72,6 @@ body {
     color: white;
     font-size: 30px;
     cursor: pointer;
-}
-.compnay_name {
-    font-size: 17px;
-    font-weight: normal;
-    font-family: "Roboto Mono", monospace;
-    text-transform: capitalize;
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-    color: white;
-    text-transform: uppercase;
-    margin-bottom: 0px;
 }
 .side_nav_a {
     width: 100%;
@@ -160,4 +158,48 @@ body {
 }
 .today_attend_text_1 span:last-child {
     font-weight: bold;
+}
+.nav_close {
+    width: 100%;
+    justify-content: end;
+    margin-top: 10px;
+    font-size: 33px;
+    margin-bottom: 0px;
+    margin-right: 10px;
+    color: white;
+    display: none;
+}
+.top_side_nav {
+    display: none;
+    background: #15aae9;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    justify-content: space-around;
+}
+.compnay_name {
+    font-size: 17px;
+    font-weight: normal;
+    font-family: "Roboto Mono", monospace;
+    text-transform: capitalize;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+.top_company_name {
+    font-size: 17px;
+    font-weight: normal;
+    font-family: "Roboto Mono", monospace;
+    text-transform: capitalize;
+    width: 80%;
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    text-align: left;
 }

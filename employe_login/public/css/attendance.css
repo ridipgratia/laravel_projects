@@ -345,3 +345,28 @@ button:focus {
     width: 150px;
     height: 150px;
 }
+#export_attend_btn {
+    border: none;
+    text-decoration: none;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+#export_attend_btn:focus {
+    outline: none;
+}
+#export_attend_btn span:first-child {
+    width: 80%;
+    background: #0161cd;
+    border-radius: 3px 0px 0px 3px;
+    padding: 5px 10px;
+}
+#export_attend_btn span:last-child {
+    width: 19%;
+    padding: 5px 10px;
+    background-color: blue;
+    border-radius: 0px 3px 3px 0px;
+}

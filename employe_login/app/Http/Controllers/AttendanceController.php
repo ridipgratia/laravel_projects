@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Monolog\Handler\RedisPubSubHandler;
 
 use function PHPSTORM_META\type;
+use App\Mymethods\RecentData;
 
 class AttendanceController extends Controller
 {
@@ -16,7 +17,7 @@ class AttendanceController extends Controller
     public $long_a = 91.8177791;
     public $lat_b = 26.132705839;
     public $long_b = 91.81780601;
-
+    use RecentData;
     public function check_login($e_id)
     {
         $today = date("Y-m-d");
@@ -298,14 +299,19 @@ class AttendanceController extends Controller
             $recent_date = $_GET['recent_date'];
             $recent_date = strtotime($_GET['recent_date']);
             $recent_date = date('Y-m-d', $recent_date);
-            $recent_data = DB::table('attendance_login as attend_login')->where('attend_login.e_id', Auth::user()->e_id)->where('attend_login.login_date', $recent_date)
-                ->join('locations as loc', 'loc.id', '=', 'attend_login.location_id')
-                ->select(
-                    'attend_login.*',
-                    'loc.office_name as office_name'
-                )->get();
+            // $recent_data = DB::table('attendance_login as attend_login')->where('attend_login.e_id', Auth::user()->e_id)->where('attend_login.login_date', $recent_date)
+            //     ->join('locations as loc', 'loc.id', '=', 'attend_login.location_id')
+            //     ->select(
+            //         'attend_login.*',
+            //         'loc.office_name as office_name'
+            //     )->get();
+            $recent_data = $this->getRecentData($recent_date);
             sleep(1);
-            return response()->json(['status' => 200, 'recent_data' => $recent_data]);
+            if (count($recent_data) == 0) {
+                return response()->json(['status' => 400, 'message' => 'No Attendance Data Found ! ']);
+            } else {
+                return response()->json(['status' => 200, 'recent_data' => $recent_data]);
+            }
         } else {
             return redirect('/attendance');
         }

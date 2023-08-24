@@ -4,6 +4,8 @@
 use App\Http\Controllers\AdminLeaveController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DashbaordController;
+use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\ExportExcelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveFromController;
 use Illuminate\Support\Facades\Route;
@@ -43,3 +45,4 @@ Route::get('/admin/dashboard', function () {
 require __DIR__ . '/adminauth.php';
 require __DIR__ . '/admin_leave.php';
 require __DIR__ . './attendance.php';
+Route::post('export_1', [ExportExcelController::class, 'excel'])->middleware(['exportAuth']);
