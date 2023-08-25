@@ -38,9 +38,10 @@ class TodayAttendance extends Component
         //         'loc.office_name as office_name'
         //     )->get();
 
-
-
-        $attend_details = $this->getRecentdata($today);
+        $attend_details = array();
+        if ($this->check_is_new(Auth::user()->e_id)) {
+            $attend_details = $this->getRecentdata($today);
+        }
         // $labels = $attend_details->keys();
         $logout_check = null;
         if (count($attend_details) != 0) {

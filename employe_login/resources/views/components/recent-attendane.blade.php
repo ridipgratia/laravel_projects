@@ -12,7 +12,7 @@
     </form>
     {{-- <a href="/export_1" id="export_attend_btn"><span>Export Attendance Report</span><span><i
                     class="fa fa-arrow-down"></i></span></a> --}}
-    @if (isset($is_emp_new->e_id))
+    @if ($is_emp_new != null)
         <div class="flex_div recent_attend_div_2">
             <div class="flex_div today_attend_div_1 attend_history_div">
                 <div class="flex_div today_attend_div_2 attend_history_div_1">

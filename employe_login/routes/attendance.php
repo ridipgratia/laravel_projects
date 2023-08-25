@@ -12,3 +12,4 @@ Route::post('/attendance/locations', [AttendanceController::class, 'store_locati
 Route::post('/attendance/locations/logout', [AttendanceController::class, 'logout_store_location'])->middleware(['auth']);
 Route::post('/attendance/logout', [AttendanceController::class, 'store_logout'])->middleware(['auth']);
 Route::get('/attendance/recent_date', [AttendanceController::class, 'recent_date'])->middleware(['auth']);
+Route::get('/attendance/attend_his', [AttendanceController::class, 'attend_his'])->middleware(['auth']);

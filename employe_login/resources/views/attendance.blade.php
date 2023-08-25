@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/attendance.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/attend_his.css') }}">
     <link rel="stylesheet" href="{{ asset('css/media.css') }}">
     <title>Document</title>
 </head>
@@ -34,50 +35,25 @@
         <x-side>
         </x-side>
         <div class="flex_div main_div">
-            <div class="flex_div submit_attend">
-                <div class="flex_div submit_attend_div">
-                    <p class="flex_div "><span><i class="fa fa-calendar-day"></i></span><span><i
-                                class="fa fa-calendar-day"></i></span></p>
-                </div>
-                <div class="flex_div submit_attend_div_1">
-                    <p class="flex_div submit_attend_text submit_attend_time">{{ $date[0] }}</p>
-                    <p class="flex_div submit_attend_text submit_attend_date">
-                        <span>{{ $date[1] }}</span><span>{{ $date[2] }}</span>
-                    </p>
-                </div>
-            </div>
-            <div class="flex_div submit_attend_1">
-                <button class="flex_div submit_attend_btn " id="{{ $atten_button[0] }}">
-                    <span><i class="fa fa-hand-pointer"></i></span>
-                    <span>{{ $atten_button[1] }}</span>
-                </button>
-            </div>
-            <div class="flex_div today_attend_div">
-                <x-today-attendance>
-                </x-today-attendance>
-            </div>
             <x-attendance-chart :present=$attend_chart>
             </x-attendance-chart>
             <x-recent-attendane>
             </x-recent-attendane>
+            <x-attendance-history>
+            </x-attendance-history>
         </div>
     </div>
-    @include('layouts.attendance.locatins')
-    @include('layouts.attend_submit_modal')
-    @include('layouts.attendance.final_logout')
 
     @include('links.link_1')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     {{-- <script src="{{ asset('js/attendance/atten.js') }}"></script> --}}
-    <script src="{{ asset('js/attendance/submit_attendance.js') }}"></script>
-    <script src="{{ asset('js/attendance/location_attendance.js') }}"></script>
-    <script src="{{ asset('js/attendance/final_attendance.js') }}"></script>
     <script src="{{ asset('js/attendance/recent_attend.js') }}"></script>
     <script>
         var attend_chart = @json($attend_chart);
     </script>
     <script src="{{ asset('js/attendance/attendance_chart.js') }}"></script>
+    <script src="{{ asset('js/attendance/attend_his.js') }}"></script>
 
 </body>
 

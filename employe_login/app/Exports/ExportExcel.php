@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ExportExcel implements FromCollection, WithHeadings
+class ExportExcel implements WithHeadings, FromCollection
 {
     /**
      * @return \Illuminate\Support\Collection

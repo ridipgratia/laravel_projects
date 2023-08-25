@@ -10,6 +10,9 @@ use Monolog\Handler\RedisPubSubHandler;
 
 use function PHPSTORM_META\type;
 use App\Mymethods\RecentData;
+use App\Mymethods\RecentDataClass;
+use DateInterval;
+use DatePeriod;
 
 class AttendanceController extends Controller
 {
@@ -18,7 +21,7 @@ class AttendanceController extends Controller
     public $lat_b = 26.132705839;
     public $long_b = 91.81780601;
     use RecentData;
-    public function check_login($e_id)
+    public static function check_login($e_id)
     {
         $today = date("Y-m-d");
         $earthRadius = 6371;
@@ -34,7 +37,11 @@ class AttendanceController extends Controller
 
         $distance = $earthRadius * $c;
         // dd($distance * 1000);
-        $atten_login = DB::table('attendance_login')->where('e_id', $e_id)->where('login_date', $today)->get();
+        $atten_login = array();
+        if (RecentDataClass::check_is_new()) {
+            $atten_login = DB::table('attendance_login')->where('e_id', $e_id)->where('login_date', $today)->get();
+        }
+
         return $atten_login;
     }
     public function getLocationDiff($lat1, $lon1, $office_lat, $office_long)
@@ -66,51 +73,27 @@ class AttendanceController extends Controller
     public function create()
     {
         // $total_days = cal_days_in_month(CAL_GREGORIAN, 1, 2023);
-        date_default_timezone_set('Asia/Kolkata');
+
         $dates = array();
         $the_date = date('d');
         $the_date = (int)$the_date;
         $month = (int)date('m');
         $str_month = date('M');
         $year = 2023;
-        for ($i = 1; $i <= $the_date; $i++) {
-            $date = date($year . '-' . $month . '-' . $i);
-            // array_push($dates, getdate(strtotime($date)));
-            $get_date = DB::table('attendance_login')->where('e_id', Auth::user()->e_id)->where('login_date', $date)->get();
-            // array_push($dates, $date);
-            if (count($get_date) != 0) {
-                array_push($dates, $get_date);
+        if ($this->check_is_new(Auth::user()->e_id)) {
+            for ($i = 1; $i <= $the_date; $i++) {
+                $date = date($year . '-' . $month . '-' . $i);
+                // array_push($dates, getdate(strtotime($date)));
+                $get_date = DB::table('attendance_login')->where('e_id', Auth::user()->e_id)->where('login_date', $date)->get();
+                // array_push($dates, $date);
+                if (count($get_date) != 0) {
+                    array_push($dates, $get_date);
+                }
             }
         }
         $present = (count($dates) / $the_date) * 100;
         $absent = (float) 100 - $present;
-        $e_id = Auth::user()->e_id;
-        $atten_login = $this->check_login($e_id);
-        $atten_button = null;
-        $atten_button_text = null;
-        $location_submit_btn = null;
-        $locations = DB::table('locations')->get();
-        date_default_timezone_set('Asia/Kolkata');
-        $today = date("Y-m-d");
-        $day = date('l');
-        $dt = new DateTime();
-        $time = $dt->format('H:i');
-        if (count($atten_login) == 1) {
-            $atten_button = 'atten_sing_out';
-            $atten_button_text = "Sign Out";
-            $location_submit_btn = "submit_sign_out";
-            $re_verify = DB::table('attendance_login')->where('e_id', $e_id)->where('login_date', $today)->select('logout_time')->get();
-            if ($re_verify[0]->logout_time != null) {
-                $atten_button = "day_over";
-                $atten_button_text = "Day Over";
-                $location_submit_btn = 'day_over';
-            }
-        } else {
-            $atten_button = 'atten_sign_in';
-            $atten_button_text = 'Sign In';
-            $location_submit_btn = "submit_sign_in";
-        }
-        return view('attendance', ['atten_button' => [$atten_button, $atten_button_text, $location_submit_btn], 'locations' => $locations, 'date' => [$time, $day, $today], 'office' => 'HRMS', 'attend_chart' => [$present, $absent, $str_month, $the_date]]);
+        return view('attendance',  ['attend_chart' => [$present, $absent, $str_month, $the_date]]);
     }
     public function store_login(Request $request)
     {
@@ -316,10 +299,68 @@ class AttendanceController extends Controller
             return redirect('/attendance');
         }
     }
+    public function attend_his()
+    {
+        $his_from = $_GET['his_from'];
+        $his_to = $_GET['his_to'];
+        $message = null;
+        $status = null;
+        if ($his_from != "" && $his_to != "") {
+            $check_from_date = $this->check_attend_his($his_from);
+            if ($check_from_date) {
+                $check_to_date = $this->check_attend_his($his_to);
+                if ($check_to_date) {
+                    if ($his_from <= $his_to) {
+                        $from_to_date = array();
+                        $period = new DatePeriod(
+                            new DateTime($his_from),
+                            new DateInterval('P1D'),
+                            new DateTime($his_to)
+                        );
+                        foreach ($period as $key => $value) {
+                            array_push($from_to_date, $value->format('Y-m-d'));
+                        }
+                        $date_one = date($his_to, strtotime('+1 day'));
+                        array_push($from_to_date, $date_one);
+                        $attend_his_data = array();
+                        foreach ($from_to_date as $dates) {
+                            $attend_his = $this->getRecentData($dates);
+                            array_push($attend_his_data, $attend_his);
+                        }
+                        $status = 200;
+                        $message = $attend_his_data;
+                    } else {
+                        $status = 400;
+                        $message = "Select A Validate Date";
+                    }
+                } else {
+                    $status = 400;
+                    $message = "To Date Is Not Available";
+                }
+            } else {
+                $status = 400;
+                $message = "From Date Is Not Available";
+            }
+        } else {
+            $message = "Select From And To Date !";
+            $status = 400;
+        }
+        return response()->json(['status' => $status, 'message' => $message]);
+    }
     public function store_login_submit(Request $request)
     {
         $submit = $request->submit;
         return response()->json(['message' => 'Submited']);
+    }
+    public function check_attend_his($date)
+    {
+        $check_attend_login = DB::table('attendance_login')->where('e_id', Auth::user()->e_id)
+            ->where('login_date', $date)->get();
+        if (count($check_attend_login) == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
     public function getFinalLocationDiff($lat_1, $long_1, $offcie_lat, $office_long)
     {

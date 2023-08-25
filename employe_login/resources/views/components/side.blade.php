@@ -26,13 +26,15 @@
         <p class="user_text">ridipgoswami147@gmail.com</p>
     </div>
     <div class="flex_div side_nav_link">
+        <a href="home" class="flex_div side_nav_a"><span><i class="fa fa-info"></i> </span>
+            <span>Profile </span></a>
         <a href="{{ route('dashboard') }}" class="flex_div side_nav_a"><span><i class="fa fa-info"></i> </span>
             <span>Basic
                 Information</span></a>
         <a href="leaveFrom" class="flex_div side_nav_a"><span><i class="fas fa-leave"></i> </span>
             <span>Leave Apply</span></a>
         <a href="attendance" class="flex_div side_nav_a"><span><i class="fas fa-clipboard"></i> </span>
-            <span>Attendace</span></a>
+            <span>Attendace History</span></a>
         <a href="" class="flex_div side_nav_a"><span><i class="fas fa-pen"></i> </span>
             <span>Modify Information</span></a>
     </div>
