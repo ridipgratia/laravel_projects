@@ -46,18 +46,7 @@ trait RecentData
     }
 }
 
-class RecentDataClass
-{
-    public static function check_is_new()
-    {
-        $is_emp_new = DB::table('attendance_login')->where('e_id', Auth::user()->e_id)->first();
-        if ($is_emp_new == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-}
+
 trait RecentData_1
 {
     function show_test_1()

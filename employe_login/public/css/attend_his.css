@@ -64,7 +64,8 @@
 .select_his_div button:focus {
     outline: none;
 }
-.attend_his_data_div {
+
+/* .attend_his_data_div {
     width: 100%;
     overflow-y: scroll;
     margin-top: 20px;
@@ -83,6 +84,7 @@
     justify-content: center;
     box-shadow: 1px 1px 10px grey;
     border-radius: 4px;
+    margin-top: 10px;
 }
 .attend_his_data_div_3 {
     width: 100%;
@@ -153,6 +155,34 @@
 .attend_his_export {
     width: 100%;
     justify-content: center;
+}*/
+
+/* New Design */
+
+.main_attend_his_div {
+    position: relative;
+    justify-content: flex-start;
+    overflow: hidden;
+    overflow-x: scroll;
+    background: white;
+    padding: 0px 10px;
+}
+
+.attend_select_div {
+    padding: 0px 10px;
+    width: 100%;
+    margin: 10px;
+    justify-content: space-around;
+}
+.attend_select_div_1 {
+    width: 35%;
+}
+.attend_select_btn_div {
+    width: 6%;
+}
+.attend_select_export_div {
+    width: 6%;
+    justify-content: end;
 }
 .his_export_btn {
     width: 44px;
@@ -163,5 +193,103 @@
     border: none;
     color: white;
     cursor: pointer;
+}
+#attend_his_export_btn {
+    width: 46px;
+    height: 42px;
+    background-color: #0867d6;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 20px;
+    padding: 8px 4px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    color: white;
+    border-radius: 50%;
+}
+.attend_select_div_1 p {
+    font-size: 13px;
+    font-family: "Lora", serif;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 20%;
+    margin: 0px;
+}
+.attend_select_div_1 input {
+    width: 75%;
+    background: transparent;
+    border: 1px solid grey;
+    font-size: 14px;
+    padding: 4px 4px;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.main_attend_his_div_1 {
+    /* width: 98%; */
+    flex: 0 0 1450px;
     margin-top: 10px;
+    height: 400px;
+    overflow-y: scroll;
+    align-content: flex-start;
+    left: 10px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 7px grey;
+    justify-content: center;
+}
+
+.attend_his_head_div {
+    border: 1px solid grey;
+    width: 98%;
+    justify-content: center;
+    padding: 10px 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+.attend_his_head_para {
+    font-size: 16px;
+    font-family: "Lora", serif;
+    color: #565e91;
+    margin: 0px;
+}
+.attend_his_data_p {
+    font-size: 14px;
+    font-family: "Lora", serif;
+    color: black;
+    margin: 0px;
+}
+.attend_his_date {
+    width: 15%;
+}
+.attend_his_time {
+    width: 12%;
+}
+.attend_his_meter {
+    width: 15%;
+}
+.attend_his_office {
+    width: 15%;
+}
+.main_attend_his_data {
+    width: 100%;
+    justify-content: center;
+}
+.attend_is_data {
+    width: 98%;
+    box-shadow: 1px 1px 7px grey;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    padding: 7px 10px;
+}
+.main_attend_his_div::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    background: grey;
+}
+.main_attend_his_div_1::-webkit-scrollbar {
+    width: 1px;
+    background: grey;
 }

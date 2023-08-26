@@ -178,6 +178,35 @@
     .recent_attend_div_1 {
         width: 100%;
     }
+    .attend_select_div_1 p {
+        font-size: 11px;
+    }
+    .attend_select_div_1 input {
+        font-size: 12px;
+    }
+    .attend_select_div_1 {
+        width: 49%;
+    }
+    .attend_select_btn_div {
+        width: 40%;
+        margin-top: 10px;
+        justify-content: center;
+    }
+    .attend_select_export_div {
+        width: 40%;
+        margin-top: 10px;
+        justify-content: center;
+    }
+    .his_export_btn {
+        width: 34px;
+        font-size: 12px;
+        height: 30px;
+    }
+    #attend_his_export_btn {
+        width: 34px;
+        height: 30px;
+        font-size: 12px;
+    }
 }
 @media screen and (max-width: 700px) {
     .today_attend_div {
@@ -213,6 +242,12 @@
     }
     .attend_data_text {
         text-align: center;
+    }
+    .attend_select_div_1 p {
+        font-size: 8px;
+    }
+    .attend_select_div_1 input {
+        font-size: 9px;
     }
 }
 @media screen and (max-width: 450px) {

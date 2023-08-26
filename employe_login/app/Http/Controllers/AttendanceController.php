@@ -10,7 +10,7 @@ use Monolog\Handler\RedisPubSubHandler;
 
 use function PHPSTORM_META\type;
 use App\Mymethods\RecentData;
-use App\Mymethods\RecentDataClass;
+use App\Mymethods\CheckIsNew;
 use DateInterval;
 use DatePeriod;
 
@@ -38,7 +38,7 @@ class AttendanceController extends Controller
         $distance = $earthRadius * $c;
         // dd($distance * 1000);
         $atten_login = array();
-        if (RecentDataClass::check_is_new()) {
+        if (CheckIsNew::check_is_new()) {
             $atten_login = DB::table('attendance_login')->where('e_id', $e_id)->where('login_date', $today)->get();
         }
 
@@ -322,10 +322,14 @@ class AttendanceController extends Controller
                         }
                         $date_one = date($his_to, strtotime('+1 day'));
                         array_push($from_to_date, $date_one);
+                   
+                   
                         $attend_his_data = array();
                         foreach ($from_to_date as $dates) {
-                            $attend_his = $this->getRecentData($dates);
-                            array_push($attend_his_data, $attend_his);
+                            if (CheckIsNew::check_date_available($dates)) {
+                                $attend_his = $this->getRecentData($dates);
+                                array_push($attend_his_data, $attend_his);
+                            }
                         }
                         $status = 200;
                         $message = $attend_his_data;
@@ -352,7 +356,7 @@ class AttendanceController extends Controller
         $submit = $request->submit;
         return response()->json(['message' => 'Submited']);
     }
-    public function check_attend_his($date)
+    public static function check_attend_his($date)
     {
         $check_attend_login = DB::table('attendance_login')->where('e_id', Auth::user()->e_id)
             ->where('login_date', $date)->get();
