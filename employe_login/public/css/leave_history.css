@@ -1,0 +1,236 @@
+body {
+    background-color: #f4f4f4;
+}
+.main_leave_his_div {
+    width: 100%;
+    background: white;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px 0px;
+}
+.leave_his_div {
+    width: 100%;
+    background: transparent;
+    justify-content: center;
+}
+.leave_his_head_div {
+    width: 99%;
+    justify-content: space-around;
+    background: white;
+    padding: 20px 0px;
+}
+.leave_his_head_date {
+    width: 30%;
+    background: transparent;
+    justify-content: left;
+    font-size: 15px;
+    font-family: "Lora", serif;
+}
+
+.leave_his_head_date_p {
+    color: #565e91;
+    color: black;
+    font-size: 15px;
+    width: 100%;
+    text-align: left;
+    margin: 5px 0px;
+}
+
+.leave_his_head_date select {
+    width: 30%;
+    color: black;
+}
+
+.leave_his_head_date select:focus {
+    outline: none;
+}
+.leave_his_head_date input {
+    width: 100%;
+    border: 1px solid grey;
+    color: black;
+}
+.leave_his_head_date input:focus {
+    outline: none;
+}
+.leave_his_head_date:last-child {
+    justify-content: right;
+}
+.leave_his_head_para {
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    color: #565e91;
+    color: black;
+    margin: 5px 0px;
+}
+.leave_his_data_div {
+    width: 95%;
+}
+.leave_his_class_1 {
+    box-shadow: 1px 1px 7px grey;
+    background: white;
+    border-radius: 5px;
+    justify-content: center;
+    padding: 10px 0px;
+}
+.leave_his_data_div_1 {
+    width: 98%;
+    padding: 10px 5px;
+    border: none;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+.leave_his_data_para {
+    font-size: 16px;
+    font-family: "Lora", serif;
+    color: #565e91;
+    font-weight: bold;
+    margin: 0px;
+}
+.si_para {
+    width: 10%;
+}
+.leave_para {
+    width: 10%;
+}
+.from_date {
+    width: 15%;
+}
+
+.to_date {
+    width: 15%;
+}
+.status {
+    width: 15%;
+}
+.actions {
+    width: 20%;
+    justify-content: center;
+}
+.leave_his_data_div_2 {
+    width: 100%;
+    padding: 10px 0px;
+    justify-content: center;
+    height: 300px;
+    align-content: flex-start;
+    overflow: scroll;
+}
+.leave_his_data_div_2::-webkit-scrollbar {
+    width: 0px;
+}
+.leave_his_data_div_3 {
+    width: 98%;
+    box-shadow: 1px 1px 7px grey;
+    padding: 10px 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+.leave_his_data_para_1 {
+    font-size: 15px;
+    font-family: "Lora", serif;
+    color: black;
+    margin: 0px;
+}
+.leave_action_btn {
+    background: transparent;
+    border: none;
+    font-family: "Lora", serif;
+    font-size: 13px;
+    padding: 2px 20px;
+    color: white;
+    cursor: pointer;
+    margin: 0px 3px;
+}
+.leave_action_btn:focus {
+    outline: none;
+}
+.leave_action_btn:nth-child(1) {
+    background: #e47373;
+}
+.leave_action_btn:nth-child(2) {
+    background-color: #50acf6;
+}
+
+.main_review_leve_div {
+    width: 100%;
+    justify-content: center;
+}
+
+.review_leave_div {
+    width: 70%;
+    margin: 10px 0px;
+    justify-content: space-around;
+    box-shadow: 1px 1px 7px grey;
+}
+.review_leave_head {
+    background: #4385f5;
+    width: 100%;
+    text-align: center;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    justify-content: space-around;
+    padding: 10px 0px;
+}
+.review_leave_div_1 {
+    width: 90%;
+    border-radius: 5px;
+    padding: 5px 0px;
+    justify-content: space-around;
+}
+.review_leave_reason {
+    width: 80%;
+}
+.review_leave_div_1 p {
+    font-size: 14px;
+    font-family: "Lora", serif;
+    font-weight: bold;
+    width: 45%;
+    text-align: center;
+    margin: 0px;
+}
+.review_leave_para_1 {
+    color: #565e91;
+}
+.review_leave_para_2 {
+    color: black;
+}
+.review_leave_div_2 {
+    box-shadow: 1px 1px 7px grey;
+    margin: 10px 0px;
+}
+.review_leave_reason p {
+    width: 90%;
+}
+.leave_medical_div {
+    width: 100%;
+    height: 100vh;
+}
+#leave_medical_tag {
+    width: 100%;
+    height: 80vh;
+}
+.btn-close {
+    font-size: 25px;
+    border: none;
+    font-family: "Lora", serif;
+    background: transparent;
+    cursor: pointer;
+}
+.btn-close:focus {
+    outline: none;
+}
+#view_medical {
+    font-size: 25px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: transparent;
+}
+#view_medical:focus {
+    outline: none;
+}

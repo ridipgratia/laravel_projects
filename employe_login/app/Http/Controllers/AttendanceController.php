@@ -305,45 +305,35 @@ class AttendanceController extends Controller
         $his_to = $_GET['his_to'];
         $message = null;
         $status = null;
+
+        // Old Code 
         if ($his_from != "" && $his_to != "") {
-            $check_from_date = $this->check_attend_his($his_from);
-            if ($check_from_date) {
-                $check_to_date = $this->check_attend_his($his_to);
-                if ($check_to_date) {
-                    if ($his_from <= $his_to) {
-                        $from_to_date = array();
-                        $period = new DatePeriod(
-                            new DateTime($his_from),
-                            new DateInterval('P1D'),
-                            new DateTime($his_to)
-                        );
-                        foreach ($period as $key => $value) {
-                            array_push($from_to_date, $value->format('Y-m-d'));
-                        }
-                        $date_one = date($his_to, strtotime('+1 day'));
-                        array_push($from_to_date, $date_one);
-                   
-                   
-                        $attend_his_data = array();
-                        foreach ($from_to_date as $dates) {
-                            if (CheckIsNew::check_date_available($dates)) {
-                                $attend_his = $this->getRecentData($dates);
-                                array_push($attend_his_data, $attend_his);
-                            }
-                        }
-                        $status = 200;
-                        $message = $attend_his_data;
-                    } else {
-                        $status = 400;
-                        $message = "Select A Validate Date";
-                    }
-                } else {
-                    $status = 400;
-                    $message = "To Date Is Not Available";
+            if ($his_from <= $his_to) {
+                $from_to_date = array();
+                $period = new DatePeriod(
+                    new DateTime($his_from),
+                    new DateInterval('P1D'),
+                    new DateTime($his_to)
+                );
+                foreach ($period as $key => $value) {
+                    array_push($from_to_date, $value->format('Y-m-d'));
                 }
+                $date_one = date($his_to, strtotime('+1 day'));
+                array_push($from_to_date, $date_one);
+
+
+                $attend_his_data = array();
+                foreach ($from_to_date as $dates) {
+                    if (CheckIsNew::check_date_available($dates)) {
+                        $attend_his = $this->getRecentData($dates);
+                        array_push($attend_his_data, $attend_his);
+                    }
+                }
+                $status = 200;
+                $message = $attend_his_data;
             } else {
                 $status = 400;
-                $message = "From Date Is Not Available";
+                $message = "Select A Validate Date";
             }
         } else {
             $message = "Select From And To Date !";

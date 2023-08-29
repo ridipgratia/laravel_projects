@@ -45,5 +45,6 @@ Route::get('/admin/dashboard', function () {
 require __DIR__ . '/adminauth.php';
 require __DIR__ . '/admin_leave.php';
 require __DIR__ . './attendance.php';
+require __DIR__ . './leave.php';
 Route::post('export_1', [ExportExcelController::class, 'excel'])->middleware(['exportAuth']);
 Route::post('history_export', [ExportExcelController::class, 'attend_his_excel'])->middleware(['exportAuth']);

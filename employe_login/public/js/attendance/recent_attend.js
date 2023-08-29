@@ -43,11 +43,19 @@ async function setRecentText(result, check_logout) {
     $('.last_day_text').eq(0).html(result.recent_data[0].login_date);
     $('.last_day_text').eq(1).html(result.recent_data[0].login_time);
     $('.last_day_text').eq(2).html(result.recent_data[0].login_location_diff.toFixed(2) + " Meters To Office .");
-    if (check_logout === "yes") {
+    if (check_logout == "yes") {
         $('.last_day_office').eq(1).html(result.recent_data[0].logout_location);
         $('.last_day_text').eq(3).html(result.recent_data[0].login_date);
         $('.last_day_text').eq(4).html(result.recent_data[0].logout_time);
         $('.last_day_text').eq(5).html(result.recent_data[0].logout_diff.toFixed(2) + " Meters To Office .");
+        $('.recent_logout_div').eq(0).css('display', 'flex');
+    } else {
+        $('.last_day_office').eq(1).html('Waiting');
+        $('.last_day_text').eq(3).html('Waiting');
+        $('.last_day_text').eq(4).html('Waiting');
+        $('.last_day_text').eq(5).html('Waiting');
+        $('.recent_logout_div').eq(0).css('display', 'none');
     }
+
 
 }

@@ -31,23 +31,44 @@
                             Office .</span></p>
                 </div>
             </div>
-            <div class="flex_div today_attend_div_1 attend_history_div">
-                <div class="flex_div today_attend_div_2 attend_history_div_1">
-                    <h1 class="today_attend_office">Logout</h1>
-                    <h1 class="today_attend_office last_day_office">{{ $last_day_data[0]->office_name }}</h1>
+            @if ($check_logout == 'yes')
+                <div class="flex_div today_attend_div_1 attend_history_div">
+                    <div class="flex_div today_attend_div_2 attend_history_div_1">
+                        <h1 class="today_attend_office">Logout</h1>
+                        <h1 class="today_attend_office last_day_office">{{ $last_day_data[0]->logout_location }}</h1>
+                    </div>
+                    <div class="flex_div today_attend_div_3 attend_history_div_2">
+                        <p class="today_attend_text"><span>Date: </span>&nbsp;<span
+                                class="last_day_text">{{ $last_day_data[0]->login_date }}</span>
+                        </p>
+                        <p class="today_attend_text"><span>Time: </span>&nbsp;<span
+                                class="last_day_text">{{ $last_day_data[0]->logout_time }}</span>
+                        </p>
+                        <p class="today_attend_text_1"><span>Distance:
+                            </span>&nbsp;<span class="last_day_text">{{ $last_day_data[0]->logout_diff }} Meters To
+                                Office
+                                .</span></p>
+                    </div>
                 </div>
-                <div class="flex_div today_attend_div_3 attend_history_div_2">
-                    <p class="today_attend_text"><span>Date: </span>&nbsp;<span
-                            class="last_day_text">{{ $last_day_data[0]->login_date }}</span>
-                    </p>
-                    <p class="today_attend_text"><span>Time: </span>&nbsp;<span
-                            class="last_day_text">{{ $last_day_data[0]->logout_time }}</span>
-                    </p>
-                    <p class="today_attend_text_1"><span>Distance:
-                        </span>&nbsp;<span class="last_day_text">{{ $last_day_data[0]->logout_diff }} Meters To Office
-                            .</span></p>
+            @else
+                <div class="flex_div today_attend_div_1 attend_history_div recent_logout_div" style="display: none">
+                    <div class="flex_div today_attend_div_2 attend_history_div_1">
+                        <h1 class="today_attend_office">Logout</h1>
+                        <h1 class="today_attend_office last_day_office">Waiting</h1>
+                    </div>
+                    <div class="flex_div today_attend_div_3 attend_history_div_2">
+                        <p class="today_attend_text"><span>Date: </span>&nbsp;<span class="last_day_text">Waiting</span>
+                        </p>
+                        <p class="today_attend_text"><span>Time: </span>&nbsp;<span class="last_day_text">Waiting</span>
+                        </p>
+                        <p class="today_attend_text_1"><span>Distance:
+                            </span>&nbsp;<span class="last_day_text">Waiting Meters To
+                                Office
+                                .</span></p>
+                    </div>
                 </div>
-            </div>
+            @endif
+
         </div>
     @endif
 

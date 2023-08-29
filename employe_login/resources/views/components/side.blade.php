@@ -26,7 +26,7 @@
         <p class="user_text">ridipgoswami147@gmail.com</p>
     </div>
     <div class="flex_div side_nav_link">
-        <a href="home" class="flex_div side_nav_a"><span><i class="fa fa-info"></i> </span>
+        <a href="home" class="flex_div side_nav_a"><span><i class="fa fa-user"></i> </span>
             <span>Profile </span></a>
         <a href="{{ route('dashboard') }}" class="flex_div side_nav_a"><span><i class="fa fa-info"></i> </span>
             <span>Basic

@@ -24,29 +24,19 @@ class ExportExcelController extends Controller
         $from_date = $request->his_from;
         $to_date = $request->his_to;
         if ($from_date != "" && $to_date != "") {
-            $check_from_date = AttendanceController::check_attend_his($from_date);
-            if ($check_from_date) {
-                $check_to_date = AttendanceController::check_attend_his(($to_date));
-                if ($check_to_date) {
-                    if ($from_date <= $to_date) {
-                        $from_to_date = array();
-                        $period = new DatePeriod(
-                            new DateTime($from_date),
-                            new DateInterval('P1D'),
-                            new DateTime($to_date)
-                        );
-                        foreach ($period as $key => $value) {
-                            array_push($from_to_date, $value->format('Y-m-d'));
-                        }
-                        $date_one = date($to_date, strtotime('+1 day'));
-                        array_push($from_to_date, $date_one);
-                        return Excel::download(new AttendHistoryExcel($from_to_date), Auth::user()->e_id . '.csv', \Maatwebsite\Excel\Excel::CSV);
-                    } else {
-                        return redirect('/attendance');
-                    }
-                } else {
-                    return redirect('/attendance');
+            if ($from_date <= $to_date) {
+                $from_to_date = array();
+                $period = new DatePeriod(
+                    new DateTime($from_date),
+                    new DateInterval('P1D'),
+                    new DateTime($to_date)
+                );
+                foreach ($period as $key => $value) {
+                    array_push($from_to_date, $value->format('Y-m-d'));
                 }
+                $date_one = date($to_date, strtotime('+1 day'));
+                array_push($from_to_date, $date_one);
+                return Excel::download(new AttendHistoryExcel($from_to_date), Auth::user()->e_id . '.csv', \Maatwebsite\Excel\Excel::CSV);
             } else {
                 return redirect('/attendance');
             }

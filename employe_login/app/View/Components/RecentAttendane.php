@@ -28,7 +28,6 @@ class RecentAttendane extends Component
     public function render()
     {
         date_default_timezone_set('Asia/Kolkata');
-        $get_date_data = true;
         $last_day_data = null;
         $check_logout = null;
         // $is_emp_new = DB::table('attendance_login')->where('e_id', Auth::user()->e_id)->first();
@@ -36,24 +35,39 @@ class RecentAttendane extends Component
         if ($this->check_is_new(Auth::user()->e_id)) {
             $today = date("Y-m-d");
             if ($this->check_only_one($today)) {
-                while ($get_date_data) {
-                    $last_date = date('Y-m-d', strtotime('-1 day'));
+                $last_dates = array();
+                $the_date = date('d');
+                $the_date = (int)$the_date;
+                $month = (int)date('m');
+                $str_month = date('M');
+                $year = 2023;
+                for ($i = 1; $i <= $the_date; $i++) {
+                    $date = date($year . '-' . $month . '-' . $i);
+                    array_push($last_dates, $date);
+                }
+                $last_dates_len = count($last_dates);
+                $i = 1;
+                while ($last_dates_len != 0) {
+                    $last_date = date('Y-m-d', strtotime('-' . strval($i) . ' day'));
                     $last_day_data = $this->getRecentData($last_date);
-                    // $last_day_data = DB::table('attendance_login as attend_log')->where('attend_log.e_id', Auth::user()->e_id)->where('attend_log.login_date', $last_date)
-                    //     ->join('locations as loc', 'loc.id', '=', 'attend_log.location_id')
-                    //     ->select(
-                    //         'attend_log.*',
-                    //         'loc.office_name as office_name'
-                    //     )->get();
                     if (count($last_day_data) != 0) {
                         if ($last_day_data[0]->logout_time != null) {
                             $check_logout = 'yes';
                         }
-                        $get_date_data = false;
                         $is_emp_new = "no";
                         break;
                     }
+                    $i++;
+                    $last_dates_len--;
                 }
+                // while ($get_date_data) {
+                //     $last_day_data = DB::table('attendance_login as attend_log')->where('attend_log.e_id', Auth::user()->e_id)->where('attend_log.login_date', $last_date)
+                //         ->join('locations as loc', 'loc.id', '=', 'attend_log.location_id')
+                //         ->select(
+                //             'attend_log.*',
+                //             'loc.office_name as office_name'
+                //         )->get();
+                // }
             }
         }
         return view('components.recent-attendane', ['last_day_data' => $last_day_data, 'check_logout' => $check_logout, 'is_emp_new' => $is_emp_new]);

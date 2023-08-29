@@ -19,13 +19,17 @@ $(document).ready(function () {
                         $('.main_attend_his_data').remove();
                     }
                     $('.main_attend_his_div_1').append('<div class="flex_div main_attend_his_data"></div>');
-                    for (var i = 0; i < result.message.length; i++) {
-                        if (result.message[i][0].logout_time == null) {
-                            result.message[i][0].logout_time = "No Record"
-                            result.message[i][0].logout_diff = "No Record"
-                            result.message[i][0].logout_location = "No Record"
+                    if (result.message.length == 0) {
+                        $('.main_attend_his_data').append('<p>No Data Found !</p>');
+                    } else {
+                        for (var i = 0; i < result.message.length; i++) {
+                            if (result.message[i][0].logout_time == null) {
+                                result.message[i][0].logout_time = "No Record"
+                                result.message[i][0].logout_diff = "No Record"
+                                result.message[i][0].logout_location = "No Record"
+                            }
+                            setHistory(result, i);
                         }
-                        setHistory(result, i);
                     }
                 }
             },

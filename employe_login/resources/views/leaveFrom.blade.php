@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/leaveFrom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/leave_history.css') }}">
     <link rel="stylesheet" href="{{ asset('css/media.css') }}">
     <title>Leave From</title>
 </head>
@@ -67,10 +68,16 @@
                     </div>
                 </form>
             </div>
+
+            <x-LeaveHistory>
+            </x-LeaveHistory>
         </div>
     </div>
+    @include('layouts.review_leave')
+    @include('layouts.leave_medical');
     @include('links.link_1')
     <script src="{{ asset('js/leaveFrom.js') }}"></script>
+    <script src="{{ asset('js/leave/leave.js') }}"></script>
 </body>
 
 </html>
