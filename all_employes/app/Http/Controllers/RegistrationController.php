@@ -20,7 +20,6 @@ class RegistrationController extends Controller
         $designations = DB::table('designations')->get();
         $blood_groups = DB::table('blood_group')->get();
         $genders = DB::table('employe_gender')->get();
-
         return view('registration', ['designations' => $designations, 'blood_groups' => $blood_groups, 'genders' => $genders]);
     }
     public function registration_post(Request $request)
@@ -225,7 +224,7 @@ class RegistrationController extends Controller
                             $ex_certificate = $emp_ex_file[$i]->store('public/images/' . strval($emp_id[0]->id));
                             DB::table('employe_expirience')->insert(['e_id' => $emp_id[0]->id, 'company_name' => $emp_com_name[$i], 'ex_year' => $ex_year[$i], 'emp_role' => $emp_role[$i], 'to_date' => $emp_to_date[$i], 'form_date' => $emp_form_date[$i], 'ex_certificate' => $ex_certificate, 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")]);
                         }
-                        DB::table('leave_allocation')->insert(['e_id' => $emp_id[0]->id, 'leave_id' => 1, 'year' => $current_year, 'leave_allocation' => $allocation, 'leave_balance' => $balance]);
+                        DB::table('leave_allocation')->insert(['e_id' => $emp_id[0]->id, 'leave_id' => 1, 'year' => $current_year, 'leave_allocation' => $allocation, 'leave_balance' => $balance, 'last_update_month' => $current_month]);
                         DB::table('leave_allocation')->insert(['e_id' => $emp_id[0]->id, 'leave_id' => 2, 'year' => $current_year, 'leave_allocation' => 7, 'leave_balance' => 7]);
                         $message = "Registration Completed Sucessfully";
                         $status = 200;

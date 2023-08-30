@@ -23,7 +23,8 @@ class LeaveFromController extends Controller
         $day_id = $request->typeOfDay;
         $file = $request->file('file');
         $reason = $request->reason;
-        $year = date('Y', strtotime($to_date));
+        // $year = date('Y', strtotime($to_date));
+        $year = date('Y', strtotime($form_date));
         $check_1 = false;
         $e_id = Auth::user()->e_id;
         $message = "";
@@ -51,44 +52,48 @@ class LeaveFromController extends Controller
                 ->where('year', $year)
                 ->select('leave_allocation', 'leave_balance')
                 ->get();
-            $leave_bal = $allocation_day[0]->leave_balance;
-            $date_1 = new DateTime($request->from_date);
-            $date_2 = new DateTime($request->to_date);
-            $diff = $date_1->diff($date_2);
-            $diff_day = $diff->d + 1;
-            if ($day_id == 1) {
-                $diff_day = $diff_day / 2;
-            }
-            $extra_day = NULL;
-            if ($leave_bal >= $diff_day) {
-                $leave_bal = $leave_bal - $diff_day;
+            if (count($allocation_day) == 0) {
+                $message = "You Not Abble To Apply Leave This Year";
             } else {
-                $extra_day = $diff_day - $leave_bal;
-                $leave_bal = 0;
-            }
-            $file_name = NULL;
-            $status = 0;
-
-            if ($extra_day != NULL) {
-                $status = 1;
-            }
-            if ($check) {
-                if ($leave_id == 2) {
-                    $temp = $file->store('public/images/' . strval($e_id));
-                    $file_name = $temp;
+                $leave_bal = $allocation_day[0]->leave_balance;
+                $date_1 = new DateTime($request->from_date);
+                $date_2 = new DateTime($request->to_date);
+                $diff = $date_1->diff($date_2);
+                $diff_day = $diff->d + 1;
+                if ($day_id == 1) {
+                    $diff_day = $diff_day / 2;
                 }
-                if ($status == 0) {
-                    $message = "Leave Request Submited !";
-                    $type = 'success';
+                $extra_day = NULL;
+                if ($leave_bal >= $diff_day) {
+                    $leave_bal = $leave_bal - $diff_day;
                 } else {
-                    $message = "Leave Request Submited But <br> <b>You Are Have No Leave Balance</b>";
-                    $type = "warning";
+                    $extra_day = $diff_day - $leave_bal;
+                    $leave_bal = 0;
                 }
-                DB::table('leave_allocation')->where('e_id', $e_id)->where('leave_id', $leave_id)->where('year', $year)->update(['leave_balance' => $leave_bal]);
-                DB::table('leave_data')->insert(['e_id' => $e_id, 'leave_id' => $leave_id, 'day_id' => $day_id, 'form_date' => $form_date, 'to_date' => $to_date, 'no_day' => $diff_day, 'medical' => $file_name, 'reason' => $reason, 'created_at' => date('Y-m-d H:i:s'), 'update_at' => date('Y-m-d H:i:s'), 'pay_extra_day' => $extra_day, "status" => $status]);
-                return response()->json(['status' => 200, 'message' => $message, 'type' => $type]);
-            } else {
-                $message = "Select Medical File Or Format Must Be In PNG,PDF,JPEG,JPG";
+                $file_name = NULL;
+                $status = 0;
+
+                if ($extra_day != NULL) {
+                    $status = 1;
+                }
+                if ($check) {
+                    if ($leave_id == 2) {
+                        $temp = $file->store('public/images/' . strval($e_id));
+                        $file_name = $temp;
+                    }
+                    if ($status == 0) {
+                        $message = "Leave Request Submited !";
+                        $type = 'success';
+                    } else {
+                        $message = "Leave Request Submited But <br> <b>You Are Have No Leave Balance</b>";
+                        $type = "warning";
+                    }
+                    DB::table('leave_allocation')->where('e_id', $e_id)->where('leave_id', $leave_id)->where('year', $year)->update(['leave_balance' => $leave_bal]);
+                    DB::table('leave_data')->insert(['e_id' => $e_id, 'leave_id' => $leave_id, 'day_id' => $day_id, 'form_date' => $form_date, 'to_date' => $to_date, 'no_day' => $diff_day, 'medical' => $file_name, 'reason' => $reason, 'created_at' => date('Y-m-d H:i:s'), 'update_at' => date('Y-m-d H:i:s'), 'pay_extra_day' => $extra_day, "status" => $status]);
+                    return response()->json(['status' => 200, 'message' => $message, 'type' => $type]);
+                } else {
+                    $message = "Select Medical File Or Format Must Be In PNG,PDF,JPEG,JPG";
+                }
             }
         } else {
             $message = "Fill All Necessary Input !";

@@ -11,33 +11,34 @@ class AdminLeaveController extends Controller
 {
     public function admin_leave_show()
     {
-        $leave_data = DB::table('leave_data as l_data')->where('l_data.approval_status', NULL)->select(
-            'l_data.id as id',
-            'l_data.e_id as e_id',
-            'l_data.leave_id as leave_id',
-            'l_data.form_date as form_date',
-            'l_data.to_date as to_date',
-            'l_data.created_at as created_at',
-            'leave_type.leave_name as leave_name',
-            'e_data.employe_name as employe_name',
-            'e_data.designation_id as designation_id',
-            'd_data.designation_name as designation_name'
-        )->join(
-            'type_of_leave as leave_type',
-            'leave_type.id',
-            '=',
-            'l_data.leave_id'
-        )->join(
-            'all_employe_details as e_data',
-            'e_data.id',
-            '=',
-            'l_data.e_id'
-        )->join(
-            'designations as d_data',
-            'e_data.designation_id',
-            '=',
-            'd_data.id'
-        )->orderBy('created_at', 'ASC')->get();
+        $leave_data = DB::table('leave_data as l_data')->where('l_data.approval_status', NULL)
+            ->select(
+                'l_data.id as id',
+                'l_data.e_id as e_id',
+                'l_data.leave_id as leave_id',
+                'l_data.form_date as form_date',
+                'l_data.to_date as to_date',
+                'l_data.created_at as created_at',
+                'leave_type.leave_name as leave_name',
+                'e_data.employe_name as employe_name',
+                'e_data.designation_id as designation_id',
+                'd_data.designation_name as designation_name'
+            )->join(
+                'type_of_leave as leave_type',
+                'leave_type.id',
+                '=',
+                'l_data.leave_id'
+            )->join(
+                'all_employe_details as e_data',
+                'e_data.id',
+                '=',
+                'l_data.e_id'
+            )->join(
+                'designations as d_data',
+                'e_data.designation_id',
+                '=',
+                'd_data.id'
+            )->orderBy('created_at', 'ASC')->get();
         return view('admin/admin_leave', ['leave_data' => $leave_data]);
     }
     public function admin_leave_post()
@@ -113,8 +114,9 @@ class AdminLeaveController extends Controller
             } else {
                 if ($approval_id == 0) {
                     // $leave_allocate = DB::table('leave_day_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->get();
-                    $leave_allocate = DB::table('leave_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->get();
-                    $year = date('Y', strtotime($emp_data[0]->to_date));
+                    // $year = date('Y', strtotime($emp_data[0]->to_date));
+                    $year = date('Y', strtotime($emp_data[0]->form_date));
+                    $leave_allocate = DB::table('leave_allocation')->where('e_id', $emp_data[0]->e_id)->where('leave_id', $emp_data[0]->leave_id)->where('year', $year)->get();
                     if ($emp_data[0]->status == 0) {
                         $leave_balance = $leave_allocate[0]->leave_balance + $emp_data[0]->no_day;
                         DB::table('leave_data')->where('id', $id)->update(['approval_status' => 0]);
