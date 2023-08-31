@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('view_list', [ViewListController::class, 'show_view_list']);
 Route::post('view_list', [ViewListController::class, 'post_view_list'])->name('add_child');
+Route::get('view_list/check_disabled', [ViewListController::class, 'child_check_disbaled']);
 Route::post('view_list/add_zero_child', [ViewListController::class, 'add_zero_child_post'])->name('add_zero_child');
 Route::post('view_list/review_child_post', [ViewListController::class, 'review_child_post'])->name('review_child');
 Route::get('show_em_data', [AdminUserController::class, 'show']);

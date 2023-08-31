@@ -331,6 +331,12 @@ input[type="file"] {
     height: 30px;
     cursor: pointer;
 }
+#check_disbaled {
+    width: 15%;
+    font-size: 20px;
+    height: 30px;
+    cursor: pointer;
+}
 .review_div_2 span {
     font-size: 16px;
     font-weight: bold;
@@ -359,10 +365,20 @@ input[type="file"] {
     color: red;
     font-weight: bold;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+.child_remove:focus {
+    outline: none;
 }
 .no_child {
     font-weight: bold;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     width: 75%;
+}
+.loading_text {
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
 }

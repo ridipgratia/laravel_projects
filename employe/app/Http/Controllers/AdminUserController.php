@@ -110,15 +110,13 @@ class AdminUserController extends Controller
             $data->reject = $reject;
             $data->accept = $accept;
         }
-
-
         return response()->json(['message' => $child_data]);
     }
     public function show_child_approved(Request $request)
     {
         $emp_id = $request->emp_id;
         $approval_id = $request->approval_id;
-        $emp_data = DB::table('employe_child as emp_child')->where('e_id', $emp_id)->select(
+        $emp_data = DB::table('employe_child as emp_child')->where('emp_child.e_id', $emp_id)->select(
             'emp_child.child_approved as child_approved'
         )->get();
         $mess = "";

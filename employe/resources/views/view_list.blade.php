@@ -14,12 +14,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
 
-    {{-- <link rel="stylesheet" href="{{ asset('css/class.css') }}"> --}}
-    <link rel="stylesheet" href="css/class.css">
-    {{-- <link rel="stylesheet" href="{{ asset('css/view_list.css') }}"> --}}
-    <link rel="stylesheet" href="css/view_list.css">
-    {{-- <link rel="stylesheet" href="{{ asset('css/media.css') }}"> --}}
-    <link rel="stylesheet" href="css/media.css">
+    <link rel="stylesheet" href="{{ asset('css/class.css') }}">
+    {{-- <link rel="stylesheet" href="css/class.css"> --}}
+    <link rel="stylesheet" href="{{ asset('css/view_list.css') }}">
+    {{-- <link rel="stylesheet" href="css/view_list.css"> --}}
+    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
+    {{-- <link rel="stylesheet" href="css/media.css"> --}}
     <title>Document</title>
 </head>
 
@@ -72,7 +72,7 @@
             enctype="multipart/form-data">
             @csrf
             <table id="employe_table" class="flex_div employe_upload_table">
-                <tr class="flex_div employe_upload_table_tr" id="row1">
+                <tr class="flex_div employe_upload_table_tr td_row" id="row1">
                     <td class="flex_div child_para_td">
                         <div class="flex_div child_para">
                             <p>Enter Child Details</p>
@@ -83,22 +83,34 @@
                         <p> *Name</p><input type="text" name="child_name[]" class="child_input child_name">
                     </td>
                     <td class="child_para_1">
-                        <p> *D.O.B</p><input type="date" name="child_dob[]" class="child_input child_dob">
-                    </td>
-                    <td class="child_para_1">
-                        <p>*DOB Vertificate</p><input type="file" name=" child_file[]"
-                            class="child_input  child_file">
-                    </td>
-                    <td class="child_para_1">
-                        <p> *School Or College</p><input type="text" name="education[]"
-                            class="child_input education">
-                    </td>
-                    <td class="child_para_1">
                         <p> *Gender</p><select name="child_gender[]" class="child_input child_gender">
                             <option value="Male" selected>Male</option>
                             <option value="Female">FeMale</option>
                         </select>
                     </td>
+                    <td class="child_para_1">
+                        <p> *D.O.B</p><input type="date" name="child_dob[]" class="child_input child_dob">
+                    </td>
+
+                    <td class="child_para_1">
+                        <p>*DOB Vertificate</p><input type="file" name=" child_file[]"
+                            class="child_input  child_file">
+                    </td>
+                    <td class="child_para_1">
+                        <p>
+                            Is Child Disabled ?
+                        </p>
+                        <input type="checkbox" name="check_dis_int" id="check_disbaled" class="count_disabled"
+                            value="disabled_div_0">
+                    </td>
+                    <td class="dis_file child_para_1" id="disabled_div_0">
+                        {{-- <p>*Disabled Vertificate</p><input type="file" name=" child_disabled_file[]"
+                            class="child_input  child_file"> --}}
+                    </td>
+                    {{-- <td class="child_para_1">
+                        <p> *School Or College</p><input type="text" name="education[]"
+                            class="child_input education">
+                    </td> --}}
                     <td class="child_para_1"><button type='button' value='DELETE'
                             class='remove_btn remove_btn_1'>Remove</button>
                     </td>
@@ -183,22 +195,30 @@
             $rowno = $rowno + 1;
             $('#no_child_span').html($rowno);
             $('#employe_table tr:last').after("<tr id='row" + $rowno +
-                "' class='flex_div employe_upload_table_tr'><td class='flex_div child_para_td'><div class='flex_div child_para'><p>Enter Child Details</p><p class='child_remove' onclick=delete_row('row" +
+                "' class='flex_div td_row employe_upload_table_tr'><td class='flex_div child_para_td'><div class='flex_div child_para'><p>Enter Child Details</p><button type='button' value='" +
                 $rowno +
-                "')><i class='fa fa-trash'></i></p></div></td><td class='child_para_1'><p> *Name</p><input type='text' name='child_name[]' class='child_input child_name'></td><td class='child_para_1'><p> *D.O.B</p><input type='date' name='child_dob[]' class='child_dob child_input' ></td><td class='child_para_1'><p>*DOB Vertificate</p><input type='file' name='child_file[]' class='child_input child_file' ></td> <td class='child_para_1'><p> *School Or College</p><input type='text' name='education[]' class='child_input education' > </td><td class='child_para_1'><p> *Gender</p><select  name='child_gender[]' class='child_input child_gender'><option value='Male'>Male</option> <option value='Female'>Female</option></select></td><td class='child_para_1'> <button type='button' value='DELETE' class='remove_btn_1' onclick=delete_row('row" +
+                "' class='child_remove'><i class='fa fa-trash'></i></button></div></td><td class='child_para_1'><p> *Name</p><input type='text' name='child_name[]' class='child_input child_name'></td><td class='child_para_1'><p> *Gender</p><select  name='child_gender[]' class='child_input child_gender'><option value='Male'>Male</option> <option value='Female'>Female</option></select></td><td class='child_para_1'><p> *D.O.B</p><input type='date' name='child_dob[]' class='child_dob child_input' ></td><td class='child_para_1'><p>*DOB Vertificate</p><input type='file' name='child_file[]' class='child_input child_file' ></td><td class='child_para_1' ><p>Is Child Disabled ?</p><input type='checkbox' class='count_disabled' value='disabled_div_" +
+                $rowno +
+                "' id='check_disbaled'></td> <td class='dis_file child_para_1' id='disabled_div_" + $rowno +
+                "'></td> <td class='child_para_1'> <button type='button' value='DELETE' class='remove_btn_1' onclick=delete_row('row" +
                 $rowno + "')>Remove</button></td></tr>")
         }
 
-
-        function delete_row(rowno) {
-            $('#' + rowno).remove();
-            $rowno = $('#employe_table tr').length;
-            $('#no_child_span').html($rowno);
-        }
         $(document).ready(function() {
             $('#save_change').on('click', async function(event) {
                 event.preventDefault();
                 let form_data = new FormData($('#employe_form')[0]);
+                $count_disabld = [];
+                for (var i = 0; i < $('.count_disabled').length; i++) {
+                    if ($('.count_disabled').eq(i).is(":checked")) {
+                        $count_disabld.push(1);
+                    } else {
+                        $count_disabld.push(0);
+                    }
+                }
+                console.log($count_disabld);
+                form_data.append('count_disabled_file', $count_disabld);
+                $('#save_change').attr('disabled', true);
                 await $.ajax({
                     type: "post",
                     url: 'view_list',
@@ -229,8 +249,8 @@
                     },
 
                 });
+                $('#save_change').attr('disabled', false);
             });
-
             $('#child_have_btn_1').on('click', async function() {
                 await Swal.fire({
                     title: 'Are you sure?',

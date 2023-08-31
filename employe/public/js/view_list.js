@@ -87,3 +87,44 @@ function child_have_no_fun() {
         child_have_btn_1.style.display = "none";
     }
 }
+$(document).ready(function () {
+    $(document).on('click', '#check_disbaled', function () {
+        $check_id = $(this).val();
+        console.log($check_id);
+        check = false;
+        if ($(this).is(":checked")) {
+            check = true;
+        } else {
+            check = false;
+        }
+        $.ajax({
+            type: "get",
+            url: "view_list/check_disabled",
+            data: {
+                check: check
+            },
+            datatype: "html",
+            beforeSend: function () {
+                $tag_content = '<p class="loading_text">Loading</p>'
+                $('#' + $check_id).html($tag_content);
+            }
+        }).done(function (result) {
+            $('#' + $check_id).html(result);
+        })
+    })
+    $(document).on('click', '.child_remove', function () {
+        $td_row_length = $('.td_row').length;
+        $row_name = $(this).val();
+        $('#row' + $row_name).remove();
+        $rowno = $('#employe_table tr').length;
+        $('#no_child_span').html($rowno);
+        for (var i = 1; i < $td_row_length; i++) {
+            id = i + 1;
+            $('.td_row').eq(i).attr('id', 'row' + id);
+            $('.count_disabled').eq(i).val('disabled_div_' + id);
+            $('.dis_file').eq(i).attr('id', 'disabled_div_' + id)
+            $('.child_remove').eq(i - 1).val(id);
+        }
+    })
+
+})
