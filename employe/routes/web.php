@@ -16,4 +16,6 @@ Route::get('for_employe_appored', [AdminUserController::class, 'employe_for_appr
 Route::get('for_child_approved', [AdminUserController::class, 'child_for_approved_get']);
 Route::get('for_child_img', [AdminUserController::class, 'show_child_img_get']);
 Route::post('child_approved', [AdminUserController::class, 'show_child_approved']);
+Route::get('zero-child-approve', [AdminUserController::class, 'zero_child_approve']);
+Route::get('zero-child-approve-post', [AdminUserController::class, 'zero_child_approve_post']);
 Route::get('testing', [TestingController::class, 'testing_show']);

@@ -48,3 +48,17 @@
         width: 100%;
     }
 }
+@media screen and (max-width: 450px) {
+    .child_div {
+        width: 45% !important;
+    }
+    .child_para {
+        font-size: 12px !important;
+    }
+    .approve_btn_div button {
+        margin-top: 10px !important;
+    }
+    .child_file_div button {
+        font-size: 10px;
+    }
+}

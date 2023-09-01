@@ -13,11 +13,12 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
         integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
-    {{-- <link rel="stylesheet" href="{{ asset('css/class.css') }}"> --}}
-    <link rel="stylesheet" href="css/class.css">
-    {{-- <link rel="stylesheet" href="{{ asset('css/show_em.data.css') }}"> --}}
-    <link rel="stylesheet" href="css/show_em.data.css">
-    <link rel="stylesheet" href="css/media.css">
+    <link rel="stylesheet" href="{{ asset('css/class.css') }}">
+    {{-- <link rel="stylesheet" href="css/class.css"> --}}
+    <link rel="stylesheet" href="{{ asset('css/show_em_data.css') }}">
+    {{-- <link rel="stylesheet" href="css/show_em.data.css"> --}}
+    {{-- <link rel="stylesheet" href="css/media.css"> --}}
+    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
     <title>Show Employe Data</title>
 </head>
 
@@ -95,7 +96,7 @@
                     </button>
                 </div>
                 <div class="modal-body modal-body_1 ">
-                    <div class="flex_div content_div">
+                    {{-- <div class="flex_div content_div">
                         <div class="flex_div content_para_div">
                             <p class="flex_div content_para"><span>Child 1</span></p>
                             <p class="flex_div content_para_1"><span>Name</span><span>Ridip
@@ -107,12 +108,43 @@
                         <div class="flex_div image_modal_div">
                             <button class="show_img_modal"><i class="fa fa-eye" aria-hidden="true"></i></button>
                         </div>
+                    </div> --}}
+
+                    <div class="flex_div content_div">
+                        <div class="flex_div content_div_1">
+                            <div class="flex_div child_head_div">
+                                <p class="child_head_count">1</p>
+                            </div>
+                            <div class="flex_div child_div">
+                                <p class="child_para child_para_1">Name</p>
+                                <p class="child_para child_para_2">Child Name 1</p>
+                            </div>
+                            <div class="flex_div child_div">
+                                <p class="child_para child_para_1">Date Of Bith </p>
+                                <p class="child_para child_para_2">10-02-1999</p>
+                            </div>
+                            <div class="flex_div child_div">
+                                <p class="child_para child_para_1">Gender </p>
+                                <p class="child_para child_para_2">Male</p>
+                            </div>
+                            <div class="flex_div child_file_div">
+                                <button>DOB Certificate &nbsp;&nbsp; <i class="fa fa-eye"
+                                        aria-hidden="true"></i></button>
+                                <button>Disabled Certificate &nbsp;&nbsp; <i class="fa fa-eye"
+                                        aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                        <div class="flex_div approve_btn_div">
+                            <button>Cancel</button>
+                            <button>Approved</button>
+                            <button>Rejected</button>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger approved_btn">Reject</button>
-                    <button type="button" class="btn btn-primary approved_btn">Accept</button>
+                    {{-- <button type="button" class="btn btn-danger approved_btn">Reject</button>
+                    <button type="button" class="btn btn-primary approved_btn">Accept</button> --}}
                 </div>
             </div>
         </div>
@@ -128,7 +160,9 @@
                     <button id="close_image_modal"><i class="fa fa-window-close" aria-hidden="true"></i></button>
                 </div>
                 <div class="modal-body ">
-                    <img src="  " id="img_tag" style="width: 100%;" alt="">
+                    <div class="flex_div child_img_div">
+                        <img src="" id="img_tag" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,9 +183,13 @@
                     <p id="total_child">You Have No Child</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger approved_btn_1">Reject</button>
-                    <button type="button" class="btn btn-primary approved_btn_1">Accept</button>
+                    <button type="button" id="no_child_cancel" class="btn btn-secondary zero_child_btn"
+                        data-dismiss="modal">Close</button>
+
+                    <button type="button" id="no_child_approve"
+                        class="btn btn-primary approved_btn_1 zero_child_btn">Accept</button>
+                    <button type="button" id="no_child_reject"
+                        class="btn btn-danger approved_btn_1 zero_child_btn">Reject</button>
                 </div>
             </div>
         </div>
@@ -174,6 +212,7 @@
 
             // })
 
+            // $('#exampleModal').modal('show')
         });
     </script>
     </body>
