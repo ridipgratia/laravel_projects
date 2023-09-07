@@ -35,7 +35,9 @@
             <span>Leave Apply</span></a>
         <a href="attendance" class="flex_div side_nav_a"><span><i class="fas fa-clipboard"></i> </span>
             <span>Attendace History</span></a>
-        <a href="" class="flex_div side_nav_a"><span><i class="fas fa-pen"></i> </span>
-            <span>Modify Information</span></a>
+        <a href="user_info" class="flex_div side_nav_a"><span><i class="fas fa-pen"></i> </span>
+            <span>User Info Modify</span></a>
+        {{-- <a href="" class="flex_div side_nav_a"><span><i class="fas fa-pen"></i> </span>
+            <span>Modify Information</span></a> --}}
     </div>
 </div>
