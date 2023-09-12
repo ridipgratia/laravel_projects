@@ -9,9 +9,10 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ asset('css/class.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
     <!-- Styles -->
-    <style>
+    {{-- <style>
         /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
         html {
             line-height: 1.15;
@@ -395,7 +396,7 @@
                 color: rgba(107, 114, 128, var(--tw-text-opacity))
             }
         }
-    </style>
+    </style> --}}
 
     <style>
         body {
@@ -405,7 +406,7 @@
 </head>
 
 <body class="antialiased">
-    <div
+    {{-- <div
         class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
         @if (Route::has('login'))
             <div>
@@ -441,6 +442,70 @@
         </div>
 
 
+    </div> --}}
+    {{-- <div class="flex_div main_div">
+        <div class="flex_div main_image_div">
+            @if (Route::has('login'))
+                @auth
+                    <a href="{{ url('/home') }}">
+                        <img src="{{ asset('images/employe.jpg') }}" alt="">
+                    </a>
+                    <p>Employe Dashboard</p>
+                @else
+                    <a href="{{ route('login') }}">
+                        <img src="{{ asset('images/employe.jpg') }}" alt="">
+                    </a>
+                    <p>Employe Login</p>
+
+                    
+                @endauth
+            @endif
+        </div>
+        <div class="flex_div main_image_div">
+            @if (Route::has('admin.login'))
+                @auth
+                    <a href="{{ url('admin/dashboard') }}">
+                        <img src="{{ asset('images/admin.jpg') }}" alt="">
+                    </a>
+                    <p>Admin Dashboard</p>
+                @else
+                    <a href="{{ route('admin.login') }}">
+                        <img src="{{ asset('images/admin.jpg') }}" alt="">
+                    </a>
+                    <p>Admin Login</p>
+
+                @endauth
+            @endif
+        </div>
+    </div> --}}
+
+    <div class="flex_div main_div">
+        @if (Route::has('login'))
+            <div class="flex_div main_form_div">
+                <img src="{{ asset('images/employe_login.png') }}" alt="">
+                <h1>Welcome To Gratia</h1>
+                <p>Click Login To Employe Login Your Account </p>
+                @auth
+                    <a href="{{ url('/home') }}">Dashbaord Now</a>
+                @else
+                    <a href="{{ route('login') }}">Login Now</a>
+                @endauth
+                <button>Create Account</button>
+            </div>
+        @endif
+        @if (Route::has('admin.login'))
+            <div class="flex_div main_form_div">
+                <img src="{{ asset('images/admin_login.png') }}" alt="">
+                <h1>Welcome To Gratia</h1>
+                <p>Click Login To Admin Login Your Account </p>
+                @auth('admin')
+                    <a href="{{ url('admin/dashboard') }}">Dashbaord Now</a>
+                @else
+                    <a href="{{ route('admin.login') }}">Login Now</a>
+                @endauth
+                <button>Create Account</button>
+            </div>
+        @endif
     </div>
 </body>
 

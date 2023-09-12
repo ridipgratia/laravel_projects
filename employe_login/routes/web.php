@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AdminLeaveController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\DashbaordController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ExportExcelController;
@@ -49,3 +50,8 @@ require __DIR__ . './leave.php';
 require __DIR__ . './user_info.php';
 Route::post('export_1', [ExportExcelController::class, 'excel'])->middleware(['exportAuth']);
 Route::post('history_export', [ExportExcelController::class, 'attend_his_excel'])->middleware(['exportAuth']);
+
+// Social Login 
+Route::get('/auth/google/redirect', [SocialLoginController::class, 'redirect']);
+
+Route::get('/auth/google/callback', [SocialLoginController::class, 'callback']);

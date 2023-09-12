@@ -3,14 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>User Info</title>
     @include('links.fonts')
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
     <link rel="stylesheet" href="{{ asset('css/user_info.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
 </head>
 
 <body>
@@ -38,9 +39,10 @@
         </div>
     </div>
     @include('links.link_1')
-    <script src="{{ asset('js/user_info/password_reset.js') }}"></script>
+    {{-- <script src="{{ asset('js/user_info/password_reset.js') }}"></script> --}}
     <script src="{{ asset('js/user_info/change_password.js') }}"></script>
-    {{-- <script src="{{ asset('js/user_info/user_side_info.js') }}"></script> --}}
+    <script src="{{ asset('js/user_info/user_side_info.js') }}"></script>
+    <script src="{{ asset('js/user_info/user_basic.js') }}"></script>
 </body>
 <script>
     function check_input_type(index) {

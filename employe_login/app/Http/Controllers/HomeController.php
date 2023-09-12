@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\all_employe_login;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,8 +13,6 @@ class HomeController extends Controller
 {
     public function create()
     {
-
-
         date_default_timezone_set('Asia/Kolkata');
         $e_id = Auth::user()->e_id;
         $atten_login = AttendanceController::check_login($e_id);

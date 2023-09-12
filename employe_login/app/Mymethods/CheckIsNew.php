@@ -2,8 +2,10 @@
 
 namespace App\Mymethods;
 
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CheckIsNew
 {
@@ -52,5 +54,36 @@ class CheckIsNew
     {
         $check_id = DB::table('leave_data as l_data')->where('l_data.e_id', Auth::user()->e_id)->where('l_data.id', $id)->get();
         return $check_id;
+    }
+    public static function checkChangePasswordSecret()
+    {
+        $check = DB::table('password_change')->where('e_id', Auth::user()->e_id)->select('e_id')->get();
+        if (count($check) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static function checkIsValidPasswordChange()
+    {
+        $secret_data = DB::table('password_change')->where('e_id', Auth::user()->e_id)->select('recive_date', 'recive_time', 'apply')->get();
+        $today = new DateTime(date('Y-m-d'));
+        $last_day = new DateTime($secret_data[0]->recive_date);
+        $diff_date = $today->diff($last_day);
+        if ($diff_date->d != 0) {
+            return false;
+        } else {
+            if ($secret_data[0]->apply === null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    public static function SendMails($email_view, $email, $user_data)
+    {
+        Mail::send($email_view, $user_data, function ($message) use ($email) {
+            $message->to($email)->subject("Change Password Confirmation Link ");
+        });
     }
 }
