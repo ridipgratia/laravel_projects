@@ -1,0 +1,32 @@
+#sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding-top: 20px;
+    
+    background-color: #f8f9fa; /* Change the background color as needed */
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    
+}
+.header_div{
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.header_div_1{
+    width: 45%;
+}
+.header_div_1 img{
+    width: 70px;
+    height: 70px;
+}
+.add_link_div{
+    width: 100%;
+    padding: 20px 0px;
+    margin: 20px 0px;
+    height: 80vh;
+}
+.add_link_div a{
+    height: 100px;
+}

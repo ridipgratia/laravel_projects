@@ -1,0 +1,23 @@
+.delay_show_div{
+    width: 100%;
+}
+.delay_show_div_1{
+    width: 100%;
+    padding: 5px 10px;
+    font-family: 'Roboto' sans-serif;
+}
+.delay_para_head{
+    width: 38%;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    padding: 4px 5px;
+    font-size: 14px;
+}
+.delay_para{
+    width: 58%;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    padding: 4px 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
