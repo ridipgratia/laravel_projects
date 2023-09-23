@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UnemployeAllowanceController;
+use App\Http\Controllers\UnemployeAllowanceFromListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/unemploye_allowance', [UnemployeAllowanceController::class, 'index']);
 Route::post('/add_unemploye_allowance', [UnemployeAllowanceController::class, 'create']);
+Route::get('/unemp_alowance_form_list', [UnemployeAllowanceFromListController::class, 'create']);
+Route::get('/unemp_alowance_form_list/form_list', [UnemployeAllowanceFromListController::class, 'form_list']);
+Route::get('/unemp_alowance_form_list/form_data', [UnemployeAllowanceFromListController::class, 'form_list_data']);

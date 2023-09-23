@@ -35,7 +35,7 @@ $(document).ready(function () {
     async function preLoadFormList() {
         $.ajax({
             type: "get",
-            url: "/delay_compensation_form_list/form_list",
+            url: "/unemp_alowance_form_list/form_list",
             beforeSend: function () {
                 console.log("Loading");
             },
@@ -53,7 +53,7 @@ $(document).ready(function () {
                     else if (result.message[i].approval_status == 2) {
                         $approval_status = "Rejected";
                     }
-                    dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].date_of_submit, $approval_status, `<button id='delay_show_btn' value="${result.message[i].id}">View</button>`]).draw(false);
+                    dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].date_of_submite, $approval_status, `<button id='unemp_allow_show_btn' value="${result.message[i].id}">View</button>`]).draw(false);
                 }
             },
             error: function (data) {
@@ -62,12 +62,11 @@ $(document).ready(function () {
         });
     }
 
-    $('#close_delay_form').on('click', function () {
-        $('#show_delay_form_data').modal('hide');
+    $('#close_emp_form').on('click', function () {
+        $('#show_unemp_allow_form_data').modal('hide');
     });
-    $(document).on('click', '#delay_show_btn', async function () {
-        $delay_form_id = $(this).val();
-        console.log($delay_form_id);
+    $(document).on('click', '#unemp_allow_show_btn', async function () {
+        $unemp_allow_form_id = $(this).val();
         // $.ajax({
         //     type: "get",
         //     url: "delay_compensation_form_list/form_data",
@@ -83,14 +82,14 @@ $(document).ready(function () {
         // console.log($(this).val());
         $.ajax({
             type: "get",
-            url: "delay_compensation_form_list/form_data",
+            url: "unemp_alowance_form_list/form_data",
             data: {
-                delay_form_id: $delay_form_id
+                unemp_allow_form_id: $unemp_allow_form_id
             },
             datatype: 'html',
             success: function (result) {
-                $('.delay_show_div_1').eq(0).html(result);
-                $('#show_delay_form_data').modal('show')
+                $('.unemp_allow_show_div_1').eq(0).html(result);
+                $('#show_unemp_allow_form_data').modal('show')
             },
             error: function (data) {
                 console.log(data);

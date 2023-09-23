@@ -8,22 +8,9 @@
                 </button>
             </div>
             <div class="modal-body modal-body_1 ">
-                <div class="flex_div delay_show_div">
-                    <div class="flex_div delay_show_div_1">
-                        <p class="delay_para_head">Work Code Number</p>
-                        <p class="delay_para">Code1234</p>
-                        <p class="delay_para_head">MR Number</p>
-                        <p class="delay_para">MR1234</p>
-                        <p class="delay_para_head">Person Responsible For Delay</p>
-                        <p class="delay_para">persion 1</p>
-                        <p class="delay_para_head">Designation Responsible For Delay</p>
-                        <p class="delay_para">Designation 1</p>
-                        <p class="delay_para_head">Recovered Amount</p>
-                        <p class="delay_para">10000</p>
-                        <p class="delay_para_head">Date Amount Recovered</p>
-                        <p class="delay_para">10-09-23</p>
-                        <p class="delay_para_head">Date Deposited To Bank</p>
-                        <p class="delay_para">Code1234</p>
+                <div class="flex_div delay_show_div from_list_show_div_1">
+                    <div class="flex_div delay_show_div_1 from_list_show_div_1">
+
                     </div>
                 </div>
             </div>
