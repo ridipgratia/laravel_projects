@@ -9,14 +9,21 @@
     <title>Unemploye Allowance From List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/delay_form_list.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/data_table.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
 
+    <style>
 
+    </style>
 </head>
 
 <body>
@@ -28,40 +35,22 @@
             @include('layouts.sidenav')
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
+                <button class="btn btn-primary d-md-none fs-2 mb-3" id="sidebarToggle"><i
+                        class="fa-solid fa-bars"></i></button>
                 {{-- Header Layout  --}}
                 @include('layouts.header')
 
+                {{-- Add Serach Module By Dates  --}}
+
+                <x-serach-from-component></x-serach-from-component>
                 {{-- Datatable Start --}}
-
-                <table id="users-table" class="display" style="width: 90%;">
-                    <thead>
-                        <th>
-                            SI NO
-                        </th>
-                        <th>
-                            Request ID
-                        </th>
-                        <th>
-
-                            Submited Date
-                        </th>
-                        <th>
-                            Approval Status
-                        </th>
-                        <th data-orderable="false">
-                            Action
-                        </th>
-                    </thead>
-                    <tbody id="table_body">
-
-                    </tbody>
-                </table>
+                <x-data-table-component></x-data-table-component>
             </main>
         </div>
 
     </div>
     @include('layouts.unemp_allow_from_list')
-
+    @include('layouts.view_from_docu')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
@@ -78,7 +67,7 @@
     {{-- All Code Of Ajax Related --}}
 
     <script src="{{ asset('js/unemp_allow_from_list.js') }}"></script>
-    <script></script>
+    <script src="{{ asset('js/sidenav.js') }}"></script>
 </body>
 
 </html>

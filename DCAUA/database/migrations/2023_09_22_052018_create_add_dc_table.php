@@ -43,3 +43,5 @@ class CreateAddDcTable extends Migration
         Schema::dropIfExists('add_dc');
     }
 }
+
+

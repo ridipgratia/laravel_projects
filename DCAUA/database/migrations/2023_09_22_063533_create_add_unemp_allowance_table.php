@@ -25,9 +25,9 @@ class CreateAddUnempAllowanceTable extends Migration
             $table->date('date_recover_amount');
             $table->date('date_deposite_bank');
             $table->string('bank_statement_url');
-            $table->date('date_of_submite');
-            $table->string('year_of_submite');
-            $table->string('month_of_submite');
+            $table->date('date_of_submit');
+            $table->string('year_of_submit');
+            $table->string('month_of_submit');
             $table->string('request_id');
             $table->integer('approval_status')->default(0);
             $table->timestamps();

@@ -5,3 +5,8 @@
     text-align: center;
     border-radius: 4px;
 }
+.respon{
+    display: flex !important;
+    z-index: 99 !important;
+    width: 100% !important;
+}

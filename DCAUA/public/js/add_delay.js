@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+
     $('.date_class').on('keypress', function (e) {
         e.preventDefault()
     })
@@ -30,6 +32,9 @@ $(document).ready(function () {
             data: form_data,
             contentType: false,
             processData: false,
+            beforeSend: function () {
+                $('#add_delay_form_btn').attr('disabled', true);
+            },
             success: function (result) {
                 if (result.status == 400) {
                     Swal.fire(
@@ -45,6 +50,7 @@ $(document).ready(function () {
                         'info'
                     )
                 }
+                $('#add_delay_form_btn').attr('disabled', false);
             },
             error: function (data) {
                 console.log(data)

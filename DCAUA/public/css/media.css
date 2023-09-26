@@ -1,0 +1,24 @@
+@media (min-width: 768px) {
+    #sidebar {
+        width: 17% !important;
+        display: block !important;
+        background-color: none !important;
+    }
+    main{
+        margin-left: 17%;
+    }
+    #nav_close{
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    #sidebar {
+        display: none;
+    }
+    #nav_close{
+        display: block;
+    }
+    .content {
+        margin-left: 0;
+    }
+}

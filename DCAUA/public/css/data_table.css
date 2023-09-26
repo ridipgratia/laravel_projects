@@ -1,0 +1,94 @@
+.main_table {
+    width: 100%;
+    margin-top: 20px;
+
+    justify-content: start;
+    overflow-x: scroll;
+}
+.main_table::-webkit-scrollbar {
+    height: 0px;
+    background: grey;
+}
+#users-table_wrapper {
+    width: 100%;
+
+    /* display: flex; */
+}
+#users-table {
+    background: #f0f8f7;
+    box-shadow: 3px 3px 7px grey;
+}
+#users-table thead {
+    color: black;
+    background-color: #43d1c1;
+    color: white;
+}
+#users-table thead th {
+    border-bottom: none;
+}
+.dataTables_length {
+    width: 45%;
+    text-align: center;
+}
+#users-table_filter {
+    width: 45%;
+    text-align: center;
+}
+#users-table_filter input {
+    outline: none;
+    border: 2px solid black;
+    font-family: "REM", sans-serif;
+}
+#users-table_filter input:focus {
+    outline: none;
+}
+.dataTable {
+    background: #0069d9;
+    color: white;
+}
+.dataTable tbody {
+    color: black;
+}
+#table_body tr {
+    background: #f0f8f7;
+}
+#users-table tbody {
+    font-size: 16px;
+    font-family: "REM", sans-serif;
+}
+.dataTables_info {
+    width: 45%;
+    text-align: center;
+    font-family: "REM", sans-serif;
+}
+#users-table_paginate {
+    width: 45%;
+    text-align: center;
+    font-family: "REM", sans-serif;
+}
+.dt-buttons {
+    width: 50%;
+    text-align: center;
+}
+.dt-buttons button {
+    background: #5b8290;
+    font-size: 15px;
+    color: white;
+    padding: 5px 20px;
+    font-family: "REM", sans-serif;
+    border: none;
+    outline: none;
+}
+.dt-buttons button:hover {
+    background: #5b8290 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #f0f8f7;
+    border: none;
+    outline: none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: #f0f8f7;
+    border: none;
+    outline: none;
+}

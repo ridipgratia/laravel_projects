@@ -59,57 +59,62 @@ class UnemployeAllowanceController extends Controller
                 $submited_date = date("Y-m-d");
                 $submited_year = date('Y');
                 $submited_month = date('m');
-                $last_id = DB::table('add_unemp_allowance')->orderBy('id', 'desc')->first();
-                if ($last_id == null) {
-                    $last_id = 1;
-                } else {
-                    $last_id = $last_id->id + 1;
-                }
-                $request_id = "UA" . '/' . $submited_year . '/' . $emp_code . '/' . $last_id;
-                $check_error = false;
-                $message = $request_id;
-                $temp_bank_statement_url = null;
-                try {
-                    $temp_bank_statement_url = $bank_statement_url->store('public/images/' . $emp_code . '/unemploye_allowance');
+                if ($date_recover_amount < $submited_date && $date_deposite_bank < $submited_date) {
+                    $last_id = DB::table('add_unemp_allowance')->orderBy('id', 'desc')->first();
+                    if ($last_id == null) {
+                        $last_id = 1;
+                    } else {
+                        $last_id = $last_id->id + 1;
+                    }
+                    $request_id = "UA" . '/' . $submited_year . '/' . $emp_code . '/' . $last_id;
                     $check_error = false;
-                } catch (Exception $error) {
-                    $check_error = true;
-                }
-
-                if ($check_error) {
-                    $status = 400;
-                    $message = "Please Try Later Problem At PDf Upload";
-                } else {
+                    $message = $request_id;
+                    $temp_bank_statement_url = null;
                     try {
-                        DB::table('add_unemp_allowance')->insert([
-                            'submited_by' => $emp_code,
-                            'card_number' => $card_number,
-                            'work_demand' => $work_demand,
-                            'total_day_unemple' => $total_day_unemple,
-                            'person_delay' => $person_delay,
-                            'designation_delay' => $designation_delay,
-                            'recover_amount' => $recover_amount,
-                            'date_recover_amount' => $date_recover_amount,
-                            'date_deposite_bank' => $date_deposite_bank,
-                            'bank_statement_url' => $temp_bank_statement_url,
-                            'date_of_submite' => $submited_date,
-                            'year_of_submite' => $submited_year,
-                            'month_of_submite' => $submited_month,
-                            'request_id' => $request_id,
-                            "created_at" =>  date('Y-m-d H:i:s'),
-                            "updated_at" => date('Y-m-d H:i:s')
-                        ]);
+                        $temp_bank_statement_url = $bank_statement_url->store('public/images/' . $emp_code . '/unemploye_allowance');
                         $check_error = false;
                     } catch (Exception $error) {
                         $check_error = true;
                     }
-                }
-                if ($check_error) {
-                    $status = 400;
-                    $message = "Please Try Later Problem At database";
+
+                    if ($check_error) {
+                        $status = 400;
+                        $message = "Please Try Later Problem At PDf Upload";
+                    } else {
+                        try {
+                            DB::table('add_unemp_allowance')->insert([
+                                'submited_by' => $emp_code,
+                                'card_number' => $card_number,
+                                'work_demand' => $work_demand,
+                                'total_day_unemple' => $total_day_unemple,
+                                'person_delay' => $person_delay,
+                                'designation_delay' => $designation_delay,
+                                'recover_amount' => $recover_amount,
+                                'date_recover_amount' => $date_recover_amount,
+                                'date_deposite_bank' => $date_deposite_bank,
+                                'bank_statement_url' => $temp_bank_statement_url,
+                                'date_of_submit' => $submited_date,
+                                'year_of_submit' => $submited_year,
+                                'month_of_submit' => $submited_month,
+                                'request_id' => $request_id,
+                                "created_at" =>  date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s')
+                            ]);
+                            $check_error = false;
+                        } catch (Exception $error) {
+                            $check_error = true;
+                        }
+                    }
+                    if ($check_error) {
+                        $status = 400;
+                        $message = "Please Try Later Problem At database";
+                    } else {
+                        $status = 200;
+                        $message = "Ok";
+                    }
                 } else {
-                    $status = 200;
-                    $message = "Ok";
+                    $status = 400;
+                    $message = "You Can't Select Future Dates ";
                 }
             }
             return response()->json(['status' => $status, 'message' => $message]);

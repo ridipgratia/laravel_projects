@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\AddFTOController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::get('/', [HomeController::class, 'index']);
 require __DIR__ . '/add_delay.php';
 require __DIR__ . '/add_unemp_allowance.php';
+require __DIR__ . '/add_FTO.php';

@@ -20,3 +20,4 @@ Route::post('/add_unemploye_allowance', [UnemployeAllowanceController::class, 'c
 Route::get('/unemp_alowance_form_list', [UnemployeAllowanceFromListController::class, 'create']);
 Route::get('/unemp_alowance_form_list/form_list', [UnemployeAllowanceFromListController::class, 'form_list']);
 Route::get('/unemp_alowance_form_list/form_data', [UnemployeAllowanceFromListController::class, 'form_list_data']);
+Route::post('/unemp_alowance_form_list/search_form_date', [UnemployeAllowanceFromListController::class, 'search_form_date']);

@@ -33,7 +33,6 @@ class AddDelayController extends Controller
             $emp_code = "emp_code_4";
             $status = null;
             $message = null;
-
             $error_message = [
                 'required' => 'Fill Your Basic Details',
                 'mimes' => 'Select Only PDF'
@@ -60,57 +59,69 @@ class AddDelayController extends Controller
                 $submited_date = date("Y-m-d");
                 $submited_year = date('Y');
                 $submited_month = date('m');
-                $last_id = DB::table('add_dc')->orderBy('id', 'desc')->first();
-                if ($last_id == null) {
-                    $last_id = 1;
-                } else {
-                    $last_id = $last_id->id + 1;
-                }
-                $request_id = "DC" . '/' . $submited_year . '/' . $emp_code . '/' . $last_id;
-                $check_error = false;
-                $message = $request_id;
-                $temp_bank_statement_url = null;
-                try {
-                    $temp_bank_statement_url = $bank_statement_url->store('public/images/' . $emp_code . '/dc_pdf');
+                if ($date_recover_amount < $submited_date && $date_deposite_bank < $submited_date) {
+                    $last_id = DB::table('add_dc')->orderBy('id', 'desc')->first();
+                    if ($last_id == null) {
+                        $last_id = 1;
+                    } else {
+                        $last_id = $last_id->id + 1;
+                    }
+                    $request_id = "DC" . '/' . $submited_year . '/' . $emp_code . '/' . $last_id;
                     $check_error = false;
-                } catch (Exception $error) {
-                    $check_error = true;
-                }
-
-                if ($check_error) {
-                    $status = 400;
-                    $message = "Please Try Later Problem At PDf Upload";
-                } else {
+                    $message = $request_id;
+                    $temp_bank_statement_url = null;
                     try {
-                        DB::table('add_dc')->insert([
-                            'submited_by' => $emp_code,
-                            'code_number' => $code_number,
-                            'mr_number' => $mr_number,
-                            'person_delay' => $person_delay,
-                            'designation_delay' => $designation_delay,
-                            'recover_amount' => $recover_amount,
-                            'date_recover_amount' => $date_recover_amount,
-                            'date_deposite_bank' => $date_deposite_bank,
-                            'bank_statement_url' => $temp_bank_statement_url,
-                            'date_of_submit' => $submited_date,
-                            'year_of_submit' => $submited_year,
-                            'month_of_submit' => $submited_month,
-                            'request_id' => $request_id,
-                            "created_at" =>  date('Y-m-d H:i:s'),
-                            "updated_at" => date('Y-m-d H:i:s')
-                        ]);
+                        $temp_bank_statement_url = $bank_statement_url->store('public/images/' . $emp_code . '/dc_pdf');
                         $check_error = false;
                     } catch (Exception $error) {
                         $check_error = true;
                     }
-                }
-                if ($check_error) {
-                    $status = 400;
-                    $message = "Please Try Later Problem At database";
+
+                    if ($check_error) {
+                        $status = 400;
+                        $message = "Please Try Later Problem At PDf Upload";
+                    } else {
+                        try {
+                            DB::table('add_dc')->insert([
+                                'submited_by' => $emp_code,
+                                'code_number' => $code_number,
+                                'mr_number' => $mr_number,
+                                'person_delay' => $person_delay,
+                                'designation_delay' => $designation_delay,
+                                'recover_amount' => $recover_amount,
+                                'date_recover_amount' => $date_recover_amount,
+                                'date_deposite_bank' => $date_deposite_bank,
+                                'bank_statement_url' => $temp_bank_statement_url,
+                                'date_of_submit' => $submited_date,
+                                'year_of_submit' => $submited_year,
+                                'month_of_submit' => $submited_month,
+                                'request_id' => $request_id,
+                                "created_at" =>  date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s')
+                            ]);
+                            $check_error = false;
+                        } catch (Exception $error) {
+                            $check_error = true;
+                        }
+                    }
+                    if ($check_error) {
+                        $status = 400;
+                        $message = "Please Try Later Problem At database";
+                    } else {
+                        $status = 200;
+                        $message = "Ok";
+                    }
                 } else {
-                    $status = 200;
-                    $message = "Ok";
+                    $status = 400;
+                    $message = "You Do Not Select Future Date ";
                 }
+                // if ($check_error) {
+                //     $status = 400;
+                //     $message = "Please Try Later Problem At database";
+                // } else {
+                //     $status = 200;
+                //     $message = "Ok";
+                // }
             }
             return response()->json(['status' => $status, 'message' => $message]);
         }

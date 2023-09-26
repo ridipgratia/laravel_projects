@@ -20,3 +20,4 @@ Route::post('/add_delay_submit', [AddDelayController::class, 'create']);
 Route::get('/delay_compensation_form_list', [DelayConpensationFormListController::class, 'create']);
 Route::get('/delay_compensation_form_list/form_list', [DelayConpensationFormListController::class, 'form_list']);
 Route::get('/delay_compensation_form_list/form_data', [DelayConpensationFormListController::class, 'form_list_data'])->name('delay_compensation.form_data');
+Route::post('/delay_compensation_form_list/search_form_date', [DelayConpensationFormListController::class, 'search_form_date']);
