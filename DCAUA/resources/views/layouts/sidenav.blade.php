@@ -5,7 +5,7 @@
         <span id="nav_close" class="fs-2"><i class="fa-solid fa-xmark"></i></span>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link link_tag active" href="/">
+                <a class="nav-link link_tag active" href="/block_bdashboard">
                     Home
                 </a>
             </li>

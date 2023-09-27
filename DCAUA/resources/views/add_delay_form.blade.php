@@ -38,6 +38,14 @@
                     <h2 class="text-center mb-4" style="font-size: 24px;text-transform: uppercase">Add Delay
                         Compensation
                     </h2>
+                    <div class="form-group mb-3  d-flex justify-content-center flex-column align-items-center ">
+                        <label for="firstName" class="col-md-6 mb-3">Select GP Name:</label>
+                        <select name="gp_name" id="" class="col-md-6">
+                            <option value="123">GP Name 1</option>
+                            <option value="124">GP Name 2</option>
+                            <option value="125">GP Name 3</option>
+                        </select>
+                    </div>
                     <div class="form-group mb-3">
                         <label for="firstName">Enter Work Code Number:</label>
                         <input type="text" class="form-control" name="code_number"
