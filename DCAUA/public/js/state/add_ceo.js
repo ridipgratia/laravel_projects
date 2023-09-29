@@ -12,16 +12,33 @@ $(document).ready(function () {
             confirmButtonText: 'Yes, Submit it!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                make_ceo();
+                var url = "add_ceo";
+                make_ceo('#add_ceo_form', url);
             }
         });
-
-    })
-    async function make_ceo() {
-        var form_data = new FormData($('#add_ceo_form')[0]);
+    });
+    $('#add_po_form').on('submit', async function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do You Want To Submite It",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Submit it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                var url = "add_po";
+                make_ceo("#add_po_form", url);
+            }
+        });
+    });
+    async function make_ceo(form, url) {
+        var form_data = new FormData($(form)[0]);
         await $.ajax({
             type: "post",
-            url: "/add_ceo",
+            url: "/" + url,
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },

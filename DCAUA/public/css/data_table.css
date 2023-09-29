@@ -36,7 +36,6 @@
 }
 #users-table_filter input {
     outline: none;
-    border: 2px solid black;
     font-family: "REM", sans-serif;
 }
 #users-table_filter input:focus {
@@ -51,10 +50,18 @@
 }
 #table_body tr {
     background: #f0f8f7;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    font-family: "REM", sans-serif;
+}
+#table_body tr td{
+    background: #5b8290;
 }
 #users-table tbody {
     font-size: 16px;
     font-family: "REM", sans-serif;
+    
 }
 .dataTables_info {
     width: 45%;
@@ -74,7 +81,7 @@
     background: #5b8290;
     font-size: 15px;
     color: white;
-    padding: 5px 20px;
+    padding: 0px;
     font-family: "REM", sans-serif;
     border: none;
     outline: none;

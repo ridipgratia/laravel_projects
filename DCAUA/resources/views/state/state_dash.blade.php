@@ -20,11 +20,12 @@
     <div class="container">
         <div class="row">
             @include('layouts.header')
-        </div>
-        <div class="row" style="background: #537AAC">
-            <x-state-dash-componenet>
 
-            </x-state-dash-componenet>
+            <div style="background: #537AAC">
+                <x-state-dash-componenet>
+
+                </x-state-dash-componenet>
+            </div>
         </div>
     </div>
     <script script script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
