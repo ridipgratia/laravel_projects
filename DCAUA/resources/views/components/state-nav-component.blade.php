@@ -1,4 +1,4 @@
-<nav class="navbar bg-body-tertiary bg-primary">
+<nav class="navbar bg-body-tertiary bg-primary w-100">
     <div class="container-fluid">
         <img src="{{ asset('images/logo.png') }}" alt="Logo" width="50" height="44"
             class="d-inline-block align-text-top">

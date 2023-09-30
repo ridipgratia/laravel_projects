@@ -4,6 +4,7 @@ namespace App\Http\Controllers\state;
 
 use App\Http\Controllers\Controller;
 use App\MyMethod\AddUserByState;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -40,6 +41,20 @@ class ListCeoController extends Controller
                 $content = AddUserByState::user_html_data($user_data);
             }
             return response()->json(['status' => $status, 'content' => $content]);
+        }
+    }
+    public function reset_pass(Request $request)
+    {
+        if ($request->ajax()) {
+            $result = AddUserByState::resetUserPass($request, 'make_ceo_pd');
+            return response()->json(['status' => $result[0], 'message' => $result[1]]);
+        }
+    }
+    public function remove_user(Request $request)
+    {
+        if ($request->ajax()) {
+            $result = AddUserByState::RemoveUser($request, 'make_ceo_pd');
+            return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
 }

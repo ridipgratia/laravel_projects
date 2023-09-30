@@ -42,4 +42,18 @@ class ListPoController extends Controller
             return response()->json(['status' => $status, 'content' => $content]);
         }
     }
+    public function reset_pass(Request $request)
+    {
+        if ($request->ajax()) {
+            $result = AddUserByState::resetUserPass($request, 'make_po');
+            return response()->json(['status' => $result[0], 'message' => $result[1]]);
+        }
+    }
+    public function remove_user(Request $request)
+    {
+        if ($request->ajax()) {
+            $result = AddUserByState::RemoveUser($request, 'make_po');
+            return response()->json(['status' => $result[0], 'message' => $result[1]]);
+        }
+    }
 }

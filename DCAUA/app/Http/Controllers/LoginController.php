@@ -17,7 +17,8 @@ class LoginController extends Controller
         // dd($login_data->login_id);
         // Auth::login($login_data);
         // dd(Auth::user()->login_id);
-        Auth::logout();
+        // Auth::logout();
+
         // dd(Auth::check());
         // dd(Auth::user()->login_id);
         return view('login');
@@ -51,7 +52,7 @@ class LoginController extends Controller
                     $message = "Logged In";
                 }
             }
-            return response()->json(['status' => $status, 'message' => $message]);
+            return response()->json(['status' => $status, 'message' => $message, 'role' => $role]);
         }
     }
 }

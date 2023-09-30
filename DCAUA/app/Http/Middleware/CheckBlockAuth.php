@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckLogRoute
+class CheckBlockAuth
 {
     /**
      * Handle an incoming request.
@@ -17,12 +17,8 @@ class CheckLogRoute
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
-            if (Auth::user()->role == 1) {
-                return redirect('/block_bdashboard');
-            } else if (Auth::user()->role == 3) {
-                return redirect('/state_dash');
-            }
+        if (!Auth::check() || Auth::user()->role != 1) {
+            return redirect('/');
         }
         return $next($request);
     }

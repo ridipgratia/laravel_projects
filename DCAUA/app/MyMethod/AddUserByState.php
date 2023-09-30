@@ -58,4 +58,50 @@ class AddUserByState
             </div>';
         return $content;
     }
+    public static function resetUserPass($request, $table)
+    {
+        $id = $_GET['id'];
+        $password = $_GET['password'];
+        $status = null;
+        $message = null;
+        if (isset($id)) {
+            if (empty($password)) {
+                $message = "Enter New Password";
+                $status = 400;
+            } else {
+                try {
+                    DB::table($table)->where('id', $id)->update(['password' => $password]);
+                    $message = "Password Changed";
+                    $status = 200;
+                } catch (Exception $err) {
+                    $status = 400;
+                    $message = "Server Error !Please Try Again !";
+                }
+            }
+        } else {
+            $message = "Try With  !";
+            $status = 400;
+        }
+        return [$status, $message];
+    }
+    public static function RemoveUser($request, $table)
+    {
+        $id = $_GET['id'];
+        $status = null;
+        $message = null;
+        if (isset($id)) {
+            try {
+                DB::table($table)->where('id', $id)->delete();
+                $message = "User Removed ";
+                $status = 200;
+            } catch (Exception $err) {
+                $status = 400;
+                $message = "Server Error ! Please Try Again";
+            }
+        } else {
+            $status = 400;
+            $message = null;
+        }
+        return [$status, $message];
+    }
 }

@@ -4,7 +4,6 @@ use App\Http\Controllers\AddFTOController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
-use App\Http\Middleware\CheckLogRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,17 +29,22 @@ use Illuminate\Support\Facades\Route;
 
 // Main Routes Here
 
-Route::get('/', [LoginController::class, 'index'])->middleware(['CheckLogRoute']);
+
+
+// Block Route Here 
+Route::get('/', [LoginController::class, 'index']);
 Route::post('/', [LoginController::class, 'create']);
 Route::get('/logout', [LogoutController::class, 'logout']);
 
-// Block Route Here 
+Route::group(['middleware' => ['CheckBlockAuth']], function () {
+    Route::get('/block_bdashboard', [HomeController::class, 'index']);
+    require __DIR__ . '/add_delay.php';
+    require __DIR__ . '/add_unemp_allowance.php';
+    require __DIR__ . '/add_FTO.php';
+});
 
-Route::get('/block_bdashboard', [HomeController::class, 'index'])->middleware(['CheckAuth']);
-require __DIR__ . '/add_delay.php';
-require __DIR__ . '/add_unemp_allowance.php';
-require __DIR__ . '/add_FTO.php';
 require __DIR__ . '/state.php';
+
 
 // Auth::routes();
 

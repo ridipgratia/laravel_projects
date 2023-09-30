@@ -99,3 +99,7 @@
     border: none;
     outline: none;
 }
+.btn_groups button{
+    background-color: #5b8290 !important;
+    border: none;
+}

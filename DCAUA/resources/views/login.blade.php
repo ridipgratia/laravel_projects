@@ -18,31 +18,40 @@
 
 <body>
     <div class="d-flex justify-content-center">
-        <form id="login_form" class="col-md-5 mt-5 bg-white shadow p-5 rounded">
-            @csrf
-            {{ Auth::user() }}
-            <h3 class="col text-center bg-primary rounded text-white">LOGIN HERE !</h3>
-            <div class="d-flex col flex-column mb-3">
-                <label for="exampleInputEmail1" class="form-label col">Login As</label>
-                <select name="role" id="" class="form-select col">
-                    <option value="1">Program Officer</option>
-                    <option value="2">CEO/PD</option>
-                    <option value="3">State</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                    aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="d-flex justify-content-center pt-3">
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
-            </div>
-        </form>
+        @if (Auth::user())
+            @if (Auth::user()->role == 1)
+                <a href="/block_bdashboard">Block Dashbard</a>
+            @elseif (Auth::user()->role == 3)
+                <a href="/state_dash">State Dashbard</a>
+            @else
+                <a href="">Error Route</a>
+            @endif
+        @else
+            <form id="login_form" class="col-md-5 mt-5 bg-white shadow p-5 rounded">
+                @csrf
+                <h3 class="col text-center bg-primary rounded text-white">LOGIN HERE !</h3>
+                <div class="d-flex col flex-column mb-3">
+                    <label for="exampleInputEmail1" class="form-label col">Login As</label>
+                    <select name="role" id="" class="form-select col">
+                        <option value="1">Program Officer</option>
+                        <option value="2">CEO/PD</option>
+                        <option value="3">State</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" name="email" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="d-flex justify-content-center pt-3">
+                    <button type="submit" class="btn btn-primary">SUBMIT</button>
+                </div>
+            </form>
+        @endif
     </div>
     <script script script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>

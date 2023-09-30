@@ -2,9 +2,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">CEO PD USER INFO</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ $header_name }} USER INFO</h5>
                 <button type="button" class="btn-close" id="close_delay_form" data-dismiss="modal"
-                    aria-label="Close"><i class="fa fa-close" aria-hidden="true"></i>
+                    aria-label="Close"><i class="fa fa-close-window" aria-hidden="true"></i>
                 </button>
             </div>
             <div class="modal-body modal-body_1">

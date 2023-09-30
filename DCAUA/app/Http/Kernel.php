@@ -44,6 +44,13 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'CheckStateAuth' => [
+            \App\Http\Middleware\CheckStateAuth::class
+        ],
+        'CheckBlockAuth' => [
+            \App\Http\Middleware\CheckBlockAuth::class
+        ]
+
     ];
 
     /**
@@ -63,7 +70,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'CheckAuth' => \App\Http\Middleware\CheckAuth::class,
-        'CheckLogRoute' => \App\Http\Middleware\CheckLogRoute::class,
+        // 'CheckAuth' => \App\Http\Middleware\CheckAuth::class,
+        // 'CheckLogRoute' => \App\Http\Middleware\CheckLogRoute::class,
     ];
 }

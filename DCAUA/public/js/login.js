@@ -14,7 +14,13 @@ $(document).ready(function () {
             processData: false,
             success: function (result) {
                 if (result.status == 200) {
-                    window.location.href = "/state_dash";
+                    console.log(typeof result.role);
+                    if (result.role === "1") {
+                        window.location.href = "/block_bdashboard";
+                    }
+                    else if (result.role === "3") {
+                        window.location.href = "/state_dash";
+                    }
                 }
                 else {
                     Swal.fire(
