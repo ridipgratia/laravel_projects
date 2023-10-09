@@ -70,7 +70,7 @@ class AddUserByState
                 $status = 400;
             } else {
                 try {
-                    DB::table($table)->where('id', $id)->update(['password' => $password]);
+                    DB::table($table)->where('id', $id)->update(['login_password' => $password]);
                     $message = "Password Changed";
                     $status = 200;
                 } catch (Exception $err) {
@@ -91,7 +91,9 @@ class AddUserByState
         $message = null;
         if (isset($id)) {
             try {
+                $data = DB::table($table)->where('id', $id)->select('registration_id')->get();
                 DB::table($table)->where('id', $id)->delete();
+                DB::table('login_details')->where('login_id', $data[0]->registration_id)->delete();
                 $message = "User Removed ";
                 $status = 200;
             } catch (Exception $err) {

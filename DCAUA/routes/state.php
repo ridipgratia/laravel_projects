@@ -59,4 +59,12 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
     Route::get('/list_ceo/remove_user', [ListCeoController::class, 'remove_user']);
     // Remove PO User
     Route::get('/list_po/remove_user', [ListPoController::class, 'remove_user']);
+    // Edit CEO PD User
+    Route::get('/list_ceo/edit_user', [ListCeoController::class, 'edit_user']);
+    // Edit PO User
+    Route::get('/list_po/edit_user', [ListPoController::class, 'edit_user']);
+    // Edit CEO PD User Submit 
+    Route::post('/list_ceo/edit_user_submit', [ListCeoController::class, 'edit_user_submit']);
+    // Edit Po User submit
+    Route::post('/list_po/edit_user_submit', [ListPoController::class, 'edit_user_submit']);
 });

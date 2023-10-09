@@ -7,6 +7,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +22,7 @@ class UnemployeAllowanceFromListController extends Controller
         // Get All Delay Form List To Datatable 
 
         if ($request->ajax()) {
-            $emp_code = "emp_code_3";
+            $emp_code = Auth::user()->login_id;
             $unemp_allow_form_list_data = DB::table('add_unemp_allowance')->where('submited_by', $emp_code)->select('id', 'date_of_submit', 'request_id', 'approval_status')->get();
             return response()->json(['message' => $unemp_allow_form_list_data]);
         }
@@ -33,7 +34,7 @@ class UnemployeAllowanceFromListController extends Controller
         if ($request->ajax()) {
             $delay_form_id = $_GET['unemp_allow_form_id'];
             if (isset($delay_form_id)) {
-                $emp_code = "emp_code_3";
+                $emp_code = Auth::user()->login_id;
                 $delay_form_data = DB::table('add_unemp_allowance')->where('submited_by', $emp_code)->where('id', $delay_form_id)->get();
                 if (count($delay_form_data) == 0) {
                     return "<p>No data Found</p>";

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +31,7 @@ class AddDelayController extends Controller
             $date_recover_amount = $request->date_recover_amount;
             $date_deposite_bank = $request->date_deposite_bank;
             $bank_statement_url = $request->file('bank_statement');
-            $emp_code = "emp_code_4";
+            $emp_code = Auth::user()->login_id;
             $status = null;
             $message = null;
             $error_message = [

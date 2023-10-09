@@ -1,11 +1,12 @@
 class StateClass {
-    constructor(url, view_url, reset_pass_url, remove_user_url) {
+    constructor(url, view_url, reset_pass_url, remove_user_url, edit_user_url, edit_user_submit_url) {
         this.url = url;
         this.view_url = view_url;
         this.reset_pass_url = reset_pass_url;
         this.remove_user_url = remove_user_url;
+        this.edit_user_url = edit_user_url;
+        this.edit_user_submit_url = edit_user_submit_url;
 
-        $('#state_user_edit_modal').modal('show');
     }
 
     // Initialze datatable Here 
@@ -22,7 +23,7 @@ class StateClass {
                 var dataTable = $('#users-table').DataTable();
                 dataTable.clear().draw();
                 for (var i = 0; i < result.message.length; i++) {
-                    dataTable.row.add([(i + 1), result.message[i].name, result.message[i].deginations, result.message[i].registration_id, `<p class="btn_groups d-flex  "><button class="col-3 state_list_view_btn" value="${result.message[i].id}"><i class="btn btn-primary fa fa-eye"></i></button><button class="col-3 state_list_reset_btn" value="${result.message[i].id}"><i class="btn btn-secondary fa-solid fa-arrows-rotate"></i></button><button class="col-3 " value="${result.message[i].id}"><i class="btn btn-warning fa-solid fa-pen-to-square"></i></button><button class="col-3 state_list_remove_btn " value="${result.message[i].id}"><i class="btn btn-danger fa-solid fa-trash"></i></button></p>`]).draw(false);
+                    dataTable.row.add([(i + 1), result.message[i].name, result.message[i].deginations, result.message[i].registration_id, `<p class="btn_groups d-flex  "><button class="col-3 state_list_view_btn" value="${result.message[i].id}"><i class="btn btn-primary fa fa-eye"></i></button><button class="col-3 state_list_reset_btn" value="${result.message[i].id}"><i class="btn btn-secondary fa-solid fa-arrows-rotate"></i></button><button class="col-3 state_list_edit_btn " value="${result.message[i].id}"><i class="btn btn-warning fa-solid fa-pen-to-square"></i></button><button class="col-3 state_list_remove_btn " value="${result.message[i].id}"><i class="btn btn-danger fa-solid fa-trash"></i></button></p>`]).draw(false);
                 }
             },
             error: function (data) {
@@ -122,6 +123,72 @@ class StateClass {
         });
         event.attr('disabled', false);
     }
-
+    async editUser(id, event) {
+        event.attr('disabled', true);
+        $.ajax({
+            type: "get",
+            url: this.edit_user_url,
+            data: {
+                id: id
+            },
+            success: function (result) {
+                if (result.status == 200) {
+                    console.log($('.input_data').eq(0).val());
+                    $('.input_data').eq(0).val(result.message[0].name);
+                    $('.input_data').eq(1).val(result.message[0].phone);
+                    $('.input_data').eq(2).val(result.message[0].email);
+                    $('.input_data').eq(3).val(result.message[0].deginations);
+                    $('.input_data').eq(4).val(result.message[0].code_id);
+                    $('#edit_user_btn').val(id);
+                } else {
+                    Swal.fire(
+                        "Information",
+                        result.message,
+                        "info"
+                    )
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+        event.attr('disabled', false);
+    }
+    async editUserSubmit(form, id) {
+        var form_data = new FormData($(form)[0]);
+        form_data.append('id', id);
+        $('#edit_user_btn').attr('disabled', true);
+        $.ajax({
+            type: "post",
+            url: this.edit_user_submit_url,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (result.status == 400) {
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        "info"
+                    )
+                }
+                else {
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        "success"
+                    )
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+        $('#edit_user_btn').attr('disabled', false);
+    }
 }
 export default StateClass;

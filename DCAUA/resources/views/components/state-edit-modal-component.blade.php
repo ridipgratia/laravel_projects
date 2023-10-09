@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">EDIT {{ $header_name }} USER DATA</h5>
+                <h5 class="modal-title" id="exampleModalLabel">EDIT {{ $labelNames[1] }} USER DATA</h5>
                 <button type="button" class="btn-close" id="close_delay_form" data-dismiss="modal"
                     aria-label="Close"><i class="fa fa-close-window" aria-hidden="true"></i>
                 </button>
@@ -36,11 +36,11 @@
                                 style="height: 30px">
                         </div>
                         <div class="d-flex mb-2 justify-content-around align-items-center p-0">
-                            <h6 class="p-0 col-md-4 col-sm-12 m-0 ">{{ $label_name }}</h6>
+                            <h6 class="p-0 col-md-4 col-sm-12 m-0 ">{{ $labelNames[0] }}</h6>
                             <select class="p-0 col-md-7 col-sm-12 border border-dark rounded input_data"
                                 name="select_stage" aria-label="Default select example">
-                                @foreach ($stages as $stage)
-                                    <option value="{{ $stage->code_id }}">{{ $stage->code_name }}
+                                @foreach ($districts as $district)
+                                    <option value="{{ $district->district_code }}">{{ $district->district_name }}
                                     </option>
                                 @endforeach
                             </select>

@@ -50,6 +50,14 @@ class AddCEOController extends Controller
                 } else {
                     $check = false;
                     try {
+                        // Insert Into Login Details Table
+                        DB::table('login_details')->insert([
+                            'login_id' => $registration_id,
+                            'login_email' => $email,
+                            'login_password' => 'password',
+                            'role' => 2
+                        ]);
+                        // Insert Into make_ceo_po table
                         DB::table('make_ceo_pd')->insert([
                             'phone' => $phone,
                             'name' => $name,

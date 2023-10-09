@@ -49,6 +49,14 @@ class AddPOController extends Controller
                 } else {
                     $check = false;
                     try {
+                        // Insert Login Details Table 
+                        DB::table('login_details')->insert([
+                            'login_id' => $registration_id,
+                            'login_email' => $email,
+                            'login_password' => 'password',
+                            'role' => 1
+                        ]);
+                        // Insert Into make_po Table
                         DB::table('make_po')->insert([
                             'phone' => $phone,
                             'name' => $name,

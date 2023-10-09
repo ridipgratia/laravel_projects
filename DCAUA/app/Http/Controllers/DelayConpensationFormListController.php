@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\MyMethod\DelayEmpForm;
+use Illuminate\Support\Facades\Auth;
 
 class DelayConpensationFormListController extends Controller
 {
@@ -22,7 +23,7 @@ class DelayConpensationFormListController extends Controller
         // Get All Delay Form List To Datatable 
 
         if ($request->ajax()) {
-            $emp_code = "emp_code_4";
+            $emp_code = Auth::user()->login_id;
             $delay_form_list_data = DB::table('add_dc')->where('submited_by', $emp_code)->select('id', 'date_of_submit', 'request_id', 'approval_status')->get();
             return response()->json(['message' => $delay_form_list_data]);
         }
@@ -35,7 +36,7 @@ class DelayConpensationFormListController extends Controller
         if ($request->ajax()) {
             $delay_form_id = $_GET['delay_form_id'];
             if (isset($delay_form_id)) {
-                $emp_code = "emp_code_4";
+                $emp_code = Auth::user()->login_id;
                 $delay_form_data = DB::table('add_dc')->where('submited_by', $emp_code)->where('id', $delay_form_id)->get();
                 if (count($delay_form_data) == 0) {
                     return "<p>No data Found</p>";

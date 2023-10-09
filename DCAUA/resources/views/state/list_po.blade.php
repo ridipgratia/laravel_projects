@@ -36,6 +36,13 @@
 
     {{-- {{ Reset Password Modal  }} --}}
     @include('layouts.state.reset_password_modal', ['header_name' => 'PO'])
+    {{-- Edit User Data Modal --}}
+    {{-- Edit User Data Modal --}}
+    @include('layouts.state.edit_data_modal', [
+        'header_name' => 'CEO PD',
+        'label_name' => 'District',
+        'stages' => $blocks,
+    ]);
     {{-- Jquery CDN  --}}
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

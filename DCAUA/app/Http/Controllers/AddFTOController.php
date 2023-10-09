@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\MyMethod\DelayEmpForm;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class AddFTOController extends Controller
 {
@@ -117,7 +118,7 @@ class AddFTOController extends Controller
                                     'form_id' => $form_id,
                                     'FTO_no' => $fto_no,
                                     'add_date' => $add_date,
-                                    'submited_by' => 'emp_code_3',
+                                    'submited_by' => Auth::user()->login_id,
                                     "created_at" =>  date('Y-m-d H:i:s'),
                                     "updated_at" => date('Y-m-d H:i:s')
                                 ]);
