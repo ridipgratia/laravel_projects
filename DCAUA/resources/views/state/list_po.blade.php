@@ -39,9 +39,10 @@
     {{-- Edit User Data Modal --}}
     {{-- Edit User Data Modal --}}
     @include('layouts.state.edit_data_modal', [
-        'header_name' => 'CEO PD',
-        'label_name' => 'District',
+        'header_name' => 'PO',
+        'label_name' => 'Block',
         'stages' => $blocks,
+        'districts' => $districts,
     ]);
     {{-- Jquery CDN  --}}
 

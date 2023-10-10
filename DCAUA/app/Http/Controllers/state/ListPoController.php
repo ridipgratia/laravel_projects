@@ -14,7 +14,11 @@ class ListPoController extends Controller
     public function list_po()
     {
         $blocks = DB::table('blocks')->select('block_id as code_id', 'block_name as code_name')->get();
-        return view('state.list_po', ['blocks' => $blocks]);
+        $districts = DB::table('districts')->select('district_code as code_id', 'district_name as code_name')->get();
+        return view('state.list_po', [
+            'blocks' => $blocks,
+            'districts' => $districts
+        ]);
     }
     public function for_table(Request $request)
     {
@@ -48,7 +52,7 @@ class ListPoController extends Controller
     public function reset_pass(Request $request)
     {
         if ($request->ajax()) {
-            $result = AddUserByState::resetUserPass($request, 'login_details');
+            $result = AddUserByState::resetUserPass($request, 'make_po', 'login_details');
             return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
@@ -92,43 +96,48 @@ class ListPoController extends Controller
             $user_phone = $request->user_phone;
             $user_email = $request->user_email;
             $user_degisnation = $request->user_degisnation;
-            $select_stage = $request->select_stage;
+            // $select_stage = $request->select_stage;
             $id = $request->id;
             $validate = StateMethod::check_valid($request);
             if ($validate->fails()) {
                 $status = 400;
                 $message = "Fill Required Inputs ";
             } else {
-                $check = null;
-                $check_stage = StateMethod::checkStage('make_po', 'block_id', $select_stage);
-                if ($check_stage) {
-                    $user_data = StateMethod::getUserData('make_po', $id);
-                    if ($user_data[0]->block_id == $select_stage) {
-                        $check = true;
-                    } else {
-                        $check = false;
-                    }
-                } else {
-                    $check = true;
-                }
+                $check = true;
+                // $check_stage = StateMethod::checkStage('make_po', 'block_id', $select_stage);
+                // if ($check_stage) {
+                //     $user_data = StateMethod::getUserData('make_po', $id);
+                //     if ($user_data[0]->block_id == $select_stage) {
+                //         $check = true;
+                //     } else {
+                //         $check = false;
+                //     }
+                // } else {
+                //     $check = true;
+                // }
                 if ($check) {
                     $update_user_data = [
                         $user_phone,
                         $user_name,
                         $user_email,
                         $user_degisnation,
-                        $select_stage
+                        // $select_stage
                     ];
                     try {
-                        $registration_id = "State_" . $select_stage;
+                        // $registration_id = "State_" . $select_stage;
+                        $registration_id = DB::table('make_po')->where('id', $id)->select('registration_id')->get();
                         DB::table('make_po')->where('id', $id)->update([
                             'phone' => $user_phone,
                             'name' => $user_name,
                             'email' => $user_email,
                             'deginations' => $user_degisnation,
-                            'block_id' => $select_stage,
-                            'registration_id' => $registration_id
+                            // 'block_id' => $select_stage,
+                            // 'registration_id' => $registration_id
                         ]);
+                        DB::table('login_details')->where('login_id', $registration_id[0]->registration_id)
+                            ->update([
+                                'login_email' => $user_email
+                            ]);
                         $status = 200;
                         $message = "User Data Upated";
                     } catch (Exception $error) {

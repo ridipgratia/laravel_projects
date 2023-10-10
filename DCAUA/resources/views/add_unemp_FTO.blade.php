@@ -21,6 +21,8 @@
 </head>
 
 <body>
+    @include('layouts.header')
+
     <div class="container">
         <div class="row">
 
@@ -31,7 +33,7 @@
                 <button class="btn btn-primary d-md-none fs-2 mb-3" id="sidebarToggle"><i
                         class="fa-solid fa-bars"></i></button>
                 {{-- Header Layout  --}}
-                @include('layouts.header')
+                {{-- @include('layouts.header') --}}
 
                 <h4 class="mt-3 mb-3 text-center">Add FTO Number </h4>
 

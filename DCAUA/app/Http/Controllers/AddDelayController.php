@@ -13,8 +13,18 @@ class AddDelayController extends Controller
     public function index()
     {
         // Load Delay Copensation Page
-
-        return view('add_delay_form');
+        $gp_names = DB::table('gram_panchyats')
+            ->where('block_id', Auth::user()->block)
+            ->select("gram_panchyat_id", "gram_panchyat_name")
+            ->orderBy('gram_panchyat_name', 'asc')
+            ->get();
+        $district_name = DB::table('districts')->where('district_code', Auth::user()->district)->select('district_name')->get();
+        $block_name = DB::table('blocks')->where('block_id', Auth::user()->block)->select('block_name')->get();
+        return view('add_delay_form', [
+            'gp_names' => $gp_names,
+            'district_name' => $district_name[0]->district_name,
+            'block_name' => $block_name[0]->block_name
+        ]);
     }
     public function create(Request $request)
     {
@@ -23,6 +33,7 @@ class AddDelayController extends Controller
 
 
         if ($request->ajax()) {
+            $gp_name = $request->gp_name;
             $code_number = $request->code_number;
             $mr_number = $request->mr_number;
             $person_delay = $request->person_delay;
@@ -41,6 +52,7 @@ class AddDelayController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
+                    'gp_name' => 'required',
                     'code_number' => 'required',
                     'mr_number' => 'required',
                     'person_delay' => 'required',
@@ -82,6 +94,15 @@ class AddDelayController extends Controller
                         $status = 400;
                         $message = "Please Try Later Problem At PDf Upload";
                     } else {
+                        $gp_id = $gp_name;
+                        $district_id = null;
+                        $block_id = null;
+                        if (isset(Auth::user()->district)) {
+                            $district_id = Auth::user()->district;
+                        }
+                        if (isset(Auth::user()->block)) {
+                            $block_id = Auth::user()->block;
+                        }
                         try {
                             DB::table('add_dc')->insert([
                                 'submited_by' => $emp_code,
@@ -97,6 +118,9 @@ class AddDelayController extends Controller
                                 'year_of_submit' => $submited_year,
                                 'month_of_submit' => $submited_month,
                                 'request_id' => $request_id,
+                                'district_id' => $district_id,
+                                'block_id' => $block_id,
+                                'gp_id' => $gp_id,
                                 "created_at" =>  date('Y-m-d H:i:s'),
                                 "updated_at" => date('Y-m-d H:i:s')
                             ]);
@@ -110,7 +134,7 @@ class AddDelayController extends Controller
                         $message = "Please Try Later Problem At database";
                     } else {
                         $status = 200;
-                        $message = "Ok";
+                        $message = "Form Successfully Submited";
                     }
                 } else {
                     $status = 400;

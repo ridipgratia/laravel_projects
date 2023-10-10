@@ -58,7 +58,8 @@ class AddUserByState
             </div>';
         return $content;
     }
-    public static function resetUserPass($request, $table)
+    // Reset Password For All Users 
+    public static function resetUserPass($request, $main_table, $table)
     {
         $id = $_GET['id'];
         $password = $_GET['password'];
@@ -70,7 +71,8 @@ class AddUserByState
                 $status = 400;
             } else {
                 try {
-                    DB::table($table)->where('id', $id)->update(['login_password' => $password]);
+                    $registration_id = DB::table($main_table)->where('id', $id)->select('registration_id')->get();
+                    DB::table($table)->where('login_id', $registration_id[0]->registration_id)->update(['login_password' => $password]);
                     $message = "Password Changed";
                     $status = 200;
                 } catch (Exception $err) {
@@ -84,6 +86,7 @@ class AddUserByState
         }
         return [$status, $message];
     }
+    // Remove User 
     public static function RemoveUser($request, $table)
     {
         $id = $_GET['id'];

@@ -15,8 +15,12 @@ class AddPOController extends Controller
     {
         // Fetch All Block Name And Block ID
         $blocks = DB::table('blocks')->select('block_id', 'block_name')->orderBy('block_name', 'asc')->get();
+        $districts = DB::table('districts')->select('district_code', 'district_name')
+            ->orderBy('district_name', 'asc')
+            ->get();
         return view('state.add_po', [
-            'blocks' => $blocks
+            'blocks' => $blocks,
+            'districts' => $districts
         ]);
     }
     public function add_user(Request $request)
@@ -27,10 +31,11 @@ class AddPOController extends Controller
             $email = $request->email;
             $designation = $request->designation;
             $district_id = $request->district_id;
+            $district_id_2 = $request->district_id_2;
             $status = null;
             $message = null;
             $validator = AddUserByState::check_valid($request);
-            if ($validator->fails()) {
+            if ($validator->fails() || !isset($district_id_2)) {
                 $status = 400;
                 $message = "Fill All Necessary Input <br> And <br> Mobile Should Be 10 Numbers  ";
             } else {
@@ -54,7 +59,9 @@ class AddPOController extends Controller
                             'login_id' => $registration_id,
                             'login_email' => $email,
                             'login_password' => 'password',
-                            'role' => 1
+                            'role' => 1,
+                            'district' => $district_id_2,
+                            'block' => $district_id
                         ]);
                         // Insert Into make_po Table
                         DB::table('make_po')->insert([
@@ -64,6 +71,7 @@ class AddPOController extends Controller
                             'deginations' => $designation,
                             'registration_id' => $registration_id,
                             'block_id' => $district_id,
+                            'district_id' => $district_id_2,
                             'record_id' => $record_id,
                             "created_at" =>  date('Y-m-d H:i:s'),
                             "updated_at" => date('Y-m-d H:i:s')
@@ -82,6 +90,18 @@ class AddPOController extends Controller
                 }
             }
             return response()->json(['status' => $status, 'message' => $message]);
+        }
+    }
+    // Get Blocks Name By Selecting District
+    public function get_blocks(Request $request)
+    {
+        if ($request->ajax()) {
+            $district_id = $_GET['district_id'];
+            $blocks = DB::table('blocks')->where('district_id', $district_id)
+                ->select('block_id', 'block_name')
+                ->orderBy('block_name', 'asc')
+                ->get();
+            return response()->json(['status' => 200, 'message' => $blocks]);
         }
     }
 }

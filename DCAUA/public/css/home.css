@@ -5,10 +5,13 @@
     left: 0;
     z-index: 1;
     padding-top: 20px;
-    
+    overflow-y: scroll;
     background-color: #f8f9fa; /* Change the background color as needed */
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     
+}
+#sidebar::-webkit-scrollbar{
+    width: 0px;
 }
 .header_div{
     width: 100%;

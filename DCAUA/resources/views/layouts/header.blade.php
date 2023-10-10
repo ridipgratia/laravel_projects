@@ -1,4 +1,4 @@
-<div class="col d-flex justify-content-center align-items-center p-0" style="background: blue">
+<div class="col d-flex justify-content-center align-items-center p-0 bg-primary">
     <div class="d-flex col-5 justify-content-start">
         <img src="{{ asset('images/logo.png') }}" alt="" style="width:70px;height:70px">
     </div>

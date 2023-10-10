@@ -12,7 +12,18 @@ class UnemployeAllowanceController extends Controller
 {
     public function index()
     {
-        return view('unemployement_allowance');
+        $gp_names = DB::table('gram_panchyats')
+            ->where('block_id', Auth::user()->block)
+            ->select("gram_panchyat_id", "gram_panchyat_name")
+            ->orderBy('gram_panchyat_name', 'asc')
+            ->get();
+        $district_name = DB::table('districts')->where('district_code', Auth::user()->district)->select('district_name')->get();
+        $block_name = DB::table('blocks')->where('block_id', Auth::user()->block)->select('block_name')->get();
+        return view('unemployement_allowance', [
+            'gp_names' => $gp_names,
+            'district_name' => $district_name[0]->district_name,
+            'block_name' => $block_name[0]->block_name
+        ]);
     }
     public function create(Request $request)
     {
@@ -21,6 +32,7 @@ class UnemployeAllowanceController extends Controller
 
 
         if ($request->ajax()) {
+            $gp_name = $request->gp_name;
             $card_number = $request->card_number;
             $work_demand = $request->work_demand;
             $total_day_unemple = $request->total_day_unemple;
@@ -40,6 +52,7 @@ class UnemployeAllowanceController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
+                    'gp_name' => 'required',
                     'card_number' => 'required',
                     'work_demand' => 'required',
                     'total_day_unemple' => 'required',
@@ -82,6 +95,15 @@ class UnemployeAllowanceController extends Controller
                         $status = 400;
                         $message = "Please Try Later Problem At PDf Upload";
                     } else {
+                        $gp_id = $gp_name;
+                        $district_id = null;
+                        $block_id = null;
+                        if (isset(Auth::user()->district)) {
+                            $district_id = Auth::user()->district;
+                        }
+                        if (isset(Auth::user()->block)) {
+                            $block_id = Auth::user()->block;
+                        }
                         try {
                             DB::table('add_unemp_allowance')->insert([
                                 'submited_by' => $emp_code,
@@ -98,6 +120,9 @@ class UnemployeAllowanceController extends Controller
                                 'year_of_submit' => $submited_year,
                                 'month_of_submit' => $submited_month,
                                 'request_id' => $request_id,
+                                'district_id' => $district_id,
+                                'block_id' => $block_id,
+                                'gp_id' => $gp_id,
                                 "created_at" =>  date('Y-m-d H:i:s'),
                                 "updated_at" => date('Y-m-d H:i:s')
                             ]);
@@ -111,7 +136,7 @@ class UnemployeAllowanceController extends Controller
                         $message = "Please Try Later Problem At database";
                     } else {
                         $status = 200;
-                        $message = "Ok";
+                        $message = "Form Successfully Submited";
                     }
                 } else {
                     $status = 400;

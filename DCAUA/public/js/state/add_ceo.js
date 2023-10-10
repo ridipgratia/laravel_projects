@@ -73,4 +73,37 @@ $(document).ready(function () {
         });
         $('#add_ceo_btn').attr("disabled", false);
     }
+    $(document).on('change', '#select_district_id', function () {
+
+        $district_id = $(this).val();
+        $.ajax({
+            type: "get",
+            url: "/list_po/get_blocks",
+            data: {
+                district_id: $district_id
+            },
+            datatype: "html",
+            success: function (result) {
+                if (result.status == 400) {
+                    Swal.fire(
+                        "Infomation",
+                        result.message,
+                        'info'
+                    );
+                }
+                else {
+                    $content = "";
+                    for (var i = 0; i < result.message.length; i++) {
+                        $content += '<option value="' + result.message[i].block_id + '">' + result.message[i].block_name + "</option>";
+                    }
+                    $('#block_div').html(
+                        '<select name="district_id" id="block_id" class="form-select col"><option value="" selected disabled>Select</option>' + $content + '</select>'
+                    );
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    })
 })

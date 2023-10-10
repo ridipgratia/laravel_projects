@@ -20,6 +20,7 @@
 </head>
 
 <body>
+    @include('layouts.header')
     <div class="container">
         <div class="row">
 
@@ -32,19 +33,31 @@
                         class="fa-solid fa-bars"></i></button>
                 {{-- Header Layout  --}}
 
-                @include('layouts.header')
+                {{-- @include('layouts.header') --}}
                 <form class="w-75 m-auto mt-4" id="add_delay_form">
                     @csrf
                     <h2 class="text-center mb-4" style="font-size: 24px;text-transform: uppercase">Add Delay
                         Compensation
                     </h2>
-                    <div class="form-group mb-3  d-flex justify-content-center flex-column align-items-center ">
-                        <label for="firstName" class="col-md-6 mb-3">Select GP Name:</label>
-                        <select name="gp_name" id="" class="col-md-6">
-                            <option value="123">GP Name 1</option>
-                            <option value="124">GP Name 2</option>
-                            <option value="125">GP Name 3</option>
-                        </select>
+                    <div class="form-group mb-3  d-flex justify-content-center align-items-center ">
+                        <div class="d-flex justify-content-center flex-column align-items-center col-4 ">
+                            <label for="firstName" class="col mb-2">Select GP Name:</label>
+                            <select name="gp_name" id="" class="form-select col">
+                                <option value="" selected disabled>Select</option>
+                                @foreach ($gp_names as $gp_name)
+                                    <option value="{{ $gp_name->gram_panchyat_id }}">{{ $gp_name->gram_panchyat_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
+                            <label for="firstName" class="col mb-2">District Name:</label>
+                            <h6 class="col">{{ $district_name }}</h6>
+                        </div>
+                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
+                            <label for="firstName" class="col mb-2">Block Name:</label>
+                            <h6 class="col">{{ $block_name }}</h6>
+                        </div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="firstName">Enter Work Code Number:</label>

@@ -22,7 +22,7 @@
             @csrf
             <h3 class="col text-center bg-primary rounded text-white">Add PO</h3>
             @php
-                $selectDatas = [$blocks, 'block_name', 'block_id', 'Block'];
+                $selectDatas = [$blocks, 'block_name', 'block_id', 'Block', $districts];
             @endphp
             <x-add-ceo-po-component :selectDatas=$selectDatas>
 

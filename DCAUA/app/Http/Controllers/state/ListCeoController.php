@@ -48,7 +48,7 @@ class ListCeoController extends Controller
     public function reset_pass(Request $request)
     {
         if ($request->ajax()) {
-            $result = AddUserByState::resetUserPass($request, 'login_details');
+            $result = AddUserByState::resetUserPass($request, 'make_ceo_pd', 'login_details');
 
             return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
@@ -93,32 +93,32 @@ class ListCeoController extends Controller
             $user_phone = $request->user_phone;
             $user_email = $request->user_email;
             $user_degisnation = $request->user_degisnation;
-            $select_stage = $request->select_stage;
+            // $select_stage = $request->select_stage;
             $id = $request->id;
             $validate = StateMethod::check_valid($request);
             if ($validate->fails()) {
                 $status = 400;
                 $message = "Fill Required Inputs ";
             } else {
-                $check = null;
-                $check_stage = StateMethod::checkStage('make_ceo_pd', 'distrcit_id', $select_stage);
-                if ($check_stage) {
-                    $user_data = StateMethod::getUserData('make_ceo_pd', $id);
-                    if ($user_data[0]->distrcit_id == $select_stage) {
-                        $check = true;
-                    } else {
-                        $check = false;
-                    }
-                } else {
-                    $check = true;
-                }
+                $check = true;
+                // $check_stage = StateMethod::checkStage('make_ceo_pd', 'distrcit_id', $select_stage);
+                // if ($check_stage) {
+                //     $user_data = StateMethod::getUserData('make_ceo_pd', $id);
+                //     if ($user_data[0]->distrcit_id == $select_stage) {
+                //         $check = true;
+                //     } else {
+                //         $check = false;
+                //     }
+                // } else {
+                //     $check = true;
+                // }
                 if ($check) {
                     $update_user_data = [
                         $user_phone,
                         $user_name,
                         $user_email,
                         $user_degisnation,
-                        $select_stage
+                        // $select_stage
                     ];
                     try {
                         StateMethod::updateUserData('make_ceo_pd', $id, $update_user_data);

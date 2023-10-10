@@ -55,7 +55,8 @@ class AddCEOController extends Controller
                             'login_id' => $registration_id,
                             'login_email' => $email,
                             'login_password' => 'password',
-                            'role' => 2
+                            'role' => 2,
+                            'district' => $district_id,
                         ]);
                         // Insert Into make_ceo_po table
                         DB::table('make_ceo_pd')->insert([

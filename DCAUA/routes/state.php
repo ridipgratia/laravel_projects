@@ -67,4 +67,7 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
     Route::post('/list_ceo/edit_user_submit', [ListCeoController::class, 'edit_user_submit']);
     // Edit Po User submit
     Route::post('/list_po/edit_user_submit', [ListPoController::class, 'edit_user_submit']);
+
+    // Get Block By Change District 
+    Route::get('/list_po/get_blocks', [AddPOController::class, 'get_blocks']);
 });

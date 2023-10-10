@@ -20,7 +20,7 @@
 </head>
 
 <body>
-
+    @include('layouts.header')
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
@@ -30,14 +30,53 @@
                 <button class="btn btn-primary d-md-none fs-2 mb-3" id="sidebarToggle"><i
                         class="fa-solid fa-bars"></i></button>
 
-                @include('layouts.header')
-                <div class="row mt-3">
-                    <h4 class="col text-center">Total Delay Compensation {{ $delay_form_list }}</h4>
-                    <h4 class="col text-center"> Total Unemployement Allowance {{ $unemp_allowance_form_list }}</h4>
+
+                <div class="d-flex justify-content-around">
+
+                    <div class="col-md-4">
+                        <div class="card bg-success">
+                            <h5 class="card-header text-white bg-dark">Total Delay Compensation</h5>
+                            <div class="card-body">
+                                <h5 class="display-1 text-white d-flex justify-content-around align-items-center">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <span>{{ $delay_form_list }}</span>
+                                </h5>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-center">
+                                <a href="/add_delay" class="btn btn-primary">Add Delay Compensation</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card bg-success">
+                            <h5 class="card-header text-white bg-dark">Add Unemploment Allowance</h5>
+                            <div class="card-body">
+                                <h5 class="display-1 text-white d-flex justify-content-around align-items-center">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <span>{{ $unemp_allowance_form_list }}</span>
+                                </h5>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-center">
+                                <a href="/unemploye_allowance" class="btn btn-primary">Add Unemploment Allowance</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- <h4 class="col-md-5">
+
+                        <div class="card">
+                            <h5 class="card-header">Total Unemployement Allowance</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $unemp_allowance_form_list }}</h5>
+                                <a href="/unemploye_allowance" class="btn btn-primary">Add Unemploment Allowance</a>
+                            </div>
+                        </div>
+                    </h4> --}}
                 </div>
-                <div class="row mt-3">
-                    <a href="/add_delay" class="col me-4  btn btn-primary ">Add Delay Compensation</a>
-                    <a href="/unemploye_allowance" class="col btn btn-secondary">Add Unemploment Allowance</a>
+                <div class=" mt-3 border">
+                    {{-- <a href="/add_delay" class=" me-4  btn btn-primary ">Add Delay Compensation</a>
+                    <a href="/unemploye_allowance" class=" btn btn-secondary">Add Unemploment Allowance</a> --}}
                 </div>
 
             </main>

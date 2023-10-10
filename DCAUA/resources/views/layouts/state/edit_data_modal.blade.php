@@ -35,7 +35,7 @@
                                 class=" p-1 col-md-7 col-sm-12 border border-dark rounded input_data"
                                 style="height: 30px">
                         </div>
-                        <div class="d-flex mb-2 justify-content-around align-items-center p-0">
+                        {{-- <div class="d-flex mb-2 justify-content-around align-items-center p-0">
                             <h6 class="p-0 col-md-4 col-sm-12 m-0 ">{{ $label_name }}</h6>
                             <select class="p-0 col-md-7 col-sm-12 border border-dark rounded input_data"
                                 name="select_stage" aria-label="Default select example">
@@ -45,6 +45,19 @@
                                 @endforeach
                             </select>
                         </div>
+                        @if ($label_name == 'Block')
+                            <div class="d-flex mb-2 justify-content-around align-items-center p-0">
+                                <h6 class="p-0 col-md-4 col-sm-12 m-0 ">{{ $label_name }}</h6>
+                                <select class="p-0 col-md-7 col-sm-12 border border-dark rounded input_data"
+                                    name="select_stage" aria-label="Default select example">
+                                    @foreach ($stages as $stage)
+                                        <option value="{{ $stage->code_id }}">{{ $stage->code_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif --}}
+
                         <div class="d-flex mb-2 justify-content-around align-items-center p-0">
                             <button type="button" name="user_id" class="btn btn-secondary" id="edit_user_btn"><i
                                     class="btn btn-warning fa-solid fa-pen-to-square"></i> Update</button>

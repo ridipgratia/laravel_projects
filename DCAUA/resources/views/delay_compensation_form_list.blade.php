@@ -30,6 +30,8 @@
 </head>
 
 <body>
+    @include('layouts.header')
+
     <div class="container">
         <div class="row">
 
@@ -40,7 +42,7 @@
                 <button class="btn btn-primary d-md-none fs-2 mb-3" id="sidebarToggle"><i
                         class="fa-solid fa-bars"></i></button>
                 {{-- Header Layout  --}}
-                @include('layouts.header')
+                {{-- @include('layouts.header') --}}
 
                 {{-- Add Serach Module By Dates  --}}
 
