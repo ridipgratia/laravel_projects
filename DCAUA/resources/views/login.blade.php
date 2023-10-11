@@ -11,13 +11,15 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
 </head>
 
 <body>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center align-items-center align-content-center" style="height: 100vh">
         @if (Auth::user())
             @if (Auth::user()->role == 1)
                 <a href="/block_bdashboard">Block Dashbard</a>
@@ -27,9 +29,11 @@
                 <a href="">Error Route</a>
             @endif
         @else
-            <form id="login_form" class="col-md-5 mt-5 bg-white shadow p-5 rounded">
+            <form id="login_form" class="col-md-5 bg-white shadow p-5 rounded">
                 @csrf
-                <h3 class="col text-center bg-primary rounded text-white">LOGIN HERE !</h3>
+                <div class="login_head">
+                    <h3 class="text-center login_header">LOGIN HERE !</h3>
+                </div>
                 <div class="d-flex col flex-column mb-3">
                     <label for="exampleInputEmail1" class="form-label col">Login As</label>
                     <select name="role" id="" class="form-select col">

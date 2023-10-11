@@ -11,17 +11,38 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+
+    {{-- google font family  --}}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/media.css') }}">
+    <style>
+        label {
+            font-family: 'Roboto', sans-serif !important;
+        }
+
+        input {
+            font-family: 'Roboto', sans-serif !important;
+        }
+
+        select {
+            font-family: 'Roboto', sans-serif !important;
+        }
+    </style>
 </head>
 
 <body>
-    @include('layouts.header')
-    <div class="container">
+    {{-- @include('layouts.header') --}}
+    <div class="container-fluid">
         <div class="row">
 
             {{-- Side Navbar Layout  --}}
@@ -33,13 +54,22 @@
                         class="fa-solid fa-bars"></i></button>
                 {{-- Header Layout  --}}
 
-                {{-- @include('layouts.header') --}}
+                @include('layouts.header')
                 <form class="w-75 m-auto mt-4" id="add_delay_form">
                     @csrf
                     <h2 class="text-center mb-4" style="font-size: 24px;text-transform: uppercase">Add Delay
                         Compensation
                     </h2>
                     <div class="form-group mb-3  d-flex justify-content-center align-items-center ">
+
+                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
+                            <label for="firstName" class="col mb-2">District Name:</label>
+                            <h6 class="col">{{ $district_name }}</h6>
+                        </div>
+                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
+                            <label for="firstName" class="col mb-2">Block Name:</label>
+                            <h6 class="col">{{ $block_name }}</h6>
+                        </div>
                         <div class="d-flex justify-content-center flex-column align-items-center col-4 ">
                             <label for="firstName" class="col mb-2">Select GP Name:</label>
                             <select name="gp_name" id="" class="form-select col">
@@ -50,55 +80,64 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
-                            <label for="firstName" class="col mb-2">District Name:</label>
-                            <h6 class="col">{{ $district_name }}</h6>
-                        </div>
-                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
-                            <label for="firstName" class="col mb-2">Block Name:</label>
-                            <h6 class="col">{{ $block_name }}</h6>
-                        </div>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="firstName">Enter Work Code Number:</label>
+                        <label class="roboto_1" for="firstName" style="font-family: ">Enter Work Code Number:</label>
                         <input type="text" class="form-control" name="code_number"
                             placeholder="Enter Work Code Number">
                     </div>
                     <div class="form-group mb-3">
-                        <label for="lastName">Enter MR Number:</label>
+                        <label class="roboto_1" for="lastName">Enter MR Number:</label>
                         <input type="text" class="form-control" name="mr_number" placeholder="Enter MR Number">
                     </div>
-                    <div class="form-group mb-3">
-                        <label>Person & Designation responsible for Delay:</label>
-                        <div class="row flex gap-2">
+                    {{-- <div class="form-group mb-3 border">
+                        <label class="roboto_1">Person & Designation responsible for Delay:</label>
+                        <div class="row gap-2">
                             <input type="text" class="form-control col" name="person_delay"
                                 placeholder="Person responsible for Delay">
                             <input type="text" class="form-control col" name="designation_delay"
                                 placeholder="Designation responsible for Delay">
                         </div>
+                    </div> --}}
+                    <div class="flex-column mb-3">
+                        <label class="roboto_1">Person & Designation responsible for Delay:</label>
+                        <div class="d-flex justify-content-between flex-wrap ">
+                            <div class="col-md-6 col-12 my-2">
+                                <input type="text" class="form-control " name="person_delay"
+                                    placeholder="Person Name">
+                            </div>
+                            <div class="col-md-5 col-12">
+                                <input type="text" class="form-control " name="designation_delay"
+                                    placeholder="Designation ">
+                            </div>
+
+                        </div>
                     </div>
                     <div class="form-group mb-3">
-                        <label>Recovered Ammount:</label>
+                        <label class="roboto_1">Recovered Ammount:</label>
                         <input type="number" class="form-control" name="recover_amount"
                             placeholder="Recovered Ammount">
                     </div>
                     <div class="form-group mb-3">
-                        <label>Date on which amount is recovered:</label>
+                        <label class="roboto_1">Date on which amount is recovered:</label>
                         <input type="date" class="form-control date_class" name="date_recover_amount"
                             placeholder="Date on which amount is recovered">
                     </div>
                     <div class="form-group mb-3">
-                        <label>Date on which deposited to the bank:</label>
+                        <label class="roboto_1">Date on which deposited to the bank:</label>
                         <input type="date" class="form-control date_class" name="date_deposite_bank"
                             placeholder="Date on which deposited to the bank">
                     </div>
                     <div class="form-group mb-3">
-                        <label>PDF of bank statement:</label>
+                        <label class="roboto_1">PDF of bank statement:</label>
                         <input type="file" class="form-control" name="bank_statement"
                             placeholder="PDF of bank statement" accept="application/pdf">
                     </div>
                     <!-- Add more input fields as needed -->
-                    <button type="submit" id="add_delay_form_btn" class="btn btn-primary">Submit</button>
+                    <div class="d-flex col-12 justify-content-center my-5">
+                        <button type="submit" id="add_delay_form_btn" class="btn btn-primary"
+                            style="padding: 5px 50px;">Submit</button>
+                    </div>
                 </form>
             </main>
         </div>

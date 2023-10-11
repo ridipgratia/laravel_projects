@@ -90,8 +90,10 @@ $(document).ready(function () {
     });
     $(document).on('click', '#show_form_document', function () {
 
-        $('#view_from_docu').modal('show');
-        $('#vie_from_docu_pdf').attr('src', $(this).val());
+        // $('#view_from_docu').modal('show');
+        // $('#vie_from_docu_pdf').attr('src', $(this).val());
+        var $link = $(this).val();
+        window.open($link, 'Name');
     });
     // Search Dates Wise Query 
 

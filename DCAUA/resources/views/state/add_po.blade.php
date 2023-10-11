@@ -11,16 +11,22 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
-
+    <link rel="stylesheet" href="{{ asset('css/state/state.css') }}">
 </head>
 
 <body>
+    <x-state-nav-component>
+
+    </x-state-nav-component>
     <div class="d-flex justify-content-center">
         <form id="add_po_form" class="col-md-5 mt-5 bg-white shadow p-5 rounded">
             @csrf
-            <h3 class="col text-center bg-primary rounded text-white">Add PO</h3>
+            <div class="login_head">
+                <h3 class="login_header fs-3">ADD PO !</h3>
+            </div>
             @php
                 $selectDatas = [$blocks, 'block_name', 'block_id', 'Block', $districts];
             @endphp

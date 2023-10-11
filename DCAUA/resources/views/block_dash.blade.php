@@ -10,7 +10,8 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
@@ -20,18 +21,19 @@
 </head>
 
 <body>
-    @include('layouts.header')
+    {{-- @include('layouts.header') --}}
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             @include('layouts.sidenav')
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                @include('layouts.header')
                 <button class="btn btn-primary d-md-none fs-2 mb-3" id="sidebarToggle"><i
                         class="fa-solid fa-bars"></i></button>
 
 
-                <div class="d-flex justify-content-around">
+                <div class="d-flex justify-content-around mt-5">
 
                     <div class="col-md-4">
                         <div class="card bg-success">
@@ -43,14 +45,14 @@
                                 </h5>
                             </div>
                             <div class="card-footer bg-white d-flex justify-content-center">
-                                <a href="/add_delay" class="btn btn-primary">Add Delay Compensation</a>
+                                <a href="/add_delay" class="btn btn-outline-success">Add Delay Compensation</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="card bg-success">
-                            <h5 class="card-header text-white bg-dark">Add Unemploment Allowance</h5>
+                            <h5 class="card-header text-white bg-dark">Total Unemploment Allowance</h5>
                             <div class="card-body">
                                 <h5 class="display-1 text-white d-flex justify-content-around align-items-center">
                                     <i class="fa-regular fa-clock"></i>
@@ -58,7 +60,8 @@
                                 </h5>
                             </div>
                             <div class="card-footer bg-white d-flex justify-content-center">
-                                <a href="/unemploye_allowance" class="btn btn-primary">Add Unemploment Allowance</a>
+                                <a href="/unemploye_allowance" class="btn btn-outline-success">Add Unemploment
+                                    Allowance</a>
                             </div>
                         </div>
                     </div>

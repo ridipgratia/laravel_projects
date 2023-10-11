@@ -110,8 +110,10 @@ $(document).ready(function () {
     // View PDF Other Modal 
     $(document).on('click', '#show_form_document', function () {
 
-        $('#view_from_docu').modal('show');
-        $('#vie_from_docu_pdf').attr('src', $(this).val());
+        // $('#view_from_docu').modal('show');
+        var $link = $(this).val();
+        window.open($link, 'Name');
+        // $('#vie_from_docu_pdf').prop('src', $link);
     });
 
     // Search Dates Wise Query 

@@ -10,7 +10,8 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
@@ -21,9 +22,9 @@
 </head>
 
 <body>
-    @include('layouts.header')
+    {{-- @include('layouts.header') --}}
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
 
             {{-- Side Navbar Layout --}}
@@ -33,7 +34,7 @@
                 <button class="btn btn-primary d-md-none fs-2 mb-3" id="sidebarToggle"><i
                         class="fa-solid fa-bars"></i></button>
                 {{-- Header Layout  --}}
-                {{-- @include('layouts.header') --}}
+                @include('layouts.header')
 
                 <h4 class="mt-3 mb-3 text-center">Add FTO Number </h4>
 
