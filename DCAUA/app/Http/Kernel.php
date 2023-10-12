@@ -49,6 +49,9 @@ class Kernel extends HttpKernel
         ],
         'CheckBlockAuth' => [
             \App\Http\Middleware\CheckBlockAuth::class
+        ],
+        'CheckDistrictAuth' => [
+            \App\Http\Middleware\CheckDistrictAuth::class
         ]
 
     ];

@@ -11,17 +11,19 @@
                 $role = 'Block ';
             @endphp
         @elseif (Auth::user()->role == 3)
-            <a href="/state_dash">State Dashbard</a>
+            {{-- <a href="/state_dash">State Dashbard</a> --}}
             @php
                 $role = 'State';
             @endphp
+        @elseif (Auth::user()->role == 2)
+            @php
+                $role = 'District';
+            @endphp
+            {{-- <a href="/district_dashboard">District Dashboard</a> --}}
         @else
             <a href="">Error Route</a>
         @endif
-        @php
-            $login_id = str_replace('_', ' ', Auth::user()->login_id);
-        @endphp
-        <h4 class="text-white me-3 fs-6">WELCOME {{ $login_id }} ( {{ $role }} )</h4>
+        <h4 class="text-white me-3 fs-6">WELCOME {{ Auth::user()->login_name }} ( {{ $role }} )</h4>
         <a href="/logout" class="text-white fs-6"><i class="fas fa-sign-out-alt"></i></a>
     </div>
 </div>

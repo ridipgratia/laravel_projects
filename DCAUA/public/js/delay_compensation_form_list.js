@@ -112,7 +112,7 @@ $(document).ready(function () {
 
         // $('#view_from_docu').modal('show');
         var $link = $(this).val();
-        window.open($link, 'Name');
+        window.open($link, 'Document');
         // $('#vie_from_docu_pdf').prop('src', $link);
     });
 

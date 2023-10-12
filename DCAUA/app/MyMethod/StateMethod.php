@@ -9,7 +9,7 @@ class StateMethod
 {
     public static function checkUserExists($table, $registration_id)
     {
-        $registration_id = DB::table($table)->where('registration_id', $registration_id)->get();
+        $registration_id = DB::table($table)->where('registration_id', $registration_id)->where('delete', 1)->get();
         if (count($registration_id) == 0) {
             return false;
         } else {

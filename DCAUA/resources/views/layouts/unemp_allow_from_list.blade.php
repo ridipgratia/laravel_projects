@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ERROR MESSAGES</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Unemploment Allowance </h5>
                 <button type="button" class="btn-close" id="close_emp_form" data-dismiss="modal" aria-label="Close"><i
                         class="fa fa-window-close" aria-hidden="true"></i>
                 </button>

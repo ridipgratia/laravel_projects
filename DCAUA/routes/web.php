@@ -43,8 +43,13 @@ Route::group(['middleware' => ['CheckBlockAuth']], function () {
     require __DIR__ . '/add_FTO.php';
 });
 
+// State Routes
+
 require __DIR__ . '/state.php';
 
+// Distrcit Routes
+
+require __DIR__ . '/district.php';
 
 // Auth::routes();
 

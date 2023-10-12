@@ -46,17 +46,19 @@ class AddCEOController extends Controller
                 $record_id = $registration_id . '_' . $last_id;
                 if (StateMethod::checkUserExists('make_ceo_pd', $registration_id)) {
                     $status = 400;
-                    $message = "Registration ID Already Exists !";
+                    $message = "User For The User Already Exists !";
                 } else {
-                    $check = false;
+                    $check = true;
                     try {
                         // Insert Into Login Details Table
                         DB::table('login_details')->insert([
-                            'login_id' => $registration_id,
+                            'login_id' => $record_id,
                             'login_email' => $email,
                             'login_password' => 'password',
                             'role' => 2,
                             'district' => $district_id,
+                            'login_name' => $name,
+                            'active' => 1
                         ]);
                         // Insert Into make_ceo_po table
                         DB::table('make_ceo_pd')->insert([

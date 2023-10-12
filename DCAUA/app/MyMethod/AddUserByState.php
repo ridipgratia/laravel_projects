@@ -30,7 +30,7 @@ class AddUserByState
     }
     public static function user_list($table)
     {
-        $users_list = DB::table($table)->select('id', 'name', 'deginations', 'registration_id')->get();
+        $users_list = DB::table($table)->where('delete', 1)->select('id', 'name', 'deginations', 'record_id')->get();
         return $users_list;
     }
     public static function user_html_data($user_data)
@@ -93,16 +93,18 @@ class AddUserByState
         $status = null;
         $message = null;
         if (isset($id)) {
-            try {
-                $data = DB::table($table)->where('id', $id)->select('registration_id')->get();
-                DB::table($table)->where('id', $id)->delete();
-                DB::table('login_details')->where('login_id', $data[0]->registration_id)->delete();
-                $message = "User Removed ";
-                $status = 200;
-            } catch (Exception $err) {
-                $status = 400;
-                $message = "Server Error ! Please Try Again";
-            }
+            // try {
+            $data = DB::table($table)->where('id', $id)->select('record_id')->get();
+            // DB::table($table)->where('id', $id)->delete();
+            DB::table($table)->where('id', $id)->update(['delete' => 0]);
+            // DB::table('login_details')->where('login_id', $data[0]->registration_id)->delete();
+            DB::table('login_details')->where('login_id', $data[0]->record_id)->update(['active' => 0]);
+            $message = "User Inactived ";
+            $status = 200;
+            // } catch (Exception $err) {
+            $status = 400;
+            $message = "Server Error ! Please Try Again";
+            // }
         } else {
             $status = 400;
             $message = null;

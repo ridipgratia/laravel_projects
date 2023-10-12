@@ -56,12 +56,14 @@ class AddPOController extends Controller
                     try {
                         // Insert Login Details Table 
                         DB::table('login_details')->insert([
-                            'login_id' => $registration_id,
+                            'login_id' => $record_id,
                             'login_email' => $email,
                             'login_password' => 'password',
                             'role' => 1,
                             'district' => $district_id_2,
-                            'block' => $district_id
+                            'block' => $district_id,
+                            'login_name' => $name,
+                            'active' => 1
                         ]);
                         // Insert Into make_po Table
                         DB::table('make_po')->insert([

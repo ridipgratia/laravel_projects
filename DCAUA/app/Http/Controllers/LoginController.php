@@ -39,13 +39,15 @@ class LoginController extends Controller
                     ->where('role', $role)
                     ->where('login_email', $email)
                     ->where('login_password', $password)
+                    ->where('active', 1)
                     ->get();
                 if (count($user_details) == 0) {
                     $status = 400;
-                    $message = "Credential Not Found ";
+                    $message = "please Check Your Credentials Kindly Contact Adminstrator ";
                 } else {
                     $login_data = User::where('login_email', $email)
                         ->where('role', $role)
+                        ->where('active',1)
                         ->first();
                     Auth::login($login_data);
                     $status = 200;

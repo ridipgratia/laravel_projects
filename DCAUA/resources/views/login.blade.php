@@ -25,6 +25,8 @@
                 <a href="/block_bdashboard">Block Dashbard</a>
             @elseif (Auth::user()->role == 3)
                 <a href="/state_dash">State Dashbard</a>
+            @elseif (Auth::user()->role == 2)
+                <a href="/district_dashboard">District Dashboard</a>
             @else
                 <a href="">Error Route</a>
             @endif

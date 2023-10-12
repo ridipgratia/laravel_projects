@@ -21,6 +21,9 @@ $(document).ready(function () {
                     else if (result.role === "3") {
                         window.location.href = "/state_dash";
                     }
+                    else if (result.role === "2") {
+                        window.location.href = "/district_dashboard";
+                    }
                 }
                 else {
                     Swal.fire(
