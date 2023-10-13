@@ -2,7 +2,7 @@ class DistrictClass {
     constructor() {
 
     }
-    async preloadData(url) {
+    async preloadData(url, table) {
         $.ajax({
             type: "get",
             url: url,
@@ -24,7 +24,13 @@ class DistrictClass {
                     else if (result.message[i].approval_status == 2) {
                         approval_status = "Rejected";
                     }
-                    dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
+                    if (table === 'add_dc') {
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].code_number, result.message[i].mr_number, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
+                    }
+                    else if (table === 'unemp_allow') {
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].card_number, result.message[i].work_demand, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
+                        $
+                    }
                 }
             },
             error: function (data) {
@@ -59,17 +65,83 @@ class DistrictClass {
             }
         });
     }
-    async serachByDates(url, event) {
-        var form_data = new FormData($('#serach_form_date')[0]);
-        event.preventDefault()
+    // async serachByDates(url, event) {
+    //     var form_data = new FormData($('#serach_form_date')[0]);
+    //     event.preventDefault()
+    //     $.ajax({
+    //         type: "post",
+    //         url: url,
+    //         headers: {
+    //             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         data: form_data,
+    //         dataType: "json",
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (result) {
+    //             if (result.status == 200) {
+    //                 var dataTable = $('#users-table').DataTable();
+    //                 dataTable.clear().draw();
+    //                 var incre = 1;
+    //                 var approval_status = null;
+    //                 for (var i = 0; i < result.message.length; i++) {
+    //                     for (var j = 0; j < result.message[i].length; j++) {
+    //                         approval_status = null;
+    //                         if (result.message[i][j].approval_status == 0) {
+    //                             approval_status = "Waiting";
+    //                         }
+    //                         else if (result.message[i][j].approval_status == 1) {
+    //                             approval_status = "Approved";
+    //                         }
+    //                         else if (result.message[i][j].approval_status == 2) {
+    //                             approval_status = "Rejected";
+    //                         }
+    //                         dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
+    //                         incre++;
+    //                     }
+    //                 }
+    //             }
+    //             else {
+    //                 Swal.fire(
+    //                     "Error",
+    //                     result.message,
+    //                     'error'
+    //                 )
+    //             }
+    //         },
+    //         error: function (data) {
+    //             console.log(data);
+    //         }
+    //     });
+    // }
+    async getGpByBlock(url, block_id) {
+        $.ajax({
+            type: "get",
+            url: url,
+            data: {
+                block_id: block_id
+            },
+            datatype: "html",
+            success: function (result) {
+                $('#gp_names').html(result.message);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    // Serach by Block ,Gp And dates
+    async serachBlockGpDates(url, event) {
+        var form_data = new FormData($('#search_date_block_gp_id')[0]);
+        event.preventDefault();
         $.ajax({
             type: "post",
             url: url,
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
+            dataType: 'json',
             data: form_data,
-            dataType: "json",
             contentType: false,
             processData: false,
             success: function (result) {
@@ -77,7 +149,7 @@ class DistrictClass {
                     var dataTable = $('#users-table').DataTable();
                     dataTable.clear().draw();
                     var incre = 1;
-                    var approval_status = null;
+                    var approval_status;
                     for (var i = 0; i < result.message.length; i++) {
                         for (var j = 0; j < result.message[i].length; j++) {
                             approval_status = null;
@@ -90,18 +162,13 @@ class DistrictClass {
                             else if (result.message[i][j].approval_status == 2) {
                                 approval_status = "Rejected";
                             }
-                            dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                            dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].code_number, result.message[i][j].mr_number, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
                             incre++;
                         }
                     }
                 }
-                else {
-                    Swal.fire(
-                        "Error",
-                        result.message,
-                        'error'
-                    )
-                }
+                console.log(result.message);
+                console.log(result.status);
             },
             error: function (data) {
                 console.log(data);

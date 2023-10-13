@@ -31,6 +31,10 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
     Route::get('/district_delay_com/form_data', [DelayCompensationList::class, 'form_data']);
     // Delay Compensation Search List
     Route::post('/district_delay_com/serach_data', [DelayCompensationList::class, 'search_data']);
+    // Get Gp Name By Block
+    Route::get('district_unemp_allow/get_gp_by_block', [DelayCompensationList::class, 'get_gp_by_block']);
+    // Search By Block, Gp And Dates
+    Route::post('district_delay_com/search_block_gp_dates', [DelayCompensationList::class, 'search_block_gp_dates']);
     // Unemploment Allowance Page Route 
     Route::get('/district_unemp_allow', [UnempAllowance::class, 'index']);
     // Unemploment Allowance Form List Route

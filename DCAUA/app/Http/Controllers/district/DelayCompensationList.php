@@ -18,7 +18,8 @@ class DelayCompensationList extends Controller
     public function form_list(Request $request)
     {
         if ($request->ajax()) {
-            $lists = DistrictMethod::GetFormList('add_dc');
+            $columns = ['code_number', 'mr_number', 'recover_amount'];
+            $lists = DistrictMethod::GetFormList('add_dc', $columns);
             return response()->json(['status' => 200, 'message' => $lists]);
         }
     }
@@ -64,6 +65,29 @@ class DelayCompensationList extends Controller
             $to_date_form = $request->to_date_form;
             $form_data = DistrictMethod::searchByDate('add_dc', $from_date_form, $to_date_form);
             return response()->json(['status' => $form_data[0], 'message' => $form_data[1]]);
+        }
+    }
+    public function get_gp_by_block(Request $request)
+    {
+        if ($request->ajax()) {
+            $block_id = $_GET['block_id'];
+            $gp_names = DistrictMethod::getGpByBlock($block_id);
+            $content = "<option disabled selected>Select</option>";
+            foreach ($gp_names as $gp_name) {
+                $content .= '<option value="' . $gp_name->gram_panchyat_id . '">' . $gp_name->gram_panchyat_name . '</option>';
+            }
+            return response()->json(['status' => 200, 'message' => $content]);
+        }
+    }
+    public function search_block_gp_dates(Request $request)
+    {
+        if ($request->ajax()) {
+            $form_date = $request->from_date_form;
+            $to_date = $request->to_date_form;
+            $block_name = $request->block_name;
+            $gp_name = $request->gp_name;
+            $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_dc');
+            return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
 }

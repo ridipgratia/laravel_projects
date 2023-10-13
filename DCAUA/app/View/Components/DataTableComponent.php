@@ -11,9 +11,10 @@ class DataTableComponent extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $columns;
+    public function __construct($columns)
     {
-        //
+        $this->columns = $columns;
     }
 
     /**

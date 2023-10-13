@@ -35,7 +35,7 @@ $(document).ready(function () {
 
     });
     // Load Delay Form Data When Page Open
-    districtclass.preloadData('/district_unemp_allow/form_list');
+    districtclass.preloadData('/district_unemp_allow/form_list', 'unemp_allow');
     // View All Data By ID
     $(document).on('click', '#district_delay_form_btn', function () {
         districtclass.viewFormData("/district_unemp_allow/form_data", $(this));
@@ -49,4 +49,9 @@ $(document).ready(function () {
     $('#serach_form_date').on('submit', async function (e) {
         districtclass.serachByDates('/district_unemp_allow/serach_data', e);
     });
+    // Get Gp Names By Blocks 
+    $(document).on('change', '#change_block_id', function () {
+        var block_id = $(this).val();
+        districtclass.getGpByBlock('district_unemp_allow/get_gp_by_block', block_id);
+    })
 });

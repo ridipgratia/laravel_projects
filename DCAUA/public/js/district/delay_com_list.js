@@ -35,7 +35,7 @@ $(document).ready(function () {
     });
     // Load Delay Form Data When Page Open
 
-    districtclass.preloadData('/district_delay_com/form_list');
+    districtclass.preloadData('/district_delay_com/form_list', 'add_dc');
 
     // View All Data By ID
 
@@ -52,4 +52,13 @@ $(document).ready(function () {
     $('#serach_form_date').on('submit', async function (e) {
         districtclass.serachByDates('/district_delay_com/serach_data', e);
     });
+    // Get Gp Names By Blocks 
+    $(document).on('change', '#change_block_id', function () {
+        var block_id = $(this).val();
+        districtclass.getGpByBlock('district_unemp_allow/get_gp_by_block', block_id);
+    });
+    // Serach Block , Gp And Dates
+    $(document).on('submit', '#search_date_block_gp_id', function (e) {
+        districtclass.serachBlockGpDates('district_delay_com/search_block_gp_dates', e);
+    })
 })

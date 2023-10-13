@@ -23,7 +23,7 @@ class UnemployeAllowanceFromListController extends Controller
 
         if ($request->ajax()) {
             $emp_code = Auth::user()->login_id;
-            $unemp_allow_form_list_data = DB::table('add_unemp_allowance')->where('submited_by', $emp_code)->select('id', 'date_of_submit', 'request_id', 'approval_status')->get();
+            $unemp_allow_form_list_data = DB::table('add_unemp_allowance')->where('submited_by', $emp_code)->select('id', 'card_number', 'work_demand', 'recover_amount', 'date_of_submit', 'request_id', 'approval_status')->get();
             return response()->json(['message' => $unemp_allow_form_list_data]);
         }
     }
@@ -73,39 +73,9 @@ class UnemployeAllowanceFromListController extends Controller
         if ($request->ajax()) {
             $form_date = $request->from_date_form;
             $to_date = $request->to_date_form;
-            $message = null;
-            $status = null;
-            if ($form_date == null || $to_date == "") {
-                $status = 400;
-                $message = "Please Select Form Submission dates ";
-            } else {
-                if ($form_date <= $to_date) {
-                    $period = new DatePeriod(
-                        new DateTime($form_date),
-                        new DateInterval('P1D'),
-                        new DateTime($to_date)
-                    );
-                    $form_to_date = array();
-                    foreach ($period as $key => $value) {
-                        array_push($form_to_date, $value->format('Y-m-d'));
-                    }
-                    $date_one = date($to_date, strtotime('+1 day'));
-                    array_push($form_to_date, $date_one);
-                    $form_date_his = array();
-                    foreach ($form_to_date as $dates) {
-                        if (DelayEmpForm::checkIsDateAvai($dates, 'add_unemp_allowance')) {
-                            $form_data = DelayEmpForm::getFromdata($dates, 'add_unemp_allowance');
-                            array_push($form_date_his, $form_data);
-                        }
-                    }
-                    $message = $form_date_his;
-                    $status = 200;
-                } else {
-                    $message = "Select Valid Dates ";
-                    $status = 400;
-                }
-            }
-            return response()->json(['status' => $status, 'message' => $message]);
+            $gp_name = $request->gp_name;
+            $result = DelayEmpForm::searchDatesGp($form_date, $to_date, $gp_name, 'add_unemp_allowance');
+            return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
 }

@@ -8,6 +8,15 @@
                 Request ID
             </th>
             <th>
+                {{ $columns[0] }}
+            </th>
+            <th>
+                {{ $columns[1] }}
+            </th>
+            <th>
+                Recover Amount
+            </th>
+            <th>
                 Submited Date
             </th>
             <th>
@@ -22,7 +31,3 @@
         </tbody>
     </table>
 </div>
-
-
-
-

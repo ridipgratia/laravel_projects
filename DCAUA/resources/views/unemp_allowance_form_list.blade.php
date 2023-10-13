@@ -43,11 +43,20 @@
                 {{-- Header Layout  --}}
                 @include('layouts.header')
 
-                {{-- Add Serach Module By Dates  --}}
+                {{-- Add Serach Module By Dates and GP Names --}}
 
-                <x-serach-from-component></x-serach-from-component>
+                {{-- <x-serach-from-component></x-serach-from-component> --}}
+
+                <x-search-by-gp-component>
+
+                </x-search-by-gp-component>
                 {{-- Datatable Start --}}
-                <x-data-table-component></x-data-table-component>
+                @php
+                    $columns = ['Card Number', 'Work Demand'];
+                @endphp
+                <x-data-table-component :columns=$columns>
+
+                </x-data-table-component>
             </main>
         </div>
 

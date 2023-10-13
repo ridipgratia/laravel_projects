@@ -9,7 +9,7 @@ $(document).ready(function () {
             className: 'csv_buttonbtn btn-default widthFix',
             messageTop: 'PDF created by PDFMake with Buttons for DataTables.',
             exportOptions: {
-                columns: [0, 1, 2, 3],
+                columns: [0, 1, 2, 3, 4, 5, 6],
             },
             init: function (api, node, config) {
                 // $(node).removeClass('.btn')
@@ -21,7 +21,7 @@ $(document).ready(function () {
             className: 'pdf_button',
             messageTop: 'PDF created by PDFMake with Buttons for DataTables.',
             exportOptions: {
-                columns: [0, 1, 2, 3],
+                columns: [0, 1, 2, 3, 4, 5, 6],
             },
         },
         {
@@ -56,7 +56,7 @@ $(document).ready(function () {
                     else if (result.message[i].approval_status == 2) {
                         $approval_status = "Rejected";
                     }
-                    dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].date_of_submit, $approval_status, `<button id='unemp_allow_show_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
+                    dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].card_number, result.message[i].work_demand, result.message[i].recover_amount, result.message[i].date_of_submit, $approval_status, `<button id='unemp_allow_show_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
                 }
             },
             error: function (data) {
@@ -128,7 +128,7 @@ $(document).ready(function () {
                             else if (result.message[i][j].approval_status == 2) {
                                 $approval_status = "Rejected";
                             }
-                            dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].date_of_submit, $approval_status, `<button id='unemp_allow_show_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                            dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].card_number, result.message[i][j].work_demand, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, $approval_status, `<button id='unemp_allow_show_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
                             incre++;
                         }
                     }

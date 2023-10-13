@@ -46,9 +46,18 @@
 
                 {{-- Add Serach Module By Dates  --}}
 
-                <x-serach-from-component></x-serach-from-component>
+                {{-- <x-serach-from-component></x-serach-from-component> --}}
+
+                {{-- Serach By GP Name  --}}
+
+                <x-search-by-gp-component>
+
+                </x-search-by-gp-component>
                 {{-- Datatable Start --}}
-                <x-data-table-component></x-data-table-component>
+                @php
+                    $columns = ['Code Number', 'MR Number'];
+                @endphp
+                <x-data-table-component :columns=$columns></x-data-table-component>
             </main>
         </div>
 

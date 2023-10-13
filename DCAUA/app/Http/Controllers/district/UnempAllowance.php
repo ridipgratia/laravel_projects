@@ -18,7 +18,8 @@ class UnempAllowance extends Controller
     public function form_list(Request $request)
     {
         if ($request->ajax()) {
-            $lists = DistrictMethod::GetFormList('add_unemp_allowance');
+            $columns = ['card_number', 'work_demand', 'recover_amount'];
+            $lists = DistrictMethod::GetFormList('add_unemp_allowance', $columns);
             return response()->json(['status' => 200, 'message' => $lists]);
         }
     }
