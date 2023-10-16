@@ -105,6 +105,8 @@
 }
 .dt-buttons {
     width: 50%;
+    display: flex;
+    justify-content: center;
     text-align: center;
 }
 .dt-buttons button {
@@ -146,10 +148,10 @@
 .table_button button:hover{
     transform: scale(1.2);
 }
-.table_button button:nth-child(1){
+.table_button button:nth-child(2){
     color: #3a86ff;
 }
-.table_button button:nth-child(2){
+.table_button button:nth-child(1){
     color: #3e5c76;
 }
 .table_button button:nth-child(3){

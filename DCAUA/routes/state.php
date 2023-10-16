@@ -6,7 +6,9 @@
 use App\Http\Controllers\state\ListCeoController;
 use App\Http\Controllers\state\AddCEOController;
 use App\Http\Controllers\state\AddPOController;
+use App\Http\Controllers\state\DelayCompensationController;
 use App\Http\Controllers\state\ListPoController;
+use App\Http\Controllers\state\UnempAllowController;
 use App\Http\Controllers\StateController;
 use Illuminate\Queue\ListenerOptions;
 use Illuminate\Support\Facades\Route;
@@ -70,4 +72,25 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
 
     // Get Block By Change District 
     Route::get('/list_po/get_blocks', [AddPOController::class, 'get_blocks']);
+    // All Delay Compensation Form List
+    Route::get('/delay_compensation/all_list', [DelayCompensationController::class, 'all_list']);
+    // All Unemploye Allowance Form List
+    // Get Blocks By District Code 
+    Route::get('/delay_compensation/get_blocks', [DelayCompensationController::class, 'get_blocks']);
+    // Get GPs By Block Id
+    Route::get('/delay_compensation/get_gps', [DelayCompensationController::class, 'get_gps']);
+    // Get Delay Compensation Form Lists
+    Route::get('/delay_compensation/get_delay_com', [DelayCompensationController::class, 'get_delay_com']);
+    // View All Form Data By ID
+    Route::get('/delay_compensation/view_form_by_id', [DelayCompensationController::class, 'view_form_by_id']);
+    // All Unemploye Allowance Form List
+    Route::get('/unemp_allow/all_list', [UnempAllowController::class, 'all_list']);
+    // Get Blocks By District Code 
+    Route::get('/unemp_allow/get_blocks', [UnempAllowController::class, 'get_blocks']);
+    // Get GPs By Block Id
+    Route::get('/unemp_allow/get_gps', [UnempAllowController::class, 'get_gps']);
+    // Get Delay Compensation Form Lists
+    Route::get('/unemp_allow/get_unemp_allow', [UnempAllowController::class, 'get_unemp_allow']);
+    // View All Form Data By ID
+    Route::get('/unemp_allow/view_form_by_id', [UnempAllowController::class, 'view_form_by_id']);
 });

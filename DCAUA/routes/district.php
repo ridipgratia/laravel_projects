@@ -43,4 +43,6 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
     Route::get('/district_unemp_allow/form_data', [UnempAllowance::class, 'form_data']);
     // Unemploment Allowance Search List
     Route::post('/district_unemp_allow/serach_data', [UnempAllowance::class, 'search_data']);
+    // Search By Block, Gp And Dates
+    Route::post('district_unemp_allow/search_block_gp_dates', [UnempAllowance::class, 'search_block_gp_dates']);
 });

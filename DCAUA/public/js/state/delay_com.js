@@ -1,5 +1,5 @@
-import DistrictClass from "./DistrictClass.js";
-const districtclass = new DistrictClass();
+import StateClass from "./StateClass.js";
+const stateclass = new StateClass();
 $(document).ready(function () {
     $('#users-table').DataTable({
         colReorder: true,
@@ -31,34 +31,27 @@ $(document).ready(function () {
             messageTop: 'PDF created by PDFMake with Buttons for DataTables.'
         },
         ]
-
     });
-    // Load Delay Form Data When Page Open
-
-    districtclass.preloadData('/district_delay_com/form_list', 'add_dc');
-
+    // Get Blocks By Distrcit Code
+    $(document).on('change', '#change_district_id', function () {
+        var district_code = $(this).val();
+        stateclass.getBlockByDistrict('/delay_compensation/get_blocks', district_code, '#change_block_id');
+    });
+    // Get GPs By Block Id
+    $(document).on('change', '#change_block_id', function () {
+        var block_code = $(this).val();
+        stateclass.getBlockByDistrict('/delay_compensation/get_gps', block_code, '#gp_names');
+    });
+    // Get Delay Compensation
+    stateclass.getFormList('/delay_compensation/get_delay_com', 'add_dc');
     // View All Data By ID
 
-    $(document).on('click', '#district_delay_form_btn', function () {
-        districtclass.viewFormData("/district_delay_com/form_data", $(this));
+    $(document).on('click', '#state_delay_form_btn', function () {
+        stateclass.viewFormData("/delay_compensation/view_form_by_id", $(this));
     });
-
     // View Delay Document 
     $(document).on('click', '#show_form_document', function () {
         var $link = $(this).val();
         window.open($link, 'Document');
-    });
-    // Serach By Dates 
-    $('#serach_form_date').on('submit', async function (e) {
-        districtclass.serachByDates('/district_delay_com/serach_data', e);
-    });
-    // Get Gp Names By Blocks 
-    $(document).on('change', '#change_block_id', function () {
-        var block_id = $(this).val();
-        districtclass.getGpByBlock('district_unemp_allow/get_gp_by_block', block_id);
-    });
-    // Serach Block , Gp And Dates
-    $(document).on('submit', '#search_date_block_gp_id', function (e) {
-        districtclass.serachBlockGpDates('district_delay_com/search_block_gp_dates', e, 'add_dc');
     });
 })

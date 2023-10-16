@@ -11,7 +11,7 @@ $(document).ready(function () {
             className: 'csv_buttonbtn btn-default widthFix ',
             messageTop: 'PDF created by PDFMake with Buttons for DataTables.',
             exportOptions: {
-                columns: [0, 1, 2, 3],
+                columns: [0, 1, 2, 3, 4, 5, 6],
             },
             init: function (api, node, config) {
                 // $(node).removeClass('.btn')
@@ -23,7 +23,7 @@ $(document).ready(function () {
             className: 'pdf_button',
             messageTop: 'PDF created by PDFMake with Buttons for DataTables.',
             exportOptions: {
-                columns: [0, 1, 2, 3],
+                columns: [0, 1, 2, 3, 4, 5, 6],
             },
         },
         {
@@ -53,5 +53,9 @@ $(document).ready(function () {
     $(document).on('change', '#change_block_id', function () {
         var block_id = $(this).val();
         districtclass.getGpByBlock('district_unemp_allow/get_gp_by_block', block_id);
-    })
+    });
+    // Serach Block , Gp And Dates
+    $(document).on('submit', '#search_date_block_gp_id', function (e) {
+        districtclass.serachBlockGpDates('district_unemp_allow/search_block_gp_dates', e, 'unemp_allow');
+    });
 });

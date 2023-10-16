@@ -23,7 +23,7 @@ class StateClass {
                 var dataTable = $('#users-table').DataTable();
                 dataTable.clear().draw();
                 for (var i = 0; i < result.message.length; i++) {
-                    dataTable.row.add([(i + 1), result.message[i].name, result.message[i].deginations, result.message[i].record_id, `<p class="table_button d-flex "><button class=" col-3 state_list_view_btn" value="${result.message[i].id}"><i class="fa fa-eye"></i></button><button class="col-3 state_list_reset_btn" value="${result.message[i].id}"><i class=" fa-solid fa-lock"></i></button><button class="col-3 state_list_edit_btn " value="${result.message[i].id}"><i class=" fa-solid fa-pen-to-square"></i></button><button class="col-3 state_list_remove_btn " value="${result.message[i].id}"><i class=" fa-solid fa-trash"></i></button></p>`]).draw(false);
+                    dataTable.row.add([(i + 1), result.message[i].name, result.message[i].deginations, result.message[i].record_id, `<p class="table_button d-flex "><button class="col-3 state_list_reset_btn" value="${result.message[i].id}"><i class=" fa-solid fa-lock"></i></button><button class=" col-3 state_list_view_btn" value="${result.message[i].id}"><i class="fa fa-eye"></i></button><button class="col-3 state_list_reset_btn" value="${result.message[i].id}"><i class=" fa-solid fa-lock"></i></button><button class="col-3 state_list_edit_btn " value="${result.message[i].id}"><i class=" fa-solid fa-pen-to-square"></i></button><button class="col-3 state_list_remove_btn " value="${result.message[i].id}"><i class=" fa-solid fa-trash"></i></button></p>`]).draw(false);
                 }
             },
             error: function (data) {
@@ -189,6 +189,83 @@ class StateClass {
             }
         });
         $('#edit_user_btn').attr('disabled', false);
+    }
+    // Get Blocks Name By District or GP by block
+    async getBlockByDistrict(url, district_code, id) {
+        $.ajax({
+            type: "get",
+            url: url,
+            data: {
+                district_code: district_code
+            },
+            datatype: "html",
+            success: function (result) {
+                $(id).html(result.message);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    // Get Delay Compensation Form Lists
+    async getFormList(url, table) {
+        $.ajax({
+            type: "get",
+            url: url,
+            success: function (result) {
+                var dataTable = $('#users-table').DataTable();
+                dataTable.clear().draw();
+                var approval_status = null;
+                for (var i = 0; i < result.message.length; i++) {
+                    approval_status = null;
+                    if (result.message[i].approval_status == 0) {
+                        approval_status = "Waiting";
+                    }
+                    else if (result.message[i].approval_status == 1) {
+                        approval_status = "Approved";
+                    }
+                    else if (result.message[i].approval_status == 2) {
+                        approval_status = "Rejected";
+                    }
+                    if (table === 'add_dc') {
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].code_number, result.message[i].mr_number, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
+                    }
+                    else if (table === 'unemp_allow') {
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].card_number, result.message[i].work_demand, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
+                    }
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    async viewFormData(url, btn) {
+        var delay_form_id = btn.val();
+        $.ajax({
+            type: "get",
+            url: url,
+            data: {
+                delay_form_id: delay_form_id
+            },
+            datatype: "html",
+            success: function (result) {
+                if (result.status == 200) {
+                    $('.delay_show_div_1').eq(0).html(result.message);
+                    $('#show_delay_form_data').modal('show')
+                }
+                else {
+                    Swal.fire(
+                        "Information",
+                        result.message,
+                        "info"
+                    )
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 }
 export default StateClass;

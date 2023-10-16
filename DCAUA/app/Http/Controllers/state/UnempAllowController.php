@@ -1,35 +1,58 @@
 <?php
 
-namespace App\Http\Controllers\district;
+namespace App\Http\Controllers\state;
 
 use App\Http\Controllers\Controller;
+use App\MyMethod\StateMethod;
 use Illuminate\Http\Request;
-use App\MyMethod\DistrictMethod;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class UnempAllowance extends Controller
+class UnempAllowController extends Controller
 {
-    public function index()
+    public function all_list()
     {
-        return view('district.unemp_allowance_list');
+        return view('state.unemp_allow');
     }
-    public function form_list(Request $request)
+    // Get Blocks By District Code
+    public function get_blocks(Request $request)
     {
         if ($request->ajax()) {
-            $columns = ['card_number', 'work_demand', 'recover_amount'];
-            $lists = DistrictMethod::GetFormList('add_unemp_allowance', $columns);
-            return response()->json(['status' => 200, 'message' => $lists]);
+            $district_code = $_GET['district_code'];
+            $blocks = StateMethod::getBlocks($district_code);
+            $content = "<option disabled selected>Select</option>";
+            foreach ($blocks as $block) {
+                $content .= '<option value="' . $block->block_id . '">' . $block->block_name . '</option>';
+            }
+            return response()->json(['status' => 200, 'message' => $content]);
         }
     }
-    public function form_data(Request $request)
+    // Get Gps By Block Id
+    public function get_gps(Request $request)
+    {
+        if ($request->ajax()) {
+            $block_id = $_GET['district_code'];
+            $gps = StateMethod::getGP($block_id);
+            $content = "<option disabled selected>Select</option>";
+            foreach ($gps as $gp) {
+                $content .= '<option value="' . $gp->gram_panchyat_id . '">' . $gp->gram_panchyat_name . '</option>';
+            }
+            return response()->json(['status' => 200, 'message' => $content]);
+        }
+    }
+    public function get_unemp_allow(Request $request)
+    {
+        $form_lists = StateMethod::getFormLists('add_unemp_allowance');
+        return response()->json(['status' => 200, 'message' => $form_lists]);
+    }
+    public function view_form_by_id(Request $request)
     {
         if ($request->ajax()) {
             $delay_form_id = $_GET['delay_form_id'];
             if (isset($delay_form_id)) {
-                $district_code = Auth::user()->district;
-                $delay_form_data = DB::table('add_unemp_allowance')->where('district_id', $district_code)->where('id', $delay_form_id)->get();
+                $delay_form_data = DB::table('add_unemp_allowance')
+                    ->where('id', $delay_form_id)
+                    ->get();
                 if (count($delay_form_data) == 0) {
                     $content = "<p>No data Found</p>";
                 } else {
@@ -55,29 +78,9 @@ class UnempAllowance extends Controller
             <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
                 }
             } else {
-                $content = "<p>No data</p>";
+                $content = "<p>No Data</p>";
             }
             return response()->json(['status' => 200, 'message' => $content]);
-        }
-    }
-    public function search_data(Request $request)
-    {
-        if ($request->ajax()) {
-            $from_date_form = $request->from_date_form;
-            $to_date_form = $request->to_date_form;
-            $form_data = DistrictMethod::searchByDate('add_unemp_allowance', $from_date_form, $to_date_form);
-            return response()->json(['status' => $form_data[0], 'message' => $form_data[1]]);
-        }
-    }
-    public function search_block_gp_dates(Request $request)
-    {
-        if ($request->ajax()) {
-            $form_date = $request->from_date_form;
-            $to_date = $request->to_date_form;
-            $block_name = $request->block_name;
-            $gp_name = $request->gp_name;
-            $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_unemp_allowance');
-            return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
 }

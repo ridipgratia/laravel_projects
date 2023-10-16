@@ -1,5 +1,5 @@
 <div class="d-flex flex-wrap mt-2 ">
-    <form action="" id="search_date_block_gp_id" class="d-flex col-12 flex-wrap">
+    <form action="" id="search_date_district_block_gp_id" class="d-flex col-12 flex-wrap">
         @csrf
         {{-- Serach By dates  --}}
         {{-- <h5 class="text-uppercase fs-5">Serach By Date</h5> --}}
@@ -20,18 +20,21 @@
         </div>
 
         {{-- Search by GP Name --}}
-        <div class="d-flex flex-wrap col-12 mt-2 mb-2">
-            <div class="col-md-4 col-12">
+        <div class="d-flex flex-wrap col-12 mt-2 mb-2 ">
+            <div class="col-md-4  col-12">
                 <h6>District</h6>
-                <p class="fs-6">{{ $district_name }}</p>
+                <select class="form-select" name="district_name" aria-label="Default select example"
+                    id="change_district_id">
+                    <option disabled selected>Select</option>
+                    @foreach ($districts as $district)
+                        <option value="{{ $district->district_code }}">{{ $district->district_name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-4 col-12 mb-2">
                 <h6>Block</h6>
                 <select class="form-select" name="block_name" aria-label="Default select example" id="change_block_id">
                     <option disabled selected>Select</option>
-                    @foreach ($block_names as $block_name)
-                        <option value="{{ $block_name->block_id }}">{{ $block_name->block_name }}</option>
-                    @endforeach
                 </select>
             </div>
             <div class="col-md-4 col-12 mb-2">

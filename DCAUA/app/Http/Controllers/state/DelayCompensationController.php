@@ -1,35 +1,62 @@
 <?php
 
-namespace App\Http\Controllers\district;
+namespace App\Http\Controllers\state;
 
 use App\Http\Controllers\Controller;
+use App\MyMethod\StateMethod;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\MyMethod\DistrictMethod;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class DelayCompensationList extends Controller
+class DelayCompensationController extends Controller
 {
-    public function index()
+    public function all_list()
     {
-        return view('district.delay_compensation_list');
+        return view('state.delay_compensation');
     }
-    public function form_list(Request $request)
+    // Get Blocks By District Code
+    public function get_blocks(Request $request)
     {
         if ($request->ajax()) {
-            $columns = ['code_number', 'mr_number', 'recover_amount'];
-            $lists = DistrictMethod::GetFormList('add_dc', $columns);
-            return response()->json(['status' => 200, 'message' => $lists]);
+            $district_code = $_GET['district_code'];
+            $blocks = StateMethod::getBlocks($district_code);
+            $content = "<option disabled selected>Select</option>";
+            foreach ($blocks as $block) {
+                $content .= '<option value="' . $block->block_id . '">' . $block->block_name . '</option>';
+            }
+            return response()->json(['status' => 200, 'message' => $content]);
         }
     }
-    public function form_data(Request $request)
+    // Get Gps By Block Id
+    public function get_gps(Request $request)
+    {
+        if ($request->ajax()) {
+            $block_id = $_GET['district_code'];
+            $gps = StateMethod::getGP($block_id);
+            $content = "<option disabled selected>Select</option>";
+            foreach ($gps as $gp) {
+                $content .= '<option value="' . $gp->gram_panchyat_id . '">' . $gp->gram_panchyat_name . '</option>';
+            }
+            return response()->json(['status' => 200, 'message' => $content]);
+        }
+    }
+    public function get_delay_com(Request $request)
+    {
+        if ($request->ajax()) {
+
+
+            $form_lists = StateMethod::getFormLists('add_dc');
+            return response()->json(['status' => 200, 'message' => $form_lists]);
+        }
+    }
+    public function view_form_by_id(Request $request)
     {
         if ($request->ajax()) {
             $delay_form_id = $_GET['delay_form_id'];
             if (isset($delay_form_id)) {
-                $district_code = Auth::user()->district;
-                $delay_form_data = DB::table('add_dc')->where('district_id', $district_code)->where('id', $delay_form_id)->get();
+                $delay_form_data = DB::table('add_dc')
+                    ->where('id', $delay_form_id)
+                    ->get();
                 if (count($delay_form_data) == 0) {
                     $content = "<p>No data Found</p>";
                 } else {
@@ -56,38 +83,6 @@ class DelayCompensationList extends Controller
                 $content = "<p>No Data</p>";
             }
             return response()->json(['status' => 200, 'message' => $content]);
-        }
-    }
-    public function search_data(Request $request)
-    {
-        if ($request->ajax()) {
-            $from_date_form = $request->from_date_form;
-            $to_date_form = $request->to_date_form;
-            $form_data = DistrictMethod::searchByDate('add_dc', $from_date_form, $to_date_form);
-            return response()->json(['status' => $form_data[0], 'message' => $form_data[1]]);
-        }
-    }
-    public function get_gp_by_block(Request $request)
-    {
-        if ($request->ajax()) {
-            $block_id = $_GET['block_id'];
-            $gp_names = DistrictMethod::getGpByBlock($block_id);
-            $content = "<option disabled selected>Select</option>";
-            foreach ($gp_names as $gp_name) {
-                $content .= '<option value="' . $gp_name->gram_panchyat_id . '">' . $gp_name->gram_panchyat_name . '</option>';
-            }
-            return response()->json(['status' => 200, 'message' => $content]);
-        }
-    }
-    public function search_block_gp_dates(Request $request)
-    {
-        if ($request->ajax()) {
-            $form_date = $request->from_date_form;
-            $to_date = $request->to_date_form;
-            $block_name = $request->block_name;
-            $gp_name = $request->gp_name;
-            $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_dc');
-            return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
 }

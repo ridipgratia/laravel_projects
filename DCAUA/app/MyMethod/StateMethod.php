@@ -66,4 +66,34 @@ class StateMethod
                 'login_email' => $update_data[2]
             ]);
     }
+    // Get All District
+    public static function getDistricts()
+    {
+        $districts = DB::table('districts')->select('district_code', 'district_name')->get();
+        return $districts;
+    }
+    // Get Blocks By Distrcit Code
+    public static function getBlocks($district_code)
+    {
+        $blocks = DB::table('blocks')
+            ->where('district_id', $district_code)
+            ->select('block_id', 'block_name')
+            ->orderBy('block_name', 'asc')
+            ->get();
+        return $blocks;
+    }
+    // Get GPs By Block Id
+    public static function getGP($block_id)
+    {
+        $gp = DB::table('gram_panchyats')
+            ->where('block_id', $block_id)
+            ->select('gram_panchyat_id', 'gram_panchyat_name')
+            ->get();
+        return $gp;
+    }
+    public static function getFormLists($table)
+    {
+        $form_lists = DB::table($table)->get();
+        return $form_lists;
+    }
 }
