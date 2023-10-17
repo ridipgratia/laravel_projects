@@ -106,7 +106,7 @@
                                 <input type="text" class="form-control " name="person_delay"
                                     placeholder="Person Name">
                             </div>
-                            <div class="col-md-5 col-12">
+                            <div class="col-md-5 col-12 my-2">
                                 <input type="text" class="form-control " name="designation_delay"
                                     placeholder="Designation ">
                             </div>

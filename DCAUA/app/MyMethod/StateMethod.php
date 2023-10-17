@@ -96,4 +96,89 @@ class StateMethod
         $form_lists = DB::table($table)->get();
         return $form_lists;
     }
+    // Search Query Algo
+    public static function searchByDisBloGpDates($form_date, $to_date, $district_code, $block_name, $gp_name, $table)
+    {
+        $status = null;
+        $message = null;
+        if ($form_date === null && $to_date === null && $district_code === null && $block_name === null && $gp_name === null) {
+            $status = 200;
+            $message = "All Data";
+            $result = DB::table($table)
+                ->get();
+            $message = array($result);
+        } else {
+            if (($form_date === null && $to_date !== null) || ($form_date !== null && $to_date === null)) {
+                $status = 400;
+                $message = "Select Both Dates !";
+            } else {
+                if ($form_date !== null && $district_code !== null && $block_name !== null && $gp_name !== null) {
+                    if ($form_date <= $to_date) {
+                        $status = 200;
+                        $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                        $form_date_his = array();
+                        foreach ($form_to_date as $dates) {
+                            if (DistrictMethod::checkIsDateAvai($table, $dates)) {
+                                $form_data = DB::table($table)
+                                    ->where('date_of_submit', $dates)
+                                    ->where('gp_id', $gp_name)
+                                    ->get();
+                                array_push($form_date_his, $form_data);
+                            }
+                        }
+                        $message = "All Filter data";
+                    } else {
+                        $status = 400;
+                        $message = "Select A Valid Dates";
+                    }
+                } else {
+                    if ($form_date !== null && $district_code !== null && $block_name !== null) {
+                        if ($form_date <= $to_date) {
+                            $status = 200;
+                            $message = "Dates, Distrct And Block Wise Data";
+                        } else {
+                            $status = 400;
+                            $message = "select A Valid Dates";
+                        }
+                    } else {
+                        if ($form_date !== null && $district_code !== null) {
+                            if ($form_date <= $to_date) {
+                                $status = 200;
+                                $message = "Dates And District Wise data";
+                            } else {
+                                $status = 400;
+                                $message = "Select A Valid Dates";
+                            }
+                        } else {
+                            if ($district_code !== null) {
+                                if ($block_name !== null) {
+                                    if ($gp_name !== null) {
+                                        $status = 200;
+                                        $message = "District , Block And GP Wise Data";
+                                    } else {
+                                        $status = 200;
+                                        $message = "District And Block Wise Data";
+                                    }
+                                } else {
+                                    $status = 200;
+                                    $message = "District Wise data";
+                                }
+                            } else {
+                                if ($form_date !== null) {
+                                    if ($form_date <= $to_date) {
+                                        $status = 200;
+                                        $message = "Dates Wise Data";
+                                    } else {
+                                        $status = 400;
+                                        $message = "Select A Valid Dates";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return [$status, $message];
+    }
 }

@@ -85,4 +85,16 @@ class DelayCompensationController extends Controller
             return response()->json(['status' => 200, 'message' => $content]);
         }
     }
+    public function search_query(Request $request)
+    {
+        if ($request->ajax()) {
+            $form_date = $request->from_date_form;
+            $to_date = $request->to_date_form;
+            $block_name = $request->block_name;
+            $gp_name = $request->gp_name;
+            $district_name = $request->district_name;
+            $result = StateMethod::searchByDisBloGpDates($form_date, $to_date, $district_name, $block_name, $gp_name, 'add_dc');
+            return response()->json(['status' => $result[0], 'message' => $result[1]]);
+        }
+    }
 }

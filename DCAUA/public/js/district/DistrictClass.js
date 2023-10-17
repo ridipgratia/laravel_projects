@@ -144,6 +144,7 @@ class DistrictClass {
             contentType: false,
             processData: false,
             success: function (result) {
+                console.log(result.message);
                 if (result.status == 200) {
                     var dataTable = $('#users-table').DataTable();
                     dataTable.clear().draw();
@@ -166,14 +167,19 @@ class DistrictClass {
                                 incre++;
                             }
                             else if (table === 'unemp_allow') {
-                                dataTable.row.add([(i + 1), result.message[i][j].request_id, result.message[i][j].card_number, result.message[i][j].work_demand, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
-                                incre++;
+                                // dataTable.row.add([(i + 1), result.message[i][j].request_id, result.message[i][j].card_number, result.message[i][j].work_demand, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                                // incre++;
                             }
                         }
                     }
                 }
-                console.log(result.message);
-                console.log(result.status);
+                else {
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        'info'
+                    );
+                }
             },
             error: function (data) {
                 console.log(data);

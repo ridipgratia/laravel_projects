@@ -267,5 +267,27 @@ class StateClass {
             }
         });
     }
+    // Search By District , Block Gp And Dates
+    async serachByDisBloGpDates(url, event, table) {
+        var form_data = new FormData($('#search_date_district_block_gp_id')[0]);
+        event.preventDefault();
+        $.ajax({
+            type: "post",
+            url: url,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json',
+            data: form_data,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                console.log(result.message);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
 }
 export default StateClass;

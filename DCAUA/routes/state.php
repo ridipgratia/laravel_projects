@@ -83,6 +83,8 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
     Route::get('/delay_compensation/get_delay_com', [DelayCompensationController::class, 'get_delay_com']);
     // View All Form Data By ID
     Route::get('/delay_compensation/view_form_by_id', [DelayCompensationController::class, 'view_form_by_id']);
+    // Search By District, Block,GP and Dates
+    Route::post('/delay_compensation/search_query', [DelayCompensationController::class, 'search_query']);
     // All Unemploye Allowance Form List
     Route::get('/unemp_allow/all_list', [UnempAllowController::class, 'all_list']);
     // Get Blocks By District Code 

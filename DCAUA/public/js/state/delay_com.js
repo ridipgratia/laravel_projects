@@ -36,6 +36,7 @@ $(document).ready(function () {
     $(document).on('change', '#change_district_id', function () {
         var district_code = $(this).val();
         stateclass.getBlockByDistrict('/delay_compensation/get_blocks', district_code, '#change_block_id');
+        $('#gp_names').html('<option disabled selected>Select</option>');
     });
     // Get GPs By Block Id
     $(document).on('change', '#change_block_id', function () {
@@ -54,4 +55,8 @@ $(document).ready(function () {
         var $link = $(this).val();
         window.open($link, 'Document');
     });
+    // Search By DistrictClass, Block, GP And dates
+    $(document).on('submit', '#search_date_district_block_gp_id', function (e) {
+        stateclass.serachByDisBloGpDates('/delay_compensation/search_query', e, 'add_dc');
+    })
 })

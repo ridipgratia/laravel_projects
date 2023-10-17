@@ -117,6 +117,7 @@ class DistrictMethod
                         foreach ($form_to_date as $dates) {
                             if (DistrictMethod::checkIsDateAvai($table, $dates)) {
                                 $form_data = DB::table($table)
+                                    ->where('district_id', Auth::user()->district)
                                     ->where('date_of_submit', $dates)
                                     ->where('gp_id', $gp_name)
                                     ->get();
@@ -138,6 +139,7 @@ class DistrictMethod
                             foreach ($form_to_date as $dates) {
                                 if (DistrictMethod::checkIsDateAvai($table, $dates)) {
                                     $form_data = DB::table($table)
+                                        ->where('district_id', Auth::user()->district)
                                         ->where('block_id', $block_name)
                                         ->where('date_of_submit', $dates)
                                         ->get();
@@ -165,6 +167,27 @@ class DistrictMethod
                                 $message = array($result);
                             }
                             $status = 200;
+                        } else {
+                            if ($form_date !== null) {
+                                if ($form_date <= $to_date) {
+                                    $status = 200;
+                                    $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                                    $form_date_his = array();
+                                    foreach ($form_to_date as $dates) {
+                                        if (DistrictMethod::checkIsDateAvai($table, $dates)) {
+                                            $form_data = DB::table($table)
+                                                ->where('district_id', Auth::user()->district)
+                                                ->where('date_of_submit', $dates)
+                                                ->get();
+                                            array_push($form_date_his, $form_data);
+                                        }
+                                    }
+                                    $message = $form_date_his;
+                                } else {
+                                    $status = 400;
+                                    $message = "Select A Valid Dates";
+                                }
+                            }
                         }
                     }
                 }

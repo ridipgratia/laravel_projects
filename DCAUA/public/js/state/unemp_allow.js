@@ -35,6 +35,7 @@ $(document).ready(function () {
     $(document).on('change', '#change_district_id', function () {
         var district_code = $(this).val();
         stateclass.getBlockByDistrict('/unemp_allow/get_blocks', district_code, '#change_block_id');
+        $('#gp_names').html('<option disabled selected>Select</option>');
     });
     // Get GPs By Block Id
     $(document).on('change', '#change_block_id', function () {
