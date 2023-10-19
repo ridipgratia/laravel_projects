@@ -54,4 +54,8 @@ $(document).ready(function () {
         var $link = $(this).val();
         window.open($link, 'Document');
     });
+    // Search By DistrictClass, Block, GP And dates
+    $(document).on('submit', '#search_date_district_block_gp_id', function (e) {
+        stateclass.serachByDisBloGpDates('/unemp_allow/search_query', e, 'unemp_allow');
+    });
 });

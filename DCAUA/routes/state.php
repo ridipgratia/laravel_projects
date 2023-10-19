@@ -95,4 +95,6 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
     Route::get('/unemp_allow/get_unemp_allow', [UnempAllowController::class, 'get_unemp_allow']);
     // View All Form Data By ID
     Route::get('/unemp_allow/view_form_by_id', [UnempAllowController::class, 'view_form_by_id']);
+    // Search By District, Block,GP and Dates
+    Route::post('/unemp_allow/search_query', [UnempAllowController::class, 'search_query']);
 });

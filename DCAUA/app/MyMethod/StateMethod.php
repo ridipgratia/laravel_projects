@@ -118,15 +118,17 @@ class StateMethod
                         $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
                         $form_date_his = array();
                         foreach ($form_to_date as $dates) {
-                            if (DistrictMethod::checkIsDateAvai($table, $dates)) {
+                            if (StateMethod::checkIsDateAvai($table, $dates)) {
                                 $form_data = DB::table($table)
                                     ->where('date_of_submit', $dates)
+                                    ->where('district_id', $district_code)
+                                    ->where('block_id', $block_name)
                                     ->where('gp_id', $gp_name)
                                     ->get();
                                 array_push($form_date_his, $form_data);
                             }
                         }
-                        $message = "All Filter data";
+                        $message = $form_date_his;
                     } else {
                         $status = 400;
                         $message = "Select A Valid Dates";
@@ -135,7 +137,19 @@ class StateMethod
                     if ($form_date !== null && $district_code !== null && $block_name !== null) {
                         if ($form_date <= $to_date) {
                             $status = 200;
-                            $message = "Dates, Distrct And Block Wise Data";
+                            $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                            $form_date_his = array();
+                            foreach ($form_to_date as $dates) {
+                                if (StateMethod::checkIsDateAvai($table, $dates)) {
+                                    $form_data = DB::table($table)
+                                        ->where('date_of_submit', $dates)
+                                        ->where('district_id', $district_code)
+                                        ->where('block_id', $block_name)
+                                        ->get();
+                                    array_push($form_date_his, $form_data);
+                                }
+                            }
+                            $message = $form_date_his;
                         } else {
                             $status = 400;
                             $message = "select A Valid Dates";
@@ -144,7 +158,18 @@ class StateMethod
                         if ($form_date !== null && $district_code !== null) {
                             if ($form_date <= $to_date) {
                                 $status = 200;
-                                $message = "Dates And District Wise data";
+                                $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                                $form_date_his = array();
+                                foreach ($form_to_date as $dates) {
+                                    if (StateMethod::checkIsDateAvai($table, $dates)) {
+                                        $form_data = DB::table($table)
+                                            ->where('date_of_submit', $dates)
+                                            ->where('district_id', $district_code)
+                                            ->get();
+                                        array_push($form_date_his, $form_data);
+                                    }
+                                }
+                                $message = $form_date_his;
                             } else {
                                 $status = 400;
                                 $message = "Select A Valid Dates";
@@ -154,20 +179,42 @@ class StateMethod
                                 if ($block_name !== null) {
                                     if ($gp_name !== null) {
                                         $status = 200;
-                                        $message = "District , Block And GP Wise Data";
+                                        $result = DB::table($table)
+                                            ->where('district_id', $district_code)
+                                            ->where('block_id', $block_name)
+                                            ->where('gp_id', $gp_name)
+                                            ->get();
+                                        $message = array($result);
                                     } else {
                                         $status = 200;
-                                        $message = "District And Block Wise Data";
+                                        $result = DB::table($table)
+                                            ->where('district_id', $district_code)
+                                            ->where('block_id', $block_name)
+                                            ->get();
+                                        $message = array($result);
                                     }
                                 } else {
                                     $status = 200;
-                                    $message = "District Wise data";
+                                    $result = DB::table($table)
+                                        ->where('district_id', $district_code)
+                                        ->get();
+                                    $message = array($result);
                                 }
                             } else {
                                 if ($form_date !== null) {
                                     if ($form_date <= $to_date) {
                                         $status = 200;
-                                        $message = "Dates Wise Data";
+                                        $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                                        $form_date_his = array();
+                                        foreach ($form_to_date as $dates) {
+                                            if (StateMethod::checkIsDateAvai($table, $dates)) {
+                                                $form_data = DB::table($table)
+                                                    ->where('date_of_submit', $dates)
+                                                    ->get();
+                                                array_push($form_date_his, $form_data);
+                                            }
+                                        }
+                                        $message = $form_date_his;
                                     } else {
                                         $status = 400;
                                         $message = "Select A Valid Dates";
@@ -180,5 +227,16 @@ class StateMethod
             }
         }
         return [$status, $message];
+    }
+    public static function checkIsDateAvai($table, $date)
+    {
+        $check = DB::table($table)
+            ->where('date_of_submit', $date)
+            ->get();
+        if (count($check) == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

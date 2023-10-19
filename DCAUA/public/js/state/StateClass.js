@@ -283,6 +283,40 @@ class StateClass {
             processData: false,
             success: function (result) {
                 console.log(result.message);
+                if (result.status == 200) {
+                    var dataTable = $('#users-table').DataTable();
+                    dataTable.clear().draw();
+                    var incre = 1;
+                    var approval_status;
+                    for (var i = 0; i < result.message.length; i++) {
+                        for (var j = 0; j < result.message[i].length; j++) {
+                            approval_status = null;
+                            if (result.message[i][j].approval_status == 0) {
+                                approval_status = "Waiting";
+                            }
+                            else if (result.message[i][j].approval_status == 1) {
+                                approval_status = "Approved";
+                            }
+                            else if (result.message[i][j].approval_status == 2) {
+                                approval_status = "Rejected";
+                            }
+                            if (table === 'add_dc') {
+                                dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].code_number, result.message[i][j].mr_number, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                                incre++;
+                            }
+                            else if (table === 'unemp_allow') {
+                                dataTable.row.add([(i + 1), result.message[i][j].request_id, result.message[i][j].card_number, result.message[i][j].work_demand, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                                incre++;
+                            }
+                        }
+                    }
+                } else {
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        'info'
+                    );
+                }
             },
             error: function (data) {
                 console.log(data);
