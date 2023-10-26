@@ -175,3 +175,21 @@
     border: 1px solid grey;
     padding: 5px 10px ;
 }
+.approval_p{
+    width: 100%;
+    margin: 0px !important;
+}
+.approval_btn{
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: #386F6C;
+    font-size: 13px;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 0px;
+}
+.approval_btn:last-child{
+    background-color: #45A9A2 !important;
+    margin-top: 10px;
+}

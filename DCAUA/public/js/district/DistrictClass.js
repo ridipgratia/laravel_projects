@@ -25,10 +25,43 @@ class DistrictClass {
                         approval_status = "Rejected";
                     }
                     if (table === 'add_dc') {
-                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].code_number, result.message[i].mr_number, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].code_number, result.message[i].mr_number, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='view_form_btn' class="approval_btn" value="${result.message[i].id}">View</button>`]).draw(false);
                     }
                     else if (table === 'unemp_allow') {
-                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].card_number, result.message[i].work_demand, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].card_number, result.message[i].work_demand, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='view_form_btn' class="approval_btn" value="${result.message[i].id}">View</button>`]).draw(false);
+                    }
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    async loadApprovalData(url, table) {
+        $.ajax({
+            type: "get",
+            url: url,
+            success: function (result) {
+                var dataTable = $('#users-table').DataTable();
+                dataTable.clear().draw();
+                var approval_status = null;
+                for (var i = 0; i < result.message.length; i++) {
+                    approval_status = null;
+                    if (result.message[i].approval_status == 0) {
+                        approval_status = "Waiting";
+                    }
+                    else if (result.message[i].approval_status == 1) {
+                        approval_status = "Approved";
+                    }
+                    else if (result.message[i].approval_status == 2) {
+                        approval_status = "Rejected";
+                    }
+                    var content = `<p class="approval_p"><button id='view_form_btn' class=" approval_btn" value="${result.message[i].id}">View</button></p>`;
+                    if (table === 'add_dc') {
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].code_number, result.message[i].mr_number, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `${content}`]).draw(false);
+                    }
+                    else if (table === 'unemp_allow') {
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].card_number, result.message[i].work_demand, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `${content}`]).draw(false);
                     }
                 }
             },
@@ -163,11 +196,11 @@ class DistrictClass {
                                 approval_status = "Rejected";
                             }
                             if (table === 'add_dc') {
-                                dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].code_number, result.message[i][j].mr_number, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                                dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].code_number, result.message[i][j].mr_number, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='view_form_btn' class="approval_btn" value="${result.message[i][j].id}">View</button>`]).draw(false);
                                 incre++;
                             }
                             else if (table === 'unemp_allow') {
-                                dataTable.row.add([(i + 1), result.message[i][j].request_id, result.message[i][j].card_number, result.message[i][j].work_demand, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='district_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                                dataTable.row.add([(i + 1), result.message[i][j].request_id, result.message[i][j].card_number, result.message[i][j].work_demand, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='view_form_btn' class="approval_btn" value="${result.message[i][j].id}">View</button>`]).draw(false);
                                 incre++;
                             }
                         }
@@ -179,6 +212,66 @@ class DistrictClass {
                         result.message,
                         'info'
                     );
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    // View Approval Form Data
+    async viewApprovalData(url, btn) {
+        var delay_form_id = btn.val();
+        $.ajax({
+            type: "get",
+            url: url,
+            data: {
+                delay_form_id: delay_form_id
+            },
+            datatype: "html",
+            success: function (result) {
+                if (result.status == 200) {
+                    $('.delay_show_div_1').eq(0).html(result.message);
+                    $('#show_delay_form_data').modal('show')
+                }
+                else {
+                    Swal.fire(
+                        "Information",
+                        result.message,
+                        "info"
+                    )
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    async approvalMethod(url, approval_index, btn) {
+        var form_id = btn.val();
+        $.ajax({
+            type: "get",
+            url: url,
+            data: {
+                form_id: form_id,
+                approval_index: approval_index
+            },
+            success: function (result) {
+                if (result.status == 200) {
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        'info'
+                    ).then(() => {
+                        location.reload();
+                    })
+                }
+                else {
+                    Swal.fire(
+                        'information',
+                        result.message,
+                        'info'
+                    )
                 }
             },
             error: function (data) {

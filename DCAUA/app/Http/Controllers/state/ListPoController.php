@@ -125,7 +125,7 @@ class ListPoController extends Controller
                     ];
                     try {
                         // $registration_id = "State_" . $select_stage;
-                        $registration_id = DB::table('make_po')->where('id', $id)->select('registration_id')->get();
+                        $registration_id = DB::table('make_po')->where('id', $id)->select('record_id')->get();
                         DB::table('make_po')->where('id', $id)->update([
                             'phone' => $user_phone,
                             'name' => $user_name,
@@ -134,7 +134,7 @@ class ListPoController extends Controller
                             // 'block_id' => $select_stage,
                             // 'registration_id' => $registration_id
                         ]);
-                        DB::table('login_details')->where('login_id', $registration_id[0]->registration_id)
+                        DB::table('login_details')->where('login_id', $registration_id[0]->record_id)
                             ->update([
                                 'login_email' => $user_email
                             ]);

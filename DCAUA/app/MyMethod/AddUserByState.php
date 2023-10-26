@@ -71,8 +71,8 @@ class AddUserByState
                 $status = 400;
             } else {
                 try {
-                    $registration_id = DB::table($main_table)->where('id', $id)->select('registration_id')->get();
-                    DB::table($table)->where('login_id', $registration_id[0]->registration_id)->update(['login_password' => $password]);
+                    $registration_id = DB::table($main_table)->where('id', $id)->select('record_id')->get();
+                    DB::table($table)->where('login_id', $registration_id[0]->record_id)->update(['login_password' => $password]);
                     $message = "Password Changed";
                     $status = 200;
                 } catch (Exception $err) {
@@ -93,18 +93,18 @@ class AddUserByState
         $status = null;
         $message = null;
         if (isset($id)) {
-            // try {
-            $data = DB::table($table)->where('id', $id)->select('record_id')->get();
-            // DB::table($table)->where('id', $id)->delete();
-            DB::table($table)->where('id', $id)->update(['delete' => 0]);
-            // DB::table('login_details')->where('login_id', $data[0]->registration_id)->delete();
-            DB::table('login_details')->where('login_id', $data[0]->record_id)->update(['active' => 0]);
-            $message = "User Inactived ";
-            $status = 200;
-            // } catch (Exception $err) {
-            $status = 400;
-            $message = "Server Error ! Please Try Again";
-            // }
+            try {
+                $data = DB::table($table)->where('id', $id)->select('record_id')->get();
+                // DB::table($table)->where('id', $id)->delete();
+                DB::table($table)->where('id', $id)->update(['delete' => 0]);
+                // DB::table('login_details')->where('login_id', $data[0]->registration_id)->delete();
+                DB::table('login_details')->where('login_id', $data[0]->record_id)->update(['active' => 0]);
+                $message = "User Inactived ";
+                $status = 200;
+            } catch (Exception $err) {
+                $status = 400;
+                $message = "Server Error ! Please Try Again";
+            }
         } else {
             $status = 400;
             $message = null;

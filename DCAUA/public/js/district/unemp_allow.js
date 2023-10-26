@@ -37,7 +37,7 @@ $(document).ready(function () {
     // Load Delay Form Data When Page Open
     districtclass.preloadData('/district_unemp_allow/form_list', 'unemp_allow');
     // View All Data By ID
-    $(document).on('click', '#district_delay_form_btn', function () {
+    $(document).on('click', '#view_form_btn', function () {
         districtclass.viewFormData("/district_unemp_allow/form_data", $(this));
     });
     // View Delay Document 

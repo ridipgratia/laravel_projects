@@ -52,7 +52,7 @@ class StateMethod
     public static function updateUserData($table, $id, $update_data)
     {
         // $registration_id = "State_" . $update_data[4];
-        $registration_id = DB::table($table)->where('id', $id)->select('registration_id')->get();
+        $registration_id = DB::table($table)->where('id', $id)->select('record_id')->get();
         DB::table($table)->where('id', $id)->update([
             'phone' => $update_data[0],
             'name' => $update_data[1],
@@ -61,7 +61,7 @@ class StateMethod
             // 'distrcit_id' => $update_data[4],
             // 'registration_id' => $registration_id
         ]);
-        DB::table('login_details')->where('login_id', $registration_id[0]->registration_id)
+        DB::table('login_details')->where('login_id', $registration_id[0]->record_id)
             ->update([
                 'login_email' => $update_data[2]
             ]);

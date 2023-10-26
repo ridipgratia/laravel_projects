@@ -39,7 +39,6 @@ class AddPOController extends Controller
                 $status = 400;
                 $message = "Fill All Necessary Input <br> And <br> Mobile Should Be 10 Numbers  ";
             } else {
-
                 $registration_id = 'State_' . $district_id;
                 $last_id = DB::table('make_po')->orderBy('id', 'desc')->first();
                 if ($last_id == null) {

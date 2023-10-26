@@ -23,7 +23,7 @@ class StateClass {
                 var dataTable = $('#users-table').DataTable();
                 dataTable.clear().draw();
                 for (var i = 0; i < result.message.length; i++) {
-                    dataTable.row.add([(i + 1), result.message[i].name, result.message[i].deginations, result.message[i].record_id, `<p class="table_button d-flex "><button class="col-3 state_list_reset_btn" value="${result.message[i].id}"><i class=" fa-solid fa-lock"></i></button><button class=" col-3 state_list_view_btn" value="${result.message[i].id}"><i class="fa fa-eye"></i></button><button class="col-3 state_list_reset_btn" value="${result.message[i].id}"><i class=" fa-solid fa-lock"></i></button><button class="col-3 state_list_edit_btn " value="${result.message[i].id}"><i class=" fa-solid fa-pen-to-square"></i></button><button class="col-3 state_list_remove_btn " value="${result.message[i].id}"><i class=" fa-solid fa-trash"></i></button></p>`]).draw(false);
+                    dataTable.row.add([(i + 1), result.message[i].name, result.message[i].deginations, result.message[i].record_id, `<p class="table_button d-flex "><button class="col-3 state_list_reset_btn" value="${result.message[i].id}"><i class=" fa-solid fa-lock"></i></button><button class=" col-3 state_list_view_btn" value="${result.message[i].id}"><i class="fa fa-eye"></i></button><button class="col-3 state_list_edit_btn " value="${result.message[i].id}"><i class=" fa-solid fa-pen-to-square"></i></button><button class="col-3 state_list_remove_btn " value="${result.message[i].id}"><i class=" fa-solid fa-trash"></i></button></p>`]).draw(false);
                 }
             },
             error: function (data) {

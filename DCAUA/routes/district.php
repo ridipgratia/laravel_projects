@@ -45,4 +45,24 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
     Route::post('/district_unemp_allow/serach_data', [UnempAllowance::class, 'search_data']);
     // Search By Block, Gp And Dates
     Route::post('district_unemp_allow/search_block_gp_dates', [UnempAllowance::class, 'search_block_gp_dates']);
+    // Approval Delay Compensation List Show
+    Route::get('/district_delay_com/approval_list', [DelayCompensationList::class, 'approval_list']);
+    // Approval Unemp Allowance List Show
+    Route::get('/district_unemp_allow/approval_list', [UnempAllowance::class, 'approval_list']);
+    // Delay Load Approval Form List 
+    Route::get('/district_delay_com/load_approval_list', [DelayCompensationList::class, 'load_approval_list']);
+    // Unemp Load Approval Form List
+    Route::get('/district_unemp_allow/load_approval_list', [UnempAllowance::class, 'load_approval_list']);
+    // Delay View Approval Form Data
+    Route::get('/district_delay_com/view_approval_form', [DelayCompensationList::class, 'view_approval_form']);
+    // Unemp View Approval Form Data
+    Route::get('/district_unemp_allow/view_approval_form', [UnempAllowance::class, 'view_approval_form']);
+    // Delay Approval Form Data
+    Route::get('/district_delay_com/approval_form_data', [DelayCompensationList::class, 'approval_form_data']);
+    // Unemp Approval Form Data
+    Route::get('/district_unemp_allow/approval_form_data', [UnempAllowance::class, 'approval_form_data']);
+    // // Get GP By Block Name
+    // Route::post('/district_delay_com/get_gp_names', [DelayCompensationList::class, 'get_gp_names']);
+    // Delay Search Filter For Approval Page
+    Route::post('/district_delay_com/search_approval_filter', [DelayCompensationList::class, 'search_approval_filter']);
 });

@@ -26,7 +26,7 @@ $(document).ready(function () {
         var id = $(this).val();
         Swal.fire({
             title: 'Are you sure?',
-            text: "Do You Want To Submit It",
+            text: "Do You Want To Deactive User",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

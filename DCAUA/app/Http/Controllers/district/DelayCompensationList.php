@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\district;
 
 use App\Http\Controllers\Controller;
+use App\MyMethod\AddUserByState;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\MyMethod\DistrictMethod;
@@ -28,30 +29,7 @@ class DelayCompensationList extends Controller
         if ($request->ajax()) {
             $delay_form_id = $_GET['delay_form_id'];
             if (isset($delay_form_id)) {
-                $district_code = Auth::user()->district;
-                $delay_form_data = DB::table('add_dc')->where('district_id', $district_code)->where('id', $delay_form_id)->get();
-                if (count($delay_form_data) == 0) {
-                    $content = "<p>No data Found</p>";
-                } else {
-                    $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
-                    $content = '<p class="delay_para_head para_head">Work Code Number</p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->code_number . '</p>
-            <p class="delay_para_head para_head">MR Number</p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->mr_number . '</p>
-            <p class="delay_para_head para_head">Person Responsible For Delay</p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->person_delay . '</p>
-            <p class="delay_para_head para_head">Designation Responsible For Delay</p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->designation_delay . '</p>
-            <p class="delay_para_head para_head">Recovered Amount</p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->recover_amount . '</p>
-            <p class="delay_para_head para_head">Date Amount Recovered</p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->date_recover_amount . '</p>
-            <p class="delay_para_head para_head">Date Deposited To Bank</p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
-            <p class="delay_para_head para_head">Date of Submited </p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
-            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
-                }
+                $content = DistrictMethod::viewFormData('add_dc', $delay_form_id);
             } else {
                 $content = "<p>No Data</p>";
             }
@@ -89,5 +67,59 @@ class DelayCompensationList extends Controller
             $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_dc');
             return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
+    }
+    public function approval_list()
+    {
+        return view('district.delay_approval');
+    }
+    public function load_approval_list()
+    {
+        $data = DistrictMethod::loadApprovalData('add_dc');
+        return response()->json(['status', 200, 'message' => $data]);
+    }
+    public function view_approval_form(Request $request)
+    {
+        if ($request->ajax()) {
+            if (isset($_GET['delay_form_id'])) {
+                $delay_form_id = $_GET['delay_form_id'];
+                $main_content = DistrictMethod::viewFormData('add_dc', $delay_form_id);
+                $approval_btn = '<div class="d-flex col-12 mt-2 justify-content-around approval_btn_div"><button id="approved_btn" value="' . $delay_form_id . '">Approved</button><button id="reject_btn" value="' . $delay_form_id . '">Reject</button></div>';
+                $content = $main_content . $approval_btn;
+            } else {
+                $content = "<p>No Data</p>";
+            }
+            return response()->json(['status' => 200, 'message' => $content]);
+        }
+    }
+    public function approval_form_data(Request $request)
+    {
+        if ($request->ajax()) {
+            $status = null;
+            $message = null;
+            if (isset($_GET['form_id']) && isset($_GET['approval_index'])) {
+                $form_id = $_GET['form_id'];
+                $approval_index = $_GET['approval_index'];
+                if (DistrictMethod::approvalMethod('add_dc', $form_id, $approval_index)) {
+                    $status = 200;
+                    $message = "Approval Submited";
+                } else {
+                    $status = 400;
+                    $message = "Try Later , Problem At Database !";
+                }
+            } else {
+                $status = 400;
+                $message = "Try Later !";
+            }
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
+    }
+    public function search_approval_filter(Request $request)
+    {
+        $form_date = $request->from_date_form;
+        $to_date = $request->to_date_form;
+        $block_name = $request->block_name;
+        $gp_name = $request->gp_name;
+        $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_dc');
+        return response()->json(['status' => $result[0], 'message' => $result[1]]);
     }
 }

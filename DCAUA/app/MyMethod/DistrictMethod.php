@@ -5,8 +5,10 @@ namespace App\MyMethod;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DistrictMethod
 {
@@ -222,5 +224,87 @@ class DistrictMethod
         } else {
             return true;
         }
+    }
+    // Get Approval Form List Data
+    public static function loadApprovalData($table)
+    {
+        $data = DB::table($table)
+            ->where('district_id', Auth::user()->district)
+            ->get();
+        return $data;
+    }
+    // For Delay Form
+    public static function viewFormData($table, $delay_form_id)
+    {
+        $district_code = Auth::user()->district;
+        $delay_form_data = DB::table($table)->where('district_id', $district_code)->where('id', $delay_form_id)->get();
+        if (count($delay_form_data) == 0) {
+            $content = "<p>No data Found</p>";
+        } else {
+            $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
+            $content = '<p class="delay_para_head para_head">Work Code Number</p>
+    <p class="delay_para para_1">' . $delay_form_data[0]->code_number . '</p>
+    <p class="delay_para_head para_head">MR Number</p>
+    <p class="delay_para para_1">' . $delay_form_data[0]->mr_number . '</p>
+    <p class="delay_para_head para_head">Person Responsible For Delay</p>
+    <p class="delay_para para_1">' . $delay_form_data[0]->person_delay . '</p>
+    <p class="delay_para_head para_head">Designation Responsible For Delay</p>
+    <p class="delay_para para_1">' . $delay_form_data[0]->designation_delay . '</p>
+    <p class="delay_para_head para_head">Recovered Amount</p>
+    <p class="delay_para para_1">' . $delay_form_data[0]->recover_amount . '</p>
+    <p class="delay_para_head para_head">Date Amount Recovered</p>
+    <p class="delay_para para_1">' . $delay_form_data[0]->date_recover_amount . '</p>
+    <p class="delay_para_head para_head">Date Deposited To Bank</p>
+    <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
+    <p class="delay_para_head para_head">Date of Submited </p>
+    <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
+    <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+        }
+        return $content;
+    }
+    // For Unemp Allow
+    public static function unempViewFormData($table, $delay_form_id)
+    {
+        $district_code = Auth::user()->district;
+        $delay_form_data = DB::table('add_unemp_allowance')->where('district_id', $district_code)->where('id', $delay_form_id)->get();
+        if (count($delay_form_data) == 0) {
+            $content = "<p>No data Found</p>";
+        } else {
+            $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
+            $content = '<p class="delay_para_head para_head">Work Code Number</p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->card_number . '</p>
+            <p class="delay_para_head para_head">MR Number</p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->work_demand . '</p>
+            <p class="delay_para_head para_head">Total Day of Unemployement</p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->total_day_unemple . '</p>
+            <p class="delay_para_head para_head">Person Responsible For Delay</p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->person_delay . '</p>
+            <p class="delay_para_head para_head">Designation Responsible For Delay</p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->designation_delay . '</p>
+            <p class="delay_para_head para_head">Recovered Amount</p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->recover_amount . '</p>
+            <p class="delay_para_head para_head">Date Amount Recovered</p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->date_recover_amount . '</p>
+            <p class="delay_para_head para_head">Date Deposited To Bank</p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
+            <p class="delay_para_head para_head">Date of Submited </p>
+            <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
+            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+        }
+        return $content;
+    }
+    public static function approvalMethod($table, $form_id, $approval_index)
+    {
+        $success = false;
+        try {
+            DB::table($table)
+                ->where('district_id', Auth::user()->district)
+                ->where('id', $form_id)
+                ->update(['approval_status' => $approval_index]);
+            $success = true;
+        } catch (Exception $e) {
+            $success = false;
+        }
+        return $success;
     }
 }

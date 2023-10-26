@@ -24,6 +24,16 @@
                     Unemployement Allowance Submited Form
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link link_tag bg-white" href="/district_delay_com/approval_list">
+                    Approval Delay Compensation
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link_tag bg-white" href="/district_unemp_allow/approval_list">
+                    Approval Unemployement Allowance
+                </a>
+            </li>
             <!-- Add more links as needed -->
         </ul>
     </div>
