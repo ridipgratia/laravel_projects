@@ -11,8 +11,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
@@ -34,6 +33,15 @@
                     <h2 class="text-center mb-4" style="font-size: 24px;text-transform: uppercase">Add Unemployement
                         Allowance</h2>
                     <div class="form-group mb-3  d-flex justify-content-center align-items-center ">
+
+                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
+                            <label for="firstName" class="col mb-2">District Name:</label>
+                            <h6 class="col">{{ $district_name }}</h6>
+                        </div>
+                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
+                            <label for="firstName" class="col mb-2">Block Name:</label>
+                            <h6 class="col">{{ $block_name }}</h6>
+                        </div>
                         <div class="d-flex justify-content-center flex-column align-items-center col-4 ">
                             <label for="firstName" class="col mb-2">Select GP Name:</label>
                             <select name="gp_name" id="" class="form-select col">
@@ -43,14 +51,6 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
-                            <label for="firstName" class="col mb-2">District Name:</label>
-                            <h6 class="col">{{ $district_name }}</h6>
-                        </div>
-                        <div class="d-flex justify-content-center flex-column align-items-center col-4">
-                            <label for="firstName" class="col mb-2">Block Name:</label>
-                            <h6 class="col">{{ $block_name }}</h6>
                         </div>
                     </div>
                     <div class="form-group  mb-3">

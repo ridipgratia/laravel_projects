@@ -296,11 +296,12 @@ class DistrictMethod
     public static function approvalMethod($table, $form_id, $approval_index)
     {
         $success = false;
+        $today = date('Y-m-d');
         try {
             DB::table($table)
                 ->where('district_id', Auth::user()->district)
                 ->where('id', $form_id)
-                ->update(['approval_status' => $approval_index]);
+                ->update(['approval_status' => $approval_index, 'app_rej_date' => $today]);
             $success = true;
         } catch (Exception $e) {
             $success = false;

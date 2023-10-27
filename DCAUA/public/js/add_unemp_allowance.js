@@ -46,7 +46,9 @@ $(document).ready(function () {
                         "Information",
                         result.message,
                         'info'
-                    )
+                    ).then(() => {
+                        location.reload();
+                    });
                 }
                 $('#add_unemp_allow').attr('disabled', false);
             },

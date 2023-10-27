@@ -41,14 +41,18 @@ $(document).ready(function () {
                         'Error',
                         result.message,
                         'error'
-                    )
+                    ).then(() => {
+                        location.reload();
+                    })
                 }
                 else {
                     Swal.fire(
                         "Information",
                         result.message,
                         'info'
-                    )
+                    ).then(() => {
+                        location.reload();
+                    })
                 }
                 $('#add_delay_form_btn').attr('disabled', false);
             },

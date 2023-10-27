@@ -46,7 +46,7 @@ class AddCEOController extends Controller
                 $record_id = $registration_id . '_' . $last_id;
                 if (StateMethod::checkUserExists('make_ceo_pd', $registration_id)) {
                     $status = 400;
-                    $message = "User For The User Already Exists !";
+                    $message = "The User Already Exists !";
                 } else {
                     $check = true;
                     try {

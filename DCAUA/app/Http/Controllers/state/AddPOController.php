@@ -49,7 +49,7 @@ class AddPOController extends Controller
                 $record_id = $registration_id . '_' . $last_id;
                 if (StateMethod::checkUserExists('make_po', $registration_id)) {
                     $status = 400;
-                    $message = "Registration ID Already Exists !";
+                    $message = "The User Already Exists  !";
                 } else {
                     $check = false;
                     try {

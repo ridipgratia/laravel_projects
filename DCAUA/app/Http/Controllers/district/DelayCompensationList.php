@@ -83,7 +83,7 @@ class DelayCompensationList extends Controller
             if (isset($_GET['delay_form_id'])) {
                 $delay_form_id = $_GET['delay_form_id'];
                 $main_content = DistrictMethod::viewFormData('add_dc', $delay_form_id);
-                $approval_btn = '<div class="d-flex col-12 mt-2 justify-content-around approval_btn_div"><button id="approved_btn" value="' . $delay_form_id . '">Approved</button><button id="reject_btn" value="' . $delay_form_id . '">Reject</button></div>';
+                $approval_btn = '<div class="d-flex col-12 mt-2 justify-content-around approval_btn_div"><button id="approved_btn" value="' . $delay_form_id . '">Approve</button><button id="reject_btn" value="' . $delay_form_id . '">Reject</button></div>';
                 $content = $main_content . $approval_btn;
             } else {
                 $content = "<p>No Data</p>";
