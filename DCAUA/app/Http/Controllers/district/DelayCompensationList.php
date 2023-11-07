@@ -84,7 +84,8 @@ class DelayCompensationList extends Controller
                 $delay_form_id = $_GET['delay_form_id'];
                 $main_content = DistrictMethod::viewFormData('add_dc', $delay_form_id);
                 $approval_btn = '<div class="d-flex col-12 mt-2 justify-content-around approval_btn_div"><button id="approved_btn" value="' . $delay_form_id . '">Approve</button><button id="reject_btn" value="' . $delay_form_id . '">Reject</button></div>';
-                $content = $main_content . $approval_btn;
+                $reason_content = '<div class="flex_div" id="reject_reason_div"><textarea name="aproval_reason" class="col-8" id="aproval_reason"></textarea><button id="reject_reason_submit" value="' . $delay_form_id . '">Submit</button></div>';
+                $content = $main_content . $approval_btn . $reason_content;
             } else {
                 $content = "<p>No Data</p>";
             }
@@ -99,12 +100,24 @@ class DelayCompensationList extends Controller
             if (isset($_GET['form_id']) && isset($_GET['approval_index'])) {
                 $form_id = $_GET['form_id'];
                 $approval_index = $_GET['approval_index'];
-                if (DistrictMethod::approvalMethod('add_dc', $form_id, $approval_index)) {
-                    $status = 200;
-                    $message = "Approval Submited";
+                $reason = $_GET['aproval_reason'];
+                $check_reason = true;
+                if ($approval_index != 1) {
+                    if ($reason === "") {
+                        $check_reason = false;
+                    }
+                }
+                if ($check_reason) {
+                    if (DistrictMethod::approvalMethod('add_dc', $form_id, $approval_index, $reason)) {
+                        $status = 200;
+                        $message = "Approval Submited";
+                    } else {
+                        $status = 400;
+                        $message = "Try Later , Problem At Database !";
+                    }
                 } else {
                     $status = 400;
-                    $message = "Try Later , Problem At Database !";
+                    $message = "Please Fill A Reason To Reject Application ";
                 }
             } else {
                 $status = 400;

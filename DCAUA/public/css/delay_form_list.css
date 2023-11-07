@@ -39,3 +39,18 @@
 .approval_btn_div button:last-child{
     background: #7B442F;
 }
+#aproval_reason{
+    resize: none;
+    border-radius: 5px;
+}
+#reject_reason_div{
+    width: 100%;
+    margin-top: 10px;
+    display: none;
+}
+#reject_reason_submit{
+    padding: 5px 20px;
+    background: transparent;
+    border: 1px solid black;
+    font-size: 15px;
+}

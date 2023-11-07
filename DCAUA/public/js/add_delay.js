@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     $('.date_class').on('keypress', function (e) {
         e.preventDefault()
-    })
+    });
     $('#add_delay_form').on('submit', async function (e) {
         e.preventDefault();
         Swal.fire({
@@ -42,7 +42,7 @@ $(document).ready(function () {
                         result.message,
                         'error'
                     ).then(() => {
-                        location.reload();
+                        // location.reload();
                     })
                 }
                 else {

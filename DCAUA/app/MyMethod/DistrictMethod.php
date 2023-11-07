@@ -293,7 +293,7 @@ class DistrictMethod
         }
         return $content;
     }
-    public static function approvalMethod($table, $form_id, $approval_index)
+    public static function approvalMethod($table, $form_id, $approval_index, $reason)
     {
         $success = false;
         $today = date('Y-m-d');
@@ -301,7 +301,7 @@ class DistrictMethod
             DB::table($table)
                 ->where('district_id', Auth::user()->district)
                 ->where('id', $form_id)
-                ->update(['approval_status' => $approval_index, 'app_rej_date' => $today]);
+                ->update(['approval_status' => $approval_index, 'app_rej_date' => $today, 'remarks' => $reason]);
             $success = true;
         } catch (Exception $e) {
             $success = false;

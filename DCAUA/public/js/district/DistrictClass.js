@@ -247,14 +247,16 @@ class DistrictClass {
             }
         });
     }
-    async approvalMethod(url, approval_index, btn) {
+    async approvalMethod(url, approval_index, aproval_reason, btn) {
         var form_id = btn.val();
+        console.log(aproval_reason)
         $.ajax({
             type: "get",
             url: url,
             data: {
                 form_id: form_id,
-                approval_index: approval_index
+                approval_index: approval_index,
+                aproval_reason: aproval_reason
             },
             success: function (result) {
                 if (result.status == 200) {

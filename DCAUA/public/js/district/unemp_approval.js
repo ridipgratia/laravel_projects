@@ -40,11 +40,16 @@ $(document).ready(function () {
     });
     // For Form Approval 
     $(document).on('click', '#approved_btn', function () {
-        districtclass.approvalMethod('/district_unemp_allow/approval_form_data', 1, $(this));
+        districtclass.approvalMethod('/district_unemp_allow/approval_form_data', 1, null, $(this));
+    });
+    $(document).on('click', '#reject_btn', function () {
+        // districtclass.approvalMethod('/district_delay_com/approval_form_data', 2,null, $(this));
+        $('#reject_reason_div').css('display', 'flex');
     });
     // For Form Rejected
-    $(document).on('click', '#reject_btn', function () {
-        districtclass.approvalMethod('/district_unemp_allow/approval_form_data', 2, $(this));
+    $(document).on('click', '#reject_reason_submit', function () {
+        var reason = $('#aproval_reason').val();
+        districtclass.approvalMethod('/district_unemp_allow/approval_form_data', 2, reason, $(this));
     });
     $(document).on('change', '#change_block_id', function () {
         var block_id = $(this).val();

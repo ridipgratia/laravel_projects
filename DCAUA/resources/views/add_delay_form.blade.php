@@ -11,8 +11,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- google font family  --}}
 
@@ -103,11 +102,11 @@
                         <label class="roboto_1">Person & Designation responsible for Delay:</label>
                         <div class="d-flex justify-content-between flex-wrap ">
                             <div class="col-md-6 col-12 my-2">
-                                <input type="text" class="form-control " name="person_delay"
+                                <input type="text" class="form-control input_string_check" name="person_delay"
                                     placeholder="Person Name">
                             </div>
                             <div class="col-md-5 col-12 my-2">
-                                <input type="text" class="form-control " name="designation_delay"
+                                <input type="text" class="form-control input_string_check" name="designation_delay"
                                     placeholder="Designation ">
                             </div>
 
