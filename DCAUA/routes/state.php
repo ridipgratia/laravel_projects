@@ -8,6 +8,7 @@ use App\Http\Controllers\state\AddCEOController;
 use App\Http\Controllers\state\AddPOController;
 use App\Http\Controllers\state\DelayCompensationController;
 use App\Http\Controllers\state\ListPoController;
+use App\Http\Controllers\state\SendNotificationController;
 use App\Http\Controllers\state\UnempAllowController;
 use App\Http\Controllers\StateController;
 use Illuminate\Queue\ListenerOptions;
@@ -97,4 +98,8 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
     Route::get('/unemp_allow/view_form_by_id', [UnempAllowController::class, 'view_form_by_id']);
     // Search By District, Block,GP and Dates
     Route::post('/unemp_allow/search_query', [UnempAllowController::class, 'search_query']);
+    // Send Notification View Route
+    Route::get('/send_notification', [SendNotificationController::class, 'index']);
+    // Store Notification
+    Route::post('/send_notify_form', [SendNotificationController::class, 'store_notification']);
 });
