@@ -26,7 +26,10 @@
             </x-state-nav-component>
             {{-- Send Notification  --}}
             <div class="d-flex flex-wrap  align-items-start  justify-content-around mt-2">
-                <x-notification-nav-component>
+                <x-notify-loader-component>
+
+                </x-notify-loader-component>
+                <x-notification-nav-component :notifications=$notifications>
 
                 </x-notification-nav-component>
                 <x-send-notification-component :districts=$districts>
@@ -35,6 +38,7 @@
                 <x-view-notification-component>
 
                 </x-view-notification-component>
+
             </div>
         </div>
     </div>

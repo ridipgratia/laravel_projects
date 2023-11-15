@@ -2,6 +2,7 @@
 
 namespace App\MyMethod;
 
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -238,5 +239,33 @@ class StateMethod
         } else {
             return true;
         }
+    }
+
+    // Get All Notification
+    public static function getAllNotification()
+    {
+        $notifications = DB::table('notification')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $notifications;
+    }
+    public static function getNotificationById($notify_id)
+    {
+        $notification = null;
+        try {
+            $notification = DB::table('notification as notify')
+                ->where('id', $notify_id)
+                ->select(
+                    'notify.*',
+                    'district_tab.district_name as district_name',
+                    'block_tab.block_name as block_name'
+                )
+                ->leftJoin('districts as district_tab', 'district_tab.district_code', '=', 'notify.district_id')
+                ->leftJoin('blocks as block_tab', 'block_tab.block_id', '=', 'notify.block_id')
+                ->get();
+        } catch (Exception $e) {
+            $notification = null;
+        }
+        return $notification;
     }
 }

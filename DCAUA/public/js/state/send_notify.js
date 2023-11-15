@@ -2,10 +2,49 @@ import StateClass from "./StateClass.js";
 $(document).ready(function () {
 
     const stateclass = new StateClass();
-    $('#view_notification_btn').on('click', function () {
+    $('.view_notification_btn').on('click', function () {
+        var notify_id = $(this).val();
+        $.ajax({
+            type: "get",
+            url: "/view_notification",
+            data: {
+                notify_id: notify_id
 
-        $('.main_view_notify_div').eq(0).attr("style", "display:flex !important");
-        $('.main_send_notification_div').eq(0).attr("style", "display:none !important");
+            },
+            beforeSend: function () {
+                $('.notify_loader').eq(0).attr("style", "display:flex !important");
+            },
+            success: function (result) {
+                $('.notify_loader').eq(0).attr("style", "display:none !important");
+                if (result.status == 200) {
+                    var district_name = result.message[0].district_name;
+                    var block_name = result.message[0].block_name;
+                    $('#district_name').val((district_name == "STATE") ? "All District" : district_name);
+                    $('#block_name').val((block_name) ? block_name : "All Block");
+                    if (result.message[0].document) {
+                        $('#notify_url').attr('href', result.message[0].document);
+                        $('#notify_url').css('display', 'block');
+                    } else {
+                        $('#notify_url').css('display', 'none');
+                    }
+                    $('#notify_text').html(result.message[0].description);
+                    $('.main_view_notify_div').eq(0).attr("style", "display:flex !important");
+                    $('.main_send_notification_div').eq(0).attr("style", "display:none !important");
+                } else {
+                    console.log(result.message);
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        'info'
+                    );
+                }
+            },
+            error: function (data) {
+                console.log(data);
+                $('.notify_loader').eq(0).attr("style", "display:none !important");
+            }
+        });
+
     });
     $('#notification_btn').on('click', function () {
         $('.main_view_notify_div').eq(0).attr("style", "display:none !important");
@@ -34,7 +73,13 @@ $(document).ready(function () {
             processData: false,
             success: function (result) {
                 if (result.status == 200) {
-                    console.log(result.message);
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        'info'
+                    ).then(() => {
+                        location.reload();
+                    })
                 } else {
                     Swal.fire(
                         'Information',

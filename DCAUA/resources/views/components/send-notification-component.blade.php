@@ -10,7 +10,7 @@
                 <div class="d-flex col-md-6 col-12 flex-wrap send_notify_div_2">
                     <p class="col-11">Select District</p>
                     <select name="district_code" class="col-11" id="send_notify_select_1">
-                        <option value="" selected>Select</option>
+                        <option value="999" selected>Select</option>
                         <option value="999">All</option>
                         @foreach ($districts as $district)
                             <option value="{{ $district->district_code }}">{{ $district->district_name }}</option>

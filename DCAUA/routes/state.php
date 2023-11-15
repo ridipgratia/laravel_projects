@@ -102,4 +102,6 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
     Route::get('/send_notification', [SendNotificationController::class, 'index']);
     // Store Notification
     Route::post('/send_notify_form', [SendNotificationController::class, 'store_notification']);
+    // View Particular Notification 
+    Route::get('/view_notification', [SendNotificationController::class, 'view_notification']);
 });

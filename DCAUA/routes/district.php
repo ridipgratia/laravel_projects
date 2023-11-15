@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\district\DelayCompensationList;
 use App\Http\Controllers\district\DistrictController;
+use App\Http\Controllers\district\NotificationController;
 use App\Http\Controllers\district\UnempAllowance;
 use Illuminate\Support\Facades\Route;
 
@@ -65,4 +66,7 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
     // Route::post('/district_delay_com/get_gp_names', [DelayCompensationList::class, 'get_gp_names']);
     // Delay Search Filter For Approval Page
     Route::post('/district_delay_com/search_approval_filter', [DelayCompensationList::class, 'search_approval_filter']);
+
+    // Render Notification Page
+    Route::get('/district_notification', [NotificationController::class, 'index']);
 });

@@ -4,17 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class NotificationNavComponent extends Component
+class NotificationReciveComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $notifications;
-    public function __construct($notifications)
+    public function __construct()
     {
-        $this->notifications = $notifications;
+        //
     }
 
     /**
@@ -24,6 +23,6 @@ class NotificationNavComponent extends Component
      */
     public function render()
     {
-        return view('components.notification-nav-component');
+        return view('components.notification-recive-component');
     }
 }
