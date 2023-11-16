@@ -69,4 +69,6 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
 
     // Render Notification Page
     Route::get('/district_notification', [NotificationController::class, 'index']);
+    // View Full Notification 
+    Route::get('/district/view_full_notification', [NotificationController::class, 'view_full_notification']);
 });

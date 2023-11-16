@@ -16,8 +16,8 @@ class CreateNotifyViewTable extends Migration
         Schema::create('notify_view', function (Blueprint $table) {
             $table->id();
             $table->integer('notify_id');
-            $table->integer('district_code');
-            $table->integer('block_code');
+            $table->integer('district_code')->nullable();
+            $table->integer('block_code')->nullable();
             $table->timestamps();
         });
     }

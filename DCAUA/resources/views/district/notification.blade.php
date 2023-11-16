@@ -29,9 +29,15 @@
                         class="fa-solid fa-bars"></i></button>
                 {{-- Header Layout  --}}
                 @include('layouts.header')
-                <x-notification-recive-component>
+                {{-- View All Notification In List --}}
+                <x-notification-recive-component :notifications=$notifications>
 
                 </x-notification-recive-component>
+                {{-- View Full Notification  --}}
+
+                <x-view-full-notify-component>
+
+                </x-view-full-notify-component>
             </main>
         </div>
 
@@ -44,6 +50,7 @@
 
     {{-- All Code Of Ajax Related --}}
     <script src="{{ asset('js/sidenav.js') }}"></script>
+    <script type="module" src="{{ asset('js/district/notification.js') }}"></script>
 </body>
 
 </html>

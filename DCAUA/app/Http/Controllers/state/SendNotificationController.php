@@ -71,12 +71,14 @@ class SendNotificationController extends Controller
                     }
                     if ($check) {
                         try {
+                            $today = date('Y-m-d');
                             DB::table('notification')
                                 ->insert([
                                     'district_id' => $district_code,
                                     'block_id' => $block_code,
                                     'description' => $notify_text,
                                     'document' => $file_url,
+                                    'date' => $today,
                                     "created_at" =>  date('Y-m-d H:i:s'),
                                     "updated_at" => date('Y-m-d H:i:s')
                                 ]);

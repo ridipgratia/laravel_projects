@@ -19,6 +19,7 @@ class CreateNotificationTable extends Migration
             $table->integer('block_id')->nullable();
             $table->string('description')->nullable();
             $table->string('document')->nullable();
+            $table->date('date');
             $table->timestamps();
         });
     }
