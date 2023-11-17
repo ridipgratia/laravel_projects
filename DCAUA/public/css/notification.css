@@ -149,8 +149,34 @@
     text-align: center;
     text-decoration: none;
     color: white;
+    cursor: pointer;
     border-radius: 5px;
 }
 .full_notify_link:hover{
     color: white !important;
+}
+
+/* Notification Loader  */
+.notify_loader{
+    position: fixed;
+    min-height: 100vh;
+    z-index: 99;
+    justify-content: center;
+    align-items: center;
+    display: none !important;
+    background: rgba(0,0,0,0.6);
+}
+.notify_loader p{
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    animation: notify_loader_ani 2s linear infinite;   
+}
+@keyframes notify_loader_ani {
+    form{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
 }

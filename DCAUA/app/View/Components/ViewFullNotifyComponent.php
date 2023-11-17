@@ -11,9 +11,10 @@ class ViewFullNotifyComponent extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $userLevel;
+    public function __construct($userLevel)
     {
-        //
+        $this->userLevel = $userLevel;
     }
 
     /**

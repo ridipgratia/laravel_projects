@@ -36,7 +36,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link link_tag bg-white" href="/district_notification">
-                    Notification
+                    Notification <br><span id="count_new"></span>
                 </a>
             </li>
             <!-- Add more links as needed -->

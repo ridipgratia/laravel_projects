@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddFTOController;
+use App\Http\Controllers\BlockViewNotificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -41,6 +42,10 @@ Route::group(['middleware' => ['CheckBlockAuth']], function () {
     require __DIR__ . '/add_delay.php';
     require __DIR__ . '/add_unemp_allowance.php';
     require __DIR__ . '/add_FTO.php';
+    // View Notification List
+    Route::get('/block_view_notification', [BlockViewNotificationController::class, 'index']);
+    // View  Full Notification
+    Route::get('/block_view_full_notify', [BlockViewNotificationController::class, 'block_view_full_notify']);
 });
 
 // State Routes

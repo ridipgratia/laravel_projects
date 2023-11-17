@@ -34,6 +34,11 @@
                     Add FTO Number For Unemployement Allowance
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link link_tag bg-white" href="block_view_notification">
+                    Notifications <br><span id="count_new"></span>
+                </a>
+            </li>
             <!-- Add more links as needed -->
         </ul>
     </div>
