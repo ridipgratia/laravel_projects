@@ -23,7 +23,7 @@
                     <p class="col-11">Your Discription</p>
                     <textarea class="col-12" name="" id="notify_text" disabled></textarea>
                 </div>
-                <button class="col-3 send_notify_btn">Remove</button>
+                <button class="col-3 send_notify_btn" id="state_notify_remove">Remove</button>
             </div>
         </div>
     </div>

@@ -7,5 +7,7 @@ $(document).ready(function () {
     });
     $('.full_notify_close').on('click', function () {
         $('.main_full_notify_div').eq(0).attr('style', 'display:none !important');
+        // Reload Page
+        location.reload();
     });
 });

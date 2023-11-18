@@ -11,6 +11,7 @@ use App\Http\Controllers\state\ListPoController;
 use App\Http\Controllers\state\SendNotificationController;
 use App\Http\Controllers\state\UnempAllowController;
 use App\Http\Controllers\StateController;
+use App\View\Components\SendNotificationComponent;
 use Illuminate\Queue\ListenerOptions;
 use Illuminate\Support\Facades\Route;
 
@@ -104,4 +105,7 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
     Route::post('/send_notify_form', [SendNotificationController::class, 'store_notification']);
     // View Particular Notification 
     Route::get('/view_notification', [SendNotificationController::class, 'view_notification']);
+
+    // Remove Notification
+    Route::get('/remove_notification', [SendNotificationController::class, 'remove_notification']);
 });

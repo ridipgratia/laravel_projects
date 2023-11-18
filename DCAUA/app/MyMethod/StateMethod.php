@@ -268,4 +268,39 @@ class StateMethod
         }
         return $notification;
     }
+    public static function checkNotify($notify_id)
+    {
+        $check_notify = DB::table('notification')
+            ->where('id', $notify_id)
+            ->select('id')
+            ->get();
+        if (count($check_notify) == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public static function removeNotify($notify_id)
+    {
+        $check = false;
+        try {
+            DB::table('notify_view')
+                ->where('notify_id', $notify_id)
+                ->delete();
+            $check = true;
+        } catch (Exception $e) {
+            $check = false;
+        }
+        if ($check) {
+            try {
+                DB::table('notification')
+                    ->where('id', $notify_id)
+                    ->delete();
+                $check = true;
+            } catch (Exception $e) {
+                $check = false;
+            }
+        }
+        return $check;
+    }
 }

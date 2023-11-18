@@ -17,6 +17,14 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/media.css') }}">
+    <style>
+        #count_new {
+            color: red;
+            font-weight: bold;
+            font-size: 17px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,6 +58,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/sidenav.js') }}"></script>
+    <script>
+        var json_data = '<?php echo json_encode($new_notify); ?>';
+        var json_obj_data = JSON.parse(json_data);
+        if (json_obj_data != 0) {
+            document.getElementById('count_new').innerHTML = "new " + json_obj_data;
+            if ('Notification' in window) {
+                Notification.requestPermission().then(function(permision) {
+                    if (permision === 'granted') {
+                        var notification = new Notification('Notification', {
+                            body: 'You Have New Notification !'
+                        });
+                        setTimeout(function() {
+                            notification.close();
+                        }, 5000);
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>

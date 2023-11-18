@@ -28,6 +28,7 @@ $(document).ready(function () {
                         $('#notify_url').css('display', 'none');
                     }
                     $('#notify_text').html(result.message[0].description);
+                    $('#state_notify_remove').val(result.message[0].id);
                     $('.main_view_notify_div').eq(0).attr("style", "display:flex !important");
                     $('.main_send_notification_div').eq(0).attr("style", "display:none !important");
                 } else {
@@ -86,6 +87,26 @@ $(document).ready(function () {
                         result.message,
                         'info'
                     );
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    })
+    $(document).on('click', '#state_notify_remove', function () {
+        var notify_id = $(this).val();
+        $.ajax({
+            type: "get",
+            url: "remove_notification",
+            data: {
+                notify_id: notify_id
+            },
+            success: function (result) {
+                if (result.status == 200) {
+                    console.log(result.message);
+                } else {
+                    console.log(result.message);
                 }
             },
             error: function (data) {

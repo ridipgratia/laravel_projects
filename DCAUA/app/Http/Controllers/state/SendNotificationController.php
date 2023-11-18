@@ -121,4 +121,23 @@ class SendNotificationController extends Controller
             return response()->json(['status' => $status, 'message' => $notification]);
         }
     }
+    public function remove_notification(Request $request)
+    {
+        if ($request->ajax()) {
+            $status = 400;
+            $message = null;
+            $notify_id = $_GET['notify_id'];
+            if (StateMethod::checkNotify($notify_id)) {
+                if (StateMethod::removeNotify($notify_id)) {
+                    $status = 200;
+                    $message = "Notification Removed !";
+                } else {
+                    $message = "Try Later ! Problem In Database !";
+                }
+            } else {
+                $message = "Notification Not Found !";
+            }
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
+    }
 }

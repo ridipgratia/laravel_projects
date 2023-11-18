@@ -32,17 +32,21 @@ class NotificationController extends Controller
             $district_id = Auth::user()->district;
             $block_id = null;
             if ($notify_id) {
-                $result = UsedMethod::viewNotification($notify_id, $district_id, $block_id);
-                if ($result[0]) {
-                    $notification = UsedMethod::getNotifyId($notify_id);
-                    if ($notification[0]->document) {
-                        $file_url = Storage::url($notification[0]->document);
-                        $notification[0]->document = $file_url;
+                if (UsedMethod::checkNotify($notify_id)) {
+                    $result = UsedMethod::viewNotification($notify_id, $district_id, $block_id);
+                    if ($result[0]) {
+                        $notification = UsedMethod::getNotifyId($notify_id);
+                        if ($notification[0]->document) {
+                            $file_url = Storage::url($notification[0]->document);
+                            $notification[0]->document = $file_url;
+                        }
+                        $message = $notification;
+                        $status = 200;
+                    } else {
+                        $message = $result[1];
                     }
-                    $message = $notification;
-                    $status = 200;
                 } else {
-                    $message = $result[1];
+                    $message = "Notification Not Found !";
                 }
             } else {
                 $message = "Notification Not Found !";

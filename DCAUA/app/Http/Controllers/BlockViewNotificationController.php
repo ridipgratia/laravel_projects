@@ -30,17 +30,21 @@ class BlockViewNotificationController extends Controller
             $auth_district = Auth::user()->district;
             $auth_block = Auth::user()->block;
             if ($notify_id) {
-                $result = UsedMethod::viewNotification($notify_id, $auth_district, $auth_block);
-                if ($result[0]) {
-                    $notification = UsedMethod::getNotifyBlockId($notify_id);
-                    if ($notification[0]->document) {
-                        $file_url = Storage::url($notification[0]->document);
-                        $notification[0]->document = $file_url;
+                if (UsedMethod::checkNotifyBlock($notify_id)) {
+                    $result = UsedMethod::viewNotification($notify_id, $auth_district, $auth_block);
+                    if ($result[0]) {
+                        $notification = UsedMethod::getNotifyBlockId($notify_id);
+                        if ($notification[0]->document) {
+                            $file_url = Storage::url($notification[0]->document);
+                            $notification[0]->document = $file_url;
+                        }
+                        $message = $notification;
+                        $status = 200;
+                    } else {
+                        $message = $result[1];
                     }
-                    $message = $notification;
-                    $status = 200;
                 } else {
-                    $message = $result[1];
+                    $message = "Notification Not Found !";
                 }
             } else {
                 $message = "Notification Not Found !";

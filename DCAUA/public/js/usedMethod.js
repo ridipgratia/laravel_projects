@@ -1,6 +1,5 @@
 class usedMethod {
     constructor() {
-
     }
     async viewNotification(btn, url) {
         var notify_id = btn.val();

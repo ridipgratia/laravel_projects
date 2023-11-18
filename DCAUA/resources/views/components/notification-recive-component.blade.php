@@ -22,8 +22,11 @@
                 <div class="col-3">
                     <button class="col-12 recive_notify_btn" value="{{ $notification->id }}">View Notice</button>
                 </div>
-                <div class="col-7">
+                <div class="col-4">
                     <p class="col-12 recive_notify_time">{{ $notification->sent_time }}</p>
+                </div>
+                <div class="col-4">
+                    <p class="col-12 recive_notify_time">{{ $notification->date }}</p>
                 </div>
 
             </div>
