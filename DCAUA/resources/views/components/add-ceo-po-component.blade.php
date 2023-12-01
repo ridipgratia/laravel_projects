@@ -23,7 +23,6 @@
                     @endforeach --}}
                 </select>
             </div>
-
         </div>
     @else
         <div class="d-flex col-6 flex-column ">

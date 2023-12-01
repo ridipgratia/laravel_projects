@@ -95,4 +95,8 @@ class UnempAllowController extends Controller
             return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
+    public function pending_list(Request $request)
+    {
+        return view('state.unemp_pending');
+    }
 }

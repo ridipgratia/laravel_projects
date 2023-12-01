@@ -24,7 +24,9 @@ class DelayConpensationFormListController extends Controller
 
         if ($request->ajax()) {
             $emp_code = Auth::user()->login_id;
-            $delay_form_list_data = DB::table('add_dc')->where('submited_by', $emp_code)->select('id', 'code_number', 'mr_number', 'recover_amount', 'date_of_submit', 'request_id', 'approval_status')->get();
+            $delay_form_list_data = DB::table('add_dc')->where('submited_by', $emp_code)->select('id', 'code_number', 'mr_number', 'recover_amount', 'date_of_submit', 'request_id', 'approval_status')
+                ->orderBy('date_of_submit', 'asc')
+                ->get();
             return response()->json(['message' => $delay_form_list_data]);
         }
     }
@@ -42,6 +44,8 @@ class DelayConpensationFormListController extends Controller
                     return "<p>No data Found</p>";
                 } else {
                     $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
+                    $request_id = $delay_form_data[0]->request_id;
+                    $approval_form_status = DelayEmpForm::chekcFormStatus('delay_form_status', $request_id);
                     $content = '<p class="delay_para_head para_head">Work Code Number</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->code_number . '</p>
             <p class="delay_para_head para_head">MR Number</p>
@@ -58,7 +62,7 @@ class DelayConpensationFormListController extends Controller
             <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
             <p class="delay_para_head para_head">Date of Submited </p>
             <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
-            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>' . $approval_form_status;
                     return $content;
                 }
             } else {

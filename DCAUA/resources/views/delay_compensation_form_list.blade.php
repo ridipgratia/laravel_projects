@@ -22,6 +22,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/delay_form_list.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form_view.css') }}">
 
     {{-- ADD CSS FILE FOR DATA TABLE STYLING  --}}
     <link rel="stylesheet" href="{{ asset('css/data_table.css') }}">

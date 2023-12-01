@@ -23,7 +23,9 @@ class UnemployeAllowanceFromListController extends Controller
 
         if ($request->ajax()) {
             $emp_code = Auth::user()->login_id;
-            $unemp_allow_form_list_data = DB::table('add_unemp_allowance')->where('submited_by', $emp_code)->select('id', 'card_number', 'work_demand', 'recover_amount', 'date_of_submit', 'request_id', 'approval_status')->get();
+            $unemp_allow_form_list_data = DB::table('add_unemp_allowance')->where('submited_by', $emp_code)->select('id', 'card_number', 'work_demand', 'recover_amount', 'date_of_submit', 'request_id', 'approval_status')
+                ->orderBy('date_of_submit', 'asc')
+                ->get();
             return response()->json(['message' => $unemp_allow_form_list_data]);
         }
     }
@@ -40,6 +42,8 @@ class UnemployeAllowanceFromListController extends Controller
                     return "<p>No data Found</p>";
                 } else {
                     $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
+                    $request_id = $delay_form_data[0]->request_id;
+                    $approval_form_status = DelayEmpForm::chekcFormStatus('unemp_form_status', $request_id);
                     $content = '<p class="delay_para_head para_head">Work Code Number</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->card_number . '</p>
             <p class="delay_para_head para_head">MR Number</p>
@@ -58,7 +62,7 @@ class UnemployeAllowanceFromListController extends Controller
             <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
             <p class="delay_para_head para_head">Date of Submited </p>
             <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
-            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>' . $approval_form_status;
                     return $content;
                 }
             } else {

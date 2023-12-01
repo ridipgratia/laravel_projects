@@ -108,4 +108,8 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
 
     // Remove Notification
     Route::get('/remove_notification', [SendNotificationController::class, 'remove_notification']);
+    // Delay Compensation Pending List
+    Route::get('/delay_compensation/pending_list', [DelayCompensationController::class, 'pending_list']);
+    // Unemploye Compensation Pending List
+    Route::get('/unemp_allow/pending_list', [UnempAllowController::class, 'pending_list']);
 });

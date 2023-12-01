@@ -172,4 +172,71 @@ class DelayEmpForm
             ->get();
         return $result;
     }
+
+    // Check Form Pending
+    public static function checkFormPending($table)
+    {
+        $form_list = DB::table($table)
+            ->where('approval_status', '<>', 3)
+            ->count();
+        if ($form_list == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static function chekcFormStatus($table, $register_id)
+    {
+        $state_icon = ['<i class="fa-solid fa-hourglass-half"></i>', '<i class="fa-solid fa-hourglass-half"></i>'];
+        $edit_btn = ['', ''];
+        $progress_div = "";
+        $form_data = DB::table($table)
+            ->where('form_request_id', $register_id)
+            ->get();
+
+        if (count($form_data) != 0) {
+            if ($form_data[0]->district_approval == 1 || $form_data[0]->district_approval == 2 || $form_data[0]->district_approval == 3) {
+                if ($form_data[0]->district_approval == 2) {
+                    $state_icon[0] = '<i class="fa-solid fa-xmark"></i>';
+                } else if ($form_data[0]->district_approval == 3) {
+                    $state_icon[0] = '<i class="fa-solid fa-check"></i>';
+                }
+                if ($form_data[0]->district_approval == 2) {
+                    $edit_btn[0] = '<button class="form_edit_btn"><i class="fa-solid fa-pen-to-square"></i></button>';
+                }
+            }
+            if ($form_data[0]->state_approval == 1 || $form_data[0]->state_approval == 2 || $form_data[0]->state_approval == 3) {
+                if ($form_data[0]->state_approval == 2) {
+                    $state_icon[1] = '<i class="fa-solid fa-xmark"></i>';
+                } else if ($form_data[0]->state_approval == 3) {
+                    $state_icon[1] = '<i class="fa-solid fa-check"></i>';
+                }
+                if ($form_data[0]->state_approval == 2) {
+                    $edit_btn[1] = '<button class="form_edit_btn"><i class="fa-solid fa-pen-to-square"></i></button>';
+                }
+            }
+            $progress_div = '<div class="flex_div main_progress_div">
+            <div class="flex_div progres_div">
+                <p>Level</p>
+                <p>Status</p>
+                <p>Reason</p>
+            </div>
+            <div class="flex_div progres_div_1">
+                <p>District</p>
+                <div class="flex_div progres_div_2">
+                    <p>' . $state_icon[0] . '</p>
+                </div>
+                <p>' . $form_data[0]->district_remarks . '</p>' . $edit_btn[0] . '
+            </div>
+            <div class="flex_div progres_div_1">
+                <p>State</p>
+                <div class="flex_div progres_div_2">
+                    <p>' . $state_icon[1] . '</p>
+                </div>
+                <p>' . $form_data[0]->state_remarks . '</p>' . $edit_btn[1] . '
+            </div>
+        </div>';
+        }
+        return $progress_div;
+    }
 }

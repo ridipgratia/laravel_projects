@@ -92,9 +92,11 @@ class StateMethod
             ->get();
         return $gp;
     }
-    public static function getFormLists($table)
+    public static function getFormLists($main_table)
     {
-        $form_lists = DB::table($table)->get();
+        $form_lists = DB::table($main_table)
+            ->where('approval_status', '3')
+            ->get();
         return $form_lists;
     }
     // Search Query Algo

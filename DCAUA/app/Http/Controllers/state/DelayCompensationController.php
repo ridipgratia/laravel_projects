@@ -97,4 +97,8 @@ class DelayCompensationController extends Controller
             return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
+    public function pending_list(Request $request)
+    {
+        return view('state.delay_pending');
+    }
 }

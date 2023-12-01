@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/side_nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/alreat.css') }}">
     <link rel="stylesheet" href="{{ asset('css/media.css') }}">
     <style>
         #count_new {
@@ -33,13 +34,16 @@
             @include('layouts.sidenav')
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                @if (!$check_form_pendding)
+                    <x-alreat-component></x-alreat-component>
+                @endif
                 @include('layouts.header')
                 <button class="btn btn-primary d-md-none fs-2 mb-3" id="sidebarToggle"><i
                         class="fa-solid fa-bars"></i></button>
 
                 {{-- Card Section --}}
                 @php
-                    $cardData = [$delay_form_list, $unemp_allowance_form_list];
+                    $cardData = [$delay_form_list, $unemp_allowance_form_list, $check_form_pendding, $check_unemp_form];
                 @endphp
                 <x-district-block-card-component :cardData=$cardData>
 
@@ -60,26 +64,27 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/sidenav.js') }}"></script>
+    <script src="{{ asset('js/alert.js') }}"></script>
     <script>
         // new Notification Code Indiviual
 
-        var json_data = '<?php echo json_encode($new_notify); ?>';
-        var json_obj_data = JSON.parse(json_data);
-        if (json_obj_data != 0) {
-            document.getElementById('count_new').innerHTML = "new " + json_obj_data;
-            if ('Notification' in window) {
-                Notification.requestPermission().then(function(permision) {
-                    if (permision === 'granted') {
-                        var notification = new Notification('Notification', {
-                            body: 'You Have New Notification !'
-                        });
-                        setTimeout(function() {
-                            notification.close();
-                        }, 5000);
-                    }
-                });
-            }
-        }
+        // var json_data = '<?php echo json_encode($new_notify); ?>';
+        // var json_obj_data = JSON.parse(json_data);
+        // if (json_obj_data != 0) {
+        //     document.getElementById('count_new').innerHTML = "new " + json_obj_data;
+        //     if ('Notification' in window) {
+        //         Notification.requestPermission().then(function(permision) {
+        //             if (permision === 'granted') {
+        //                 var notification = new Notification('Notification', {
+        //                     body: 'You Have New Notification !'
+        //                 });
+        //                 setTimeout(function() {
+        //                     notification.close();
+        //                 }, 5000);
+        //             }
+        //         });
+        //     }
+        // }
     </script>
 </body>
 

@@ -218,14 +218,14 @@ class StateClass {
                 var approval_status = null;
                 for (var i = 0; i < result.message.length; i++) {
                     approval_status = null;
-                    if (result.message[i].approval_status == 0) {
-                        approval_status = "Waiting";
-                    }
-                    else if (result.message[i].approval_status == 1) {
-                        approval_status = "Approved";
+                    if (result.message[i].approval_status == 1) {
+                        approval_status = "Pending";
                     }
                     else if (result.message[i].approval_status == 2) {
                         approval_status = "Rejected";
+                    }
+                    else if (result.message[i].approval_status == 3) {
+                        approval_status = "Accepted";
                     }
                     if (table === 'add_dc') {
                         dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].code_number, result.message[i].mr_number, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
@@ -291,14 +291,14 @@ class StateClass {
                     for (var i = 0; i < result.message.length; i++) {
                         for (var j = 0; j < result.message[i].length; j++) {
                             approval_status = null;
-                            if (result.message[i][j].approval_status == 0) {
-                                approval_status = "Waiting";
-                            }
-                            else if (result.message[i][j].approval_status == 1) {
-                                approval_status = "Approved";
+                            if (result.message[i][j].approval_status == 1) {
+                                approval_status = "Pending";
                             }
                             else if (result.message[i][j].approval_status == 2) {
                                 approval_status = "Rejected";
+                            }
+                            else if (result.message[i][j].approval_status == 3) {
+                                approval_status = "Accepted";
                             }
                             if (table === 'add_dc') {
                                 dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].code_number, result.message[i][j].mr_number, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i][j].id}">View</button>`]).draw(false);
