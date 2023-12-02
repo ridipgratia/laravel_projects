@@ -42,20 +42,10 @@ $(document).ready(function () {
         var block_code = $(this).val();
         stateclass.getBlockByDistrict('/unemp_allow/get_gps', block_code, '#gp_names');
     });
-    // Get unemploye Allowance
-    stateclass.getFormList('/unemp_allow/get_unemp_allow', 'unemp_allow');
-
-    // View All Data By ID
-    $(document).on('click', '#state_delay_form_btn', function () {
-        stateclass.viewFormData("/unemp_allow/view_form_by_id", $(this));
-    });
-    // View Unemploye Document 
-    $(document).on('click', '#show_form_document', function () {
-        var $link = $(this).val();
-        window.open($link, 'Document');
-    });
-    // Search By DistrictClass, Block, GP And dates
+    // Get Pending Form List Unemploye
+    stateclass.getPendingFormList('/unemp_allow/pending_list_data', 'unemp_allow');
     $(document).on('submit', '#search_date_district_block_gp_id', function (e) {
-        stateclass.serachByDisBloGpDates('/unemp_allow/search_query', e, 'unemp_allow');
-    });
+        stateclass.serachByDisBloGpDatesPending('/unemp_allow/pending_filter_list', e, 'unemp_allow');
+    })
+
 });

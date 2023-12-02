@@ -34,28 +34,18 @@ $(document).ready(function () {
     });
     $(document).on('change', '#change_district_id', function () {
         var district_code = $(this).val();
-        stateclass.getBlockByDistrict('/unemp_allow/get_blocks', district_code, '#change_block_id');
+        stateclass.getBlockByDistrict('/delay_compensation/get_blocks', district_code, '#change_block_id');
         $('#gp_names').html('<option disabled selected>Select</option>');
     });
     // Get GPs By Block Id
     $(document).on('change', '#change_block_id', function () {
         var block_code = $(this).val();
-        stateclass.getBlockByDistrict('/unemp_allow/get_gps', block_code, '#gp_names');
+        stateclass.getBlockByDistrict('/delay_compensation/get_gps', block_code, '#gp_names');
     });
-    // Get unemploye Allowance
-    stateclass.getFormList('/unemp_allow/get_unemp_allow', 'unemp_allow');
-
-    // View All Data By ID
-    $(document).on('click', '#state_delay_form_btn', function () {
-        stateclass.viewFormData("/unemp_allow/view_form_by_id", $(this));
-    });
-    // View Unemploye Document 
-    $(document).on('click', '#show_form_document', function () {
-        var $link = $(this).val();
-        window.open($link, 'Document');
-    });
-    // Search By DistrictClass, Block, GP And dates
+    // Get Pending Form List Delay
+    stateclass.getPendingFormList('/delay_compensation/pending_list_data', 'add_dc');
+    // Get Search Pending Form List Delay
     $(document).on('submit', '#search_date_district_block_gp_id', function (e) {
-        stateclass.serachByDisBloGpDates('/unemp_allow/search_query', e, 'unemp_allow');
-    });
+        stateclass.serachByDisBloGpDatesPending('/delay_compensation/pending_filter_list', e, 'add_dc');
+    })
 });

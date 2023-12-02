@@ -11,7 +11,7 @@
             </div>
             <div class="card-footer bg-white d-flex justify-content-center">
                 @if (Auth::user()->role === 1)
-                    @if (!$cardData[2])
+                    @if ($cardData[2])
                         <a href="/add_delay" class="btn btn-outline-success">Add Delay Compensation</a>
                     @else
                         <button class="btn btn-outline-success">Pendding Delay Form </button>

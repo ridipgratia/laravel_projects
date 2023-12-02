@@ -99,6 +99,28 @@ class StateMethod
             ->get();
         return $form_lists;
     }
+    public static function getPendingFormList($main_table, $sub_table)
+    {
+        $check = false;
+        try {
+            $form_list = DB::table($main_table . ' as main_table')
+                ->select(
+                    'main_table.*',
+                    'sub_table.*'
+                )
+                ->where('sub_table.district_approval', '3')
+                ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
+                ->get();
+            $check = true;
+        } catch (Exception $err) {
+            $check = false;
+        }
+        if ($check) {
+            return $form_list;
+        } else {
+            return false;
+        }
+    }
     // Search Query Algo
     public static function searchByDisBloGpDates($form_date, $to_date, $district_code, $block_name, $gp_name, $table)
     {
@@ -108,6 +130,7 @@ class StateMethod
             $status = 200;
             $message = "All Data";
             $result = DB::table($table)
+                ->where('approval_status', '3')
                 ->get();
             $message = array($result);
         } else {
@@ -123,6 +146,7 @@ class StateMethod
                         foreach ($form_to_date as $dates) {
                             if (StateMethod::checkIsDateAvai($table, $dates)) {
                                 $form_data = DB::table($table)
+                                    ->where('approval_status', '3')
                                     ->where('date_of_submit', $dates)
                                     ->where('district_id', $district_code)
                                     ->where('block_id', $block_name)
@@ -145,6 +169,7 @@ class StateMethod
                             foreach ($form_to_date as $dates) {
                                 if (StateMethod::checkIsDateAvai($table, $dates)) {
                                     $form_data = DB::table($table)
+                                        ->where('approval_status', '3')
                                         ->where('date_of_submit', $dates)
                                         ->where('district_id', $district_code)
                                         ->where('block_id', $block_name)
@@ -166,6 +191,7 @@ class StateMethod
                                 foreach ($form_to_date as $dates) {
                                     if (StateMethod::checkIsDateAvai($table, $dates)) {
                                         $form_data = DB::table($table)
+                                            ->where('approval_status', '3')
                                             ->where('date_of_submit', $dates)
                                             ->where('district_id', $district_code)
                                             ->get();
@@ -183,6 +209,7 @@ class StateMethod
                                     if ($gp_name !== null) {
                                         $status = 200;
                                         $result = DB::table($table)
+                                            ->where('approval_status', '3')
                                             ->where('district_id', $district_code)
                                             ->where('block_id', $block_name)
                                             ->where('gp_id', $gp_name)
@@ -191,6 +218,7 @@ class StateMethod
                                     } else {
                                         $status = 200;
                                         $result = DB::table($table)
+                                            ->where('approval_status', '3')
                                             ->where('district_id', $district_code)
                                             ->where('block_id', $block_name)
                                             ->get();
@@ -199,6 +227,7 @@ class StateMethod
                                 } else {
                                     $status = 200;
                                     $result = DB::table($table)
+                                        ->where('approval_status', '3')
                                         ->where('district_id', $district_code)
                                         ->get();
                                     $message = array($result);
@@ -212,7 +241,174 @@ class StateMethod
                                         foreach ($form_to_date as $dates) {
                                             if (StateMethod::checkIsDateAvai($table, $dates)) {
                                                 $form_data = DB::table($table)
+                                                    ->where('approval_status', '3')
                                                     ->where('date_of_submit', $dates)
+                                                    ->get();
+                                                array_push($form_date_his, $form_data);
+                                            }
+                                        }
+                                        $message = $form_date_his;
+                                    } else {
+                                        $status = 400;
+                                        $message = "Select A Valid Dates";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return [$status, $message];
+    }
+    public static function searchByDisBloGpDatesPending($form_date, $to_date, $district_code, $block_name, $gp_name, $table, $sub_table)
+    {
+        $status = null;
+        $message = null;
+        if ($form_date === null && $to_date === null && $district_code === null && $block_name === null && $gp_name === null) {
+            $status = 200;
+            $message = "All Data";
+            $result = DB::table($sub_table . ' as sub_table')
+                ->select(
+                    'main_table.*',
+                    'sub_table.*'
+                )
+                ->where('sub_table.district_approval', '3')
+                ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
+                ->get();
+            $message = array($result);
+        } else {
+            if (($form_date === null && $to_date !== null) || ($form_date !== null && $to_date === null)) {
+                $status = 400;
+                $message = "Select Both Dates !";
+            } else {
+                if ($form_date !== null && $district_code !== null && $block_name !== null && $gp_name !== null) {
+                    if ($form_date <= $to_date) {
+                        $status = 200;
+                        $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                        $form_date_his = array();
+                        foreach ($form_to_date as $dates) {
+                            if (StateMethod::checkIsDateAvai($table, $dates)) {
+                                $form_data = DB::table($sub_table . ' as sub_table')
+                                    ->select(
+                                        'sub_table.*',
+                                        'main_table.*'
+                                    )
+                                    ->where('sub_table.district_approval', '3')
+                                    ->where('main_table.date_of_submit', $dates)
+                                    ->where('main_table.district_id', $district_code)
+                                    ->where('main_table.block_id', $block_name)
+                                    ->where('main_table.gp_id', $gp_name)
+                                    ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
+                                    ->get();
+                                array_push($form_date_his, $form_data);
+                            }
+                        }
+                        $message = $form_date_his;
+                    } else {
+                        $status = 400;
+                        $message = "Select A Valid Dates";
+                    }
+                } else {
+                    if ($form_date !== null && $district_code !== null && $block_name !== null) {
+                        if ($form_date <= $to_date) {
+                            $status = 200;
+                            $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                            $form_date_his = array();
+                            foreach ($form_to_date as $dates) {
+                                if (StateMethod::checkIsDateAvai($table, $dates)) {
+                                    $form_data = DB::table($sub_table . ' as sub_table')
+                                        ->select(
+                                            'sub_table',
+                                            'main_table'
+                                        )
+                                        ->where('sub_table.district_approval', '3')
+                                        ->where('main_table.date_of_submit', $dates)
+                                        ->where('main_table.district_id', $district_code)
+                                        ->where('main_table.block_id', $block_name)
+                                        ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
+                                        ->get();
+                                    array_push($form_date_his, $form_data);
+                                }
+                            }
+                            $message = $form_date_his;
+                        } else {
+                            $status = 400;
+                            $message = "select A Valid Dates";
+                        }
+                    } else {
+                        if ($form_date !== null && $district_code !== null) {
+                            if ($form_date <= $to_date) {
+                                $status = 200;
+                                $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                                $form_date_his = array();
+                                foreach ($form_to_date as $dates) {
+                                    if (StateMethod::checkIsDateAvai($table, $dates)) {
+                                        $form_data = DB::table($sub_table . ' as sub_table')
+                                            ->select(
+                                                'sub_table.*',
+                                                'main_table.*'
+                                            )
+                                            ->where('main_table.date_of_submit', $dates)
+                                            ->where('main_table.district_id', $district_code)
+                                            ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
+                                            ->get();
+                                        array_push($form_date_his, $form_data);
+                                    }
+                                }
+                                $message = $form_date_his;
+                            } else {
+                                $status = 400;
+                                $message = "Select A Valid Dates";
+                            }
+                        } else {
+                            if ($district_code !== null) {
+                                if ($block_name !== null) {
+                                    if ($gp_name !== null) {
+                                        $status = 200;
+                                        $result = DB::table($sub_table . ' as sub_table')
+                                            ->select(
+                                                'sub_table.*',
+                                                'main_table.*'
+                                            )
+                                            ->where('sub_table.district_approval', '3')
+                                            ->where('main_table.district_id', $district_code)
+                                            ->where('main_table.block_id', $block_name)
+                                            ->where('main_table.gp_id', $gp_name)
+                                            ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
+                                            ->get();
+                                        $message = array($result);
+                                    } else {
+                                        $status = 200;
+                                        $result = DB::table($sub_table . ' as sub_table')
+                                            ->where('sub_table.district_approval', '3')
+                                            ->where('main_table.district_id', $district_code)
+                                            ->where('main_table.block_id', $block_name)
+                                            ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
+                                            ->get();
+                                        $message = array($result);
+                                    }
+                                } else {
+                                    $status = 200;
+                                    $result = DB::table($sub_table . ' as sub_table')
+                                        ->where('sub_table.district_approval', '3')
+                                        ->where('main_table.district_id', $district_code)
+                                        ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
+                                        ->get();
+                                    $message = array($result);
+                                }
+                            } else {
+                                if ($form_date !== null) {
+                                    if ($form_date <= $to_date) {
+                                        $status = 200;
+                                        $form_to_date = DistrictMethod::getPeriodDates($form_date, $to_date);
+                                        $form_date_his = array();
+                                        foreach ($form_to_date as $dates) {
+                                            if (StateMethod::checkIsDateAvai($table, $dates)) {
+                                                $form_data = DB::table($sub_table . ' as sub_table')
+                                                    ->where('sub_table.district_approval', '3')
+                                                    ->where('main_table.date_of_submit', $dates)
+                                                    ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
                                                     ->get();
                                                 array_push($form_date_his, $form_data);
                                             }

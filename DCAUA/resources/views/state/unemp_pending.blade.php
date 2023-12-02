@@ -32,12 +32,12 @@
 
             </x-search-by-district-block-gp-component>
             {{-- Datatable Start --}}
-            {{-- @php
+            @php
                 $columns = ['Code Number', 'MR Number'];
             @endphp
             <x-data-table-component :columns=$columns>
 
-            </x-data-table-component> --}}
+            </x-data-table-component>
         </div>
     </div>
     @include('layouts.delay_form_list')
@@ -53,7 +53,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="module" src="{{ asset('js/state/unemp_allow.js') }}"></script>
+    <script type="module" src="{{ asset('js/state/unemp_pending.js') }}"></script>
 </body>
 
 </html>

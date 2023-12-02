@@ -47,7 +47,7 @@ class AddDelayController extends Controller
             $status = null;
             $message = null;
             $check_form_pendding = DelayEmpForm::checkFormPending('add_dc');
-            if (!$check_form_pendding) {
+            if ($check_form_pendding) {
                 $error_message = [
                     'required' => 'Fill Your Basic Details',
                     'mimes' => 'Select Only PDF'

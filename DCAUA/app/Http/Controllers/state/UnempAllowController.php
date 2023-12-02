@@ -4,6 +4,7 @@ namespace App\Http\Controllers\state;
 
 use App\Http\Controllers\Controller;
 use App\MyMethod\StateMethod;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -98,5 +99,43 @@ class UnempAllowController extends Controller
     public function pending_list(Request $request)
     {
         return view('state.unemp_pending');
+    }
+    public function pending_list_data(Request $request)
+    {
+        if ($request->ajax()) {
+            $status = null;
+            $message = null;
+            $pendingData = StateMethod::getPendingFormList('add_unemp_allowance', 'unemp_form_status');
+            if ($pendingData) {
+                $message = $pendingData;
+                $status = 200;
+            } else {
+                $status = 400;
+                $message = "No Data  Found !";
+            }
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
+    }
+    public function pending_filter_list(Request $request)
+    {
+        if ($request->ajax()) {
+            $status = null;
+            $message = null;
+            $form_date = $request->from_date_form;
+            $to_date = $request->to_date_form;
+            $block_name = $request->block_name;
+            $gp_name = $request->gp_name;
+            $district_name = $request->district_name;
+            $stauts = 400;
+            $message = null;
+            try {
+                $result = StateMethod::searchByDisBloGpDatesPending($form_date, $to_date, $district_name, $block_name, $gp_name, 'add_unemp_allowance', 'unemp_form_status');
+                $message = $result[1];
+                $stauts = 200;
+            } catch (Exception $err) {
+                $message = "Error Execute In database ";
+            }
+            return response()->json(['status' => $stauts, 'message' => $message]);
+        }
     }
 }
