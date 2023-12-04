@@ -20,7 +20,7 @@ class DelayCompensationList extends Controller
     {
         if ($request->ajax()) {
             $columns = ['code_number', 'mr_number', 'recover_amount'];
-            $lists = DistrictMethod::GetFormList('add_dc', $columns);
+            $lists = DistrictMethod::GetFormList('add_dc', 'delay_form_status', $columns);
             return response()->json(['status' => 200, 'message' => $lists]);
         }
     }
@@ -64,7 +64,7 @@ class DelayCompensationList extends Controller
             $to_date = $request->to_date_form;
             $block_name = $request->block_name;
             $gp_name = $request->gp_name;
-            $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_dc');
+            $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_dc', 'delay_form_status', 1);
             return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
@@ -74,7 +74,7 @@ class DelayCompensationList extends Controller
     }
     public function load_approval_list()
     {
-        $data = DistrictMethod::loadApprovalData('add_dc');
+        $data = DistrictMethod::loadApprovalData('add_dc', 'delay_form_status');
         return response()->json(['status', 200, 'message' => $data]);
     }
     public function view_approval_form(Request $request)
@@ -126,13 +126,13 @@ class DelayCompensationList extends Controller
             return response()->json(['status' => $status, 'message' => $message]);
         }
     }
-    public function search_approval_filter(Request $request)
+    public function search_block_gp_dates_pending(Request $request)
     {
         $form_date = $request->from_date_form;
         $to_date = $request->to_date_form;
         $block_name = $request->block_name;
         $gp_name = $request->gp_name;
-        $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_dc');
+        $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_dc', 'delay_form_status', 3);
         return response()->json(['status' => $result[0], 'message' => $result[1]]);
     }
 }

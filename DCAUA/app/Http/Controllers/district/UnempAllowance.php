@@ -19,7 +19,7 @@ class UnempAllowance extends Controller
     {
         if ($request->ajax()) {
             $columns = ['card_number', 'work_demand', 'recover_amount'];
-            $lists = DistrictMethod::GetFormList('add_unemp_allowance', $columns);
+            $lists = DistrictMethod::GetFormList('add_unemp_allowance', 'unemp_form_status', $columns);
             return response()->json(['status' => 200, 'message' => $lists]);
         }
     }
@@ -51,7 +51,7 @@ class UnempAllowance extends Controller
             $to_date = $request->to_date_form;
             $block_name = $request->block_name;
             $gp_name = $request->gp_name;
-            $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_unemp_allowance');
+            $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_unemp_allowance', 'unemp_form_status', 1);
             return response()->json(['status' => $result[0], 'message' => $result[1]]);
         }
     }
@@ -62,7 +62,7 @@ class UnempAllowance extends Controller
     }
     public function load_approval_list()
     {
-        $data = DistrictMethod::loadApprovalData('add_unemp_allowance');
+        $data = DistrictMethod::loadApprovalData('add_unemp_allowance', 'unemp_form_status');
         return response()->json(['status' => 200, 'message' => $data]);
     }
     public function view_approval_form(Request $request)
@@ -113,5 +113,14 @@ class UnempAllowance extends Controller
             }
             return response()->json(['status' => $status, 'message' => $message]);
         }
+    }
+    public function search_block_gp_dates_pending(Request $request)
+    {
+        $form_date = $request->from_date_form;
+        $to_date = $request->to_date_form;
+        $block_name = $request->block_name;
+        $gp_name = $request->gp_name;
+        $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_unemp_allowance', 'unemp_form_status', 3);
+        return response()->json(['status' => $result[0], 'message' => $result[1]]);
     }
 }

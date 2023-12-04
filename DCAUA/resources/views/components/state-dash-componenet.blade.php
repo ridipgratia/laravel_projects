@@ -53,13 +53,13 @@
         style="padding:60px 0px !important; text-decoration: none;">
         <h6 class="fs-1 col-12 text-center text-white"><i class="fa-solid fa-list"></i></h6>
         <p class=" text-decoration-none col-12 text-center text-white">
-            DELAY COMPENSATION FORM LIST</p>
+            DELAY COMPENSATION APPROVED FORM LIST</p>
     </a>
     <a href="/unemp_allow/all_list" class="d-flex  col-sm-5 col-12 flex-column m-2 border rounded nav_box pt-3 pb-3"
         style="padding:60px 0px !important; text-decoration: none;">
         <h6 class="fs-1 col-12 text-center text-white"><i class="fa-solid fa-list"></i></h6>
         <p class=" text-decoration-none col-12 text-center text-white">
-            UNEMPLOYE ALLOWANCE FORM LIST</p>
+            UNEMPLOYE ALLOWANCE APPROVED FORM LIST</p>
     </a>
     <a href="/send_notification" class="d-flex  col-sm-5 col-12 flex-column m-2 border rounded nav_box pt-3 pb-3"
         style="padding:60px 0px !important; text-decoration: none;">

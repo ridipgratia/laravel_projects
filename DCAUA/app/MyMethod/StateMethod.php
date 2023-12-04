@@ -106,9 +106,11 @@ class StateMethod
             $form_list = DB::table($main_table . ' as main_table')
                 ->select(
                     'main_table.*',
-                    'sub_table.*'
+                    'sub_table.*',
+                    'main_table.id as main_id'
                 )
                 ->where('sub_table.district_approval', '3')
+                ->where('sub_table.state_approval', '1')
                 ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
                 ->get();
             $check = true;
@@ -271,9 +273,11 @@ class StateMethod
             $result = DB::table($sub_table . ' as sub_table')
                 ->select(
                     'main_table.*',
-                    'sub_table.*'
+                    'sub_table.*',
+                    'main_table.id as main_id'
                 )
                 ->where('sub_table.district_approval', '3')
+                ->where('sub_table.state_approval', '1')
                 ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
                 ->get();
             $message = array($result);
@@ -292,9 +296,11 @@ class StateMethod
                                 $form_data = DB::table($sub_table . ' as sub_table')
                                     ->select(
                                         'sub_table.*',
-                                        'main_table.*'
+                                        'main_table.*',
+                                        'main_table.id as main_id'
                                     )
                                     ->where('sub_table.district_approval', '3')
+                                    ->where('sub_table.state_approval', '1')
                                     ->where('main_table.date_of_submit', $dates)
                                     ->where('main_table.district_id', $district_code)
                                     ->where('main_table.block_id', $block_name)
@@ -320,9 +326,11 @@ class StateMethod
                                     $form_data = DB::table($sub_table . ' as sub_table')
                                         ->select(
                                             'sub_table',
-                                            'main_table'
+                                            'main_table',
+                                            'main_table.id as main_id'
                                         )
                                         ->where('sub_table.district_approval', '3')
+                                        ->where('sub_table.state_approval', '1')
                                         ->where('main_table.date_of_submit', $dates)
                                         ->where('main_table.district_id', $district_code)
                                         ->where('main_table.block_id', $block_name)
@@ -347,8 +355,11 @@ class StateMethod
                                         $form_data = DB::table($sub_table . ' as sub_table')
                                             ->select(
                                                 'sub_table.*',
-                                                'main_table.*'
+                                                'main_table.*',
+                                                'main_table.id as main_id'
                                             )
+                                            ->where('sub_table.district_approval', 3)
+                                            ->where('sub_table.state_approval', '1')
                                             ->where('main_table.date_of_submit', $dates)
                                             ->where('main_table.district_id', $district_code)
                                             ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
@@ -369,9 +380,11 @@ class StateMethod
                                         $result = DB::table($sub_table . ' as sub_table')
                                             ->select(
                                                 'sub_table.*',
-                                                'main_table.*'
+                                                'main_table.*',
+                                                'main_table.id as main_id'
                                             )
                                             ->where('sub_table.district_approval', '3')
+                                            ->where('sub_table.state_approval', '1')
                                             ->where('main_table.district_id', $district_code)
                                             ->where('main_table.block_id', $block_name)
                                             ->where('main_table.gp_id', $gp_name)
@@ -381,7 +394,13 @@ class StateMethod
                                     } else {
                                         $status = 200;
                                         $result = DB::table($sub_table . ' as sub_table')
+                                            ->select(
+                                                'main_table.*',
+                                                'sub_table.*',
+                                                'main_table.id as main_id'
+                                            )
                                             ->where('sub_table.district_approval', '3')
+                                            ->where('sub_table.state_approval', '1')
                                             ->where('main_table.district_id', $district_code)
                                             ->where('main_table.block_id', $block_name)
                                             ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
@@ -391,7 +410,13 @@ class StateMethod
                                 } else {
                                     $status = 200;
                                     $result = DB::table($sub_table . ' as sub_table')
+                                        ->select(
+                                            'main_table.*',
+                                            'sub_table.*',
+                                            'main_table.id as main_id'
+                                        )
                                         ->where('sub_table.district_approval', '3')
+                                        ->where('sub_table.state_approval', '1')
                                         ->where('main_table.district_id', $district_code)
                                         ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
                                         ->get();
@@ -406,7 +431,13 @@ class StateMethod
                                         foreach ($form_to_date as $dates) {
                                             if (StateMethod::checkIsDateAvai($table, $dates)) {
                                                 $form_data = DB::table($sub_table . ' as sub_table')
+                                                    ->select(
+                                                        'main_table.*',
+                                                        'sub_table.*',
+                                                        'main_table.id as main_id'
+                                                    )
                                                     ->where('sub_table.district_approval', '3')
+                                                    ->where('sub_table.state_approval', '1')
                                                     ->where('main_table.date_of_submit', $dates)
                                                     ->join($table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
                                                     ->get();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\district;
 
 use App\Http\Controllers\Controller;
+use App\MyMethod\DistrictMethod;
 use App\MyMethod\UsedMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,8 +14,8 @@ class DistrictController extends Controller
     public function index()
     {
         $emp_district = Auth::user()->district;
-        $delay_data = DB::table('add_dc')->where('district_id', $emp_district)->count();
-        $unemploye_data = DB::table('add_unemp_allowance')->where('district_id', $emp_district)->count();
+        $delay_data = DistrictMethod::getCountPendingForm('add_dc', 'delay_form_status');
+        $unemploye_data = DistrictMethod::getCountPendingForm('add_unemp_allowance', 'unemp_form_status');
         $auth_district = Auth::user()->district;
         $auth_block = NULL;
         $or_where = ['district_id', 999];

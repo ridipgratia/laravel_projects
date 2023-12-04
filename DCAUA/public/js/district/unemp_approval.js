@@ -57,6 +57,6 @@ $(document).ready(function () {
     });
     // Search Filter
     $(document).on('submit', '#search_date_block_gp_id', function (e) {
-        districtclass.serachBlockGpDates('/district_unemp_allow/search_block_gp_dates', e, 'unemp_allow');
+        districtclass.serachBlockGpDates('/district_unemp_allow/pending_search_block_gp_dates', e, 'unemp_allow');
     });
 });

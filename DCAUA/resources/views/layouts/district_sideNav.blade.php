@@ -16,12 +16,12 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link link_tag bg-white" href="/district_delay_com">
-                    Delay Compensation Submited Form
+                    Delay Compensation Pending Form
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link link_tag bg-white" href="/district_unemp_allow">
-                    Unemployement Allowance Submited Form
+                    Unemployement Allowance Pending Form
                 </a>
             </li>
             <li class="nav-item">

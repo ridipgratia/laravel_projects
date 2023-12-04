@@ -55,6 +55,6 @@ $(document).ready(function () {
     });
     // Search Filter
     $(document).on('submit', '#search_date_block_gp_id', function (e) {
-        districtclass.serachBlockGpDates('/district_delay_com/search_block_gp_dates', e, 'add_dc');
+        districtclass.serachBlockGpDates('/district_delay_com/pending_search_block_gp_dates', e, 'add_dc');
     });
 });

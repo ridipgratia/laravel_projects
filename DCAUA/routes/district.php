@@ -34,9 +34,11 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
     Route::post('/district_delay_com/serach_data', [DelayCompensationList::class, 'search_data']);
     // Get Gp Name By Block
     Route::get('district_unemp_allow/get_gp_by_block', [DelayCompensationList::class, 'get_gp_by_block']);
-    // Search By Block, Gp And Dates
+    // Search By Block, Gp And Dates For Pending
     Route::post('district_delay_com/search_block_gp_dates', [DelayCompensationList::class, 'search_block_gp_dates']);
-    // Unemploment Allowance Page Route 
+    // Srach Filters For Aproval
+    Route::post('district_delay_com/pending_search_block_gp_dates', [DelayCompensationList::class, 'search_block_gp_dates_pending']);
+    // Unemploment Allowance Page Route  
     Route::get('/district_unemp_allow', [UnempAllowance::class, 'index']);
     // Unemploment Allowance Form List Route
     Route::get('/district_unemp_allow/form_list', [UnempAllowance::class, 'form_list']);
@@ -44,8 +46,10 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
     Route::get('/district_unemp_allow/form_data', [UnempAllowance::class, 'form_data']);
     // Unemploment Allowance Search List
     Route::post('/district_unemp_allow/serach_data', [UnempAllowance::class, 'search_data']);
-    // Search By Block, Gp And Dates
+    // Search By Block, Gp And Dates For Pending
     Route::post('district_unemp_allow/search_block_gp_dates', [UnempAllowance::class, 'search_block_gp_dates']);
+    // Search Filter For Approval
+    Route::post('district_unemp_allow/pending_search_block_gp_dates', [UnempAllowance::class, 'search_block_gp_dates_pending']);
     // Approval Delay Compensation List Show
     Route::get('/district_delay_com/approval_list', [DelayCompensationList::class, 'approval_list']);
     // Approval Unemp Allowance List Show
@@ -65,7 +69,7 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
     // // Get GP By Block Name
     // Route::post('/district_delay_com/get_gp_names', [DelayCompensationList::class, 'get_gp_names']);
     // Delay Search Filter For Approval Page
-    Route::post('/district_delay_com/search_approval_filter', [DelayCompensationList::class, 'search_approval_filter']);
+    // Route::post('/district_delay_com/search_approval_filter', [DelayCompensationList::class, 'search_approval_filter']);
 
     // Render Notification Page
     Route::get('/district_notification', [NotificationController::class, 'index']);

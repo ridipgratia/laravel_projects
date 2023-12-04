@@ -12,10 +12,37 @@ use Illuminate\Support\Facades\Storage;
 
 class DistrictMethod
 {
-    public static function GetFormList($table, $columns)
+    public static function getCountPendingForm($table, $sub_table)
+    {
+        $count = DB::table($table . ' as main_table')
+            ->select(
+                'main_table.*',
+                'sub_table.*'
+            )
+            ->where('main_table.district_id', Auth::user()->district)
+            ->where('sub_table.district_approval', '1')
+            ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
+            ->count();
+        return $count;
+    }
+    public static function GetFormList($table, $sub_table, $columns)
     {
         $district_code = Auth::user()->district;
-        $lists = DB::table($table)->where('district_id', $district_code)->select('id', $columns[0], $columns[1], $columns[2], 'request_id', 'date_of_submit', 'approval_status')->get();
+        $lists = DB::table($table . ' as main_table')
+            ->where('main_table.district_id', $district_code)
+            ->where('sub_table.district_approval', '1')
+            ->select(
+                'main_table.' . $columns[0],
+                'main_table.' . $columns[1],
+                'main_table.' . $columns[2],
+                'main_table.request_id',
+                'main_table.date_of_submit',
+                'main_table.approval_status',
+                'sub_table.*',
+                'main_table.id as main_id'
+            )
+            ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
+            ->get();
         return $lists;
     }
     public static function checkIsDateValid($date, $table)
@@ -97,14 +124,21 @@ class DistrictMethod
         return $gp_names;
     }
     // Serach By Block,Gp And dates 
-    public static function searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, $table)
+    public static function searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, $table, $sub_table, $status_key)
     {
         $status = null;
         $message = null;
         if ($form_date === null && $to_date === null && $block_name === null && $gp_name === null) {
             $status = 200;
-            $result = DB::table($table)
-                ->where('district_id', Auth::user()->district)
+            $result = DB::table($table . ' as main_table')
+                ->select(
+                    'main_table.*',
+                    'sub_table.*',
+                    'main_table.id as main_id'
+                )
+                ->where('main_table.district_id', Auth::user()->district)
+                ->where('sub_table.district_approval', $status_key)
+                ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
                 ->get();
             $message = array($result);
         } else {
@@ -118,10 +152,17 @@ class DistrictMethod
                         $form_date_his = array();
                         foreach ($form_to_date as $dates) {
                             if (DistrictMethod::checkIsDateAvai($table, $dates)) {
-                                $form_data = DB::table($table)
-                                    ->where('district_id', Auth::user()->district)
-                                    ->where('date_of_submit', $dates)
-                                    ->where('gp_id', $gp_name)
+                                $form_data = DB::table($table . ' as main_table')
+                                    ->select(
+                                        'main_table.*',
+                                        'sub_table.*',
+                                        'main_table.id as main_id'
+                                    )
+                                    ->where('main_table.district_id', Auth::user()->district)
+                                    ->where('sub_table.district_approval', $status_key)
+                                    ->where('main_table.date_of_submit', $dates)
+                                    ->where('main_table.gp_id', $gp_name)
+                                    ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
                                     ->get();
                                 array_push($form_date_his, $form_data);
                             }
@@ -140,10 +181,17 @@ class DistrictMethod
                             $form_date_his = array();
                             foreach ($form_to_date as $dates) {
                                 if (DistrictMethod::checkIsDateAvai($table, $dates)) {
-                                    $form_data = DB::table($table)
-                                        ->where('district_id', Auth::user()->district)
-                                        ->where('block_id', $block_name)
-                                        ->where('date_of_submit', $dates)
+                                    $form_data = DB::table($table . ' as main_table')
+                                        ->select(
+                                            'main_table.*',
+                                            'sub_table.*',
+                                            'main_table.id as main_id'
+                                        )
+                                        ->where('main_table.district_id', Auth::user()->district)
+                                        ->where('sub_table.district_approval', $status_key)
+                                        ->where('main_table.block_id', $block_name)
+                                        ->where('main_table.date_of_submit', $dates)
+                                        ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
                                         ->get();
                                     array_push($form_date_his, $form_data);
                                 }
@@ -157,14 +205,30 @@ class DistrictMethod
                     } else {
                         if ($block_name !== null) {
                             if ($gp_name !== null) {
-                                $result = DB::table($table)
-                                    ->where('block_id', $block_name)
-                                    ->where('gp_id', $gp_name)
+                                $result = DB::table($table . ' as main_table')
+                                    ->select(
+                                        'main_table.*',
+                                        'sub_table.*',
+                                        'main_table.id as main_id'
+                                    )
+                                    ->where('main_table.district_id', Auth::user()->district)
+                                    ->where('sub_table.district_approval', $status_key)
+                                    ->where('main_table.block_id', $block_name)
+                                    ->where('main_table.gp_id', $gp_name)
+                                    ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
                                     ->get();
                                 $message = array($result);
                             } else {
-                                $result = DB::table($table)
-                                    ->where('block_id', $block_name)
+                                $result = DB::table($table . ' as main_table')
+                                    ->select(
+                                        'main_table.*',
+                                        'sub_table.*',
+                                        'main_table.id as main_id'
+                                    )
+                                    ->where('main_table.district_id', Auth::user()->district)
+                                    ->where('sub_table.district_approval', $status_key)
+                                    ->where('main_table.block_id', $block_name)
+                                    ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
                                     ->get();
                                 $message = array($result);
                             }
@@ -177,9 +241,16 @@ class DistrictMethod
                                     $form_date_his = array();
                                     foreach ($form_to_date as $dates) {
                                         if (DistrictMethod::checkIsDateAvai($table, $dates)) {
-                                            $form_data = DB::table($table)
-                                                ->where('district_id', Auth::user()->district)
-                                                ->where('date_of_submit', $dates)
+                                            $form_data = DB::table($table . ' as main_table')
+                                                ->select(
+                                                    'main_table.*',
+                                                    'sub_table.*',
+                                                    'main_table.id as main_id'
+                                                )
+                                                ->where('main_table.district_id', Auth::user()->district)
+                                                ->where('sub_table.district_approval', $status_key)
+                                                ->where('main_table.date_of_submit', $dates)
+                                                ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
                                                 ->get();
                                             array_push($form_date_his, $form_data);
                                         }
@@ -226,10 +297,17 @@ class DistrictMethod
         }
     }
     // Get Approval Form List Data
-    public static function loadApprovalData($table)
+    public static function loadApprovalData($table, $sub_table)
     {
-        $data = DB::table($table)
-            ->where('district_id', Auth::user()->district)
+        $data = DB::table($table . ' as main_table')
+            ->select(
+                'main_table.*',
+                'sub_table.*',
+                'main_table.id as main_id'
+            )
+            ->where('main_table.district_id', Auth::user()->district)
+            ->where('sub_table.district_approval', '3')
+            ->join($sub_table . ' as sub_table', 'sub_table.form_request_id', '=', 'main_table.request_id')
             ->get();
         return $data;
     }
