@@ -61,4 +61,5 @@ $(document).ready(function () {
     $(document).on('submit', '#search_date_block_gp_id', function (e) {
         districtclass.serachBlockGpDates('district_delay_com/search_block_gp_dates', e, 'add_dc');
     });
+    $('#show_delay_form_data').modal('show');
 })
