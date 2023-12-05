@@ -1,9 +1,22 @@
 body{
-    background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)) ,url("../images/MGNREGA.jpg");
+    background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0, 0, 0, 0.5)) ,url("../images/MGNREGA.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+body:hover::after{
+    position: absolute;
+    top:0;
+    left:0;
+    
+    content: "" !important;
+    background: rgb(129, 59, 241) !important;
+    opacity: 0.6;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
 .login_head{
     width: 100%;
     text-align: center !important;

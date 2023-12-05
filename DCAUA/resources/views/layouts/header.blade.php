@@ -26,7 +26,7 @@
         <h4 class="text-white d-flex justify-content-end   me-3 fs-6 col-5 ">WELCOME
             {{ Auth::user()->login_name }} (
             {{ $role }} )</h4>
-        <a href="/logout" class="text-white d-flex justify-content-end fs-6 col-5 "><i
+        <a href="/logout" class="text-white d-flex justify-content-end fs-6 col-1 " ><i
                 class="fas fa-sign-out-alt"></i></a>
     </div>
 </div>
