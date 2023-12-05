@@ -14,8 +14,9 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    
 
 </head>
 
@@ -23,11 +24,11 @@
     <div class="d-flex justify-content-center align-items-center align-content-center" style="height: 100vh">
         @if (Auth::user())
             @if (Auth::user()->role == 1)
-                <a href="/block_bdashboard">Block Dashboard</a>
+                <a href="/block_bdashboard" class="dash_button">Block Dashboard</a>
             @elseif (Auth::user()->role == 3)
                 <a href="/state_dash" class="dash_button">State Dashboard</a>
             @elseif (Auth::user()->role == 2)
-                <a href="/district_dashboard">District Dashboard</a>
+                <a href="/district_dashboard" class="dash_button">District Dashboard</a>
             @else
                 <a href="">Error Route</a>
             @endif

@@ -15,7 +15,12 @@ body:hover::after{
     width: 100% !important;
     height: 100% !important;
 }
-
+body:hover .dash_button{
+    background-color: white ;
+    color: rgb(144, 89, 233);
+    padding: 14px 25px;
+    border-radius: 5px;
+}
 
 .login_head{
     width: 100%;
