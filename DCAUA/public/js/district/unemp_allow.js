@@ -62,4 +62,16 @@ $(document).ready(function () {
     $(document).on('click', '#approved_district_btn', function () {
         districtclass.approvalMethod('/district_unemp_allow/approval_form_data', 3, null, $(this));
     });
+    // Open reason Section
+    $(document).on('click', '#reject_district_btn', function () {
+        $('.district_reason_div').eq(0).attr('style', 'display:flex !important');
+    });
+    $(document).on('click', '#form_reason_cancel', function () {
+        $('.district_reason_div').eq(0).attr('style', 'display:none !important');
+    });
+    $(document).on('click', '#form_reject_btn', function () {
+        var reason = $('#form_reason').val();
+        console.log(reason);
+        districtclass.approvalMethod('/district_unemp_allow/approval_form_data', 2, reason, $(this));
+    });
 });

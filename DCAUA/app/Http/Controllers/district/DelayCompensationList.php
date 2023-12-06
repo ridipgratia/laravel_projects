@@ -30,7 +30,6 @@ class DelayCompensationList extends Controller
             $delay_form_id = $_GET['delay_form_id'];
             if (isset($delay_form_id)) {
                 $content = DistrictMethod::viewFormData('add_dc', $delay_form_id);
-                
             } else {
                 $content = "<p>No Data</p>";
             }

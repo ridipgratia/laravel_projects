@@ -357,8 +357,13 @@ class DistrictMethod
                                 class="fa-solid fa-file"></i></button>
                         <button id="approved_district_btn" class="btn btn-primary btn-success"
                             value="' . $delay_form_data[0]->id . '">Accept</button>
-                        <button id="reject_form" class="btn btn-primary btn-danger"
-                            value="' . $delay_form_data[0]->id . '">Reject</button>';
+                        <button id="reject_district_btn" class="btn btn-primary btn-danger"
+                            value="' . $delay_form_data[0]->id . '">Reject</button><div class="d-flex flex-column col-12 mt-4 district_reason_div">
+                            <p class="col-md-6 col-8">Reason for rejection</p>
+                            <textarea class="form-control col-md-4 mb-2" id="form_reason" name="editor" rows="3" style="width:70%; resize:none;"></textarea>
+                           <button class="col-md-4 col-8 btn btn-success mb-2" id="form_reject_btn" value="' . $delay_form_data[0]->id . '">Submit</button>
+                           <button class="col-md-4 col-8 btn btn-warning" id="form_reason_cancel" value="' . $delay_form_data[0]->id . '">Cancel</button>                        
+                           </div>';
         }
         return $content;
     }
@@ -371,25 +376,7 @@ class DistrictMethod
             $content = "<p>No data Found</p>";
         } else {
             $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
-            // $content = '<p class="delay_para_head para_head">Work Code Number</p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->card_number . '</p>
-            // <p class="delay_para_head para_head">MR Number</p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->work_demand . '</p>
-            // <p class="delay_para_head para_head">Total Day of Unemployement</p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->total_day_unemple . '</p>
-            // <p class="delay_para_head para_head">Person Responsible For Delay</p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->person_delay . '</p>
-            // <p class="delay_para_head para_head">Designation Responsible For Delay</p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->designation_delay . '</p>
-            // <p class="delay_para_head para_head">Recovered Amount</p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->recover_amount . '</p>
-            // <p class="delay_para_head para_head">Date Amount Recovered</p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->date_recover_amount . '</p>
-            // <p class="delay_para_head para_head">Date Deposited To Bank</p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
-            // <p class="delay_para_head para_head">Date of Submited </p>
-            // <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
-            // <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+
 
             $content = '<p class="delay_para_head para_head">Work Code Number</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->card_number . '</p>
@@ -412,8 +399,13 @@ class DistrictMethod
             class="fa-solid fa-file"></i></button>
     <button id="approved_district_btn" class="btn btn-primary btn-success"
         value="' . $delay_form_data[0]->id . '">Accept</button>
-    <button id="reject_form" class="btn btn-primary btn-danger"
-        value="' . $delay_form_data[0]->id . '">Reject</button>';
+    <button id="reject_district_btn" class="btn btn-primary btn-danger"
+        value="' . $delay_form_data[0]->id . '">Reject</button><div class="d-flex flex-column col-12 mt-4 district_reason_div">
+        <p class="col-md-6 col-8">Reason for rejection</p>
+        <textarea class="form-control col-md-4 mb-2" id="form_reason" name="editor" rows="3" style="width:70%; resize:none;"></textarea>
+       <button class="col-md-4 col-8 btn btn-success mb-2" id="form_reject_btn" value="' . $delay_form_data[0]->id . '">Submit</button>
+       <button class="col-md-4 col-8 btn btn-warning" id="form_reason_cancel" value="' . $delay_form_data[0]->id . '">Cancel</button>                        
+       </div>';
         }
         return $content;
     }

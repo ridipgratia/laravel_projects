@@ -42,10 +42,10 @@ $(document).ready(function () {
         // districtclass.approvalMethod('/district_delay_com/approval_form_data', 2,null, $(this));
         $('#reject_reason_div').css('display', 'flex');
     });
-    $(document).on('click', '#reject_reason_submit', function () {
-        var reason = $('#aproval_reason').val();
-        districtclass.approvalMethod('/district_delay_com/approval_form_data', 2, reason, $(this));
-    })
+    // $(document).on('click', '#reject_reason_submit', function () {
+    //     var reason = $('#aproval_reason').val();
+    //     districtclass.approvalMethod('/district_delay_com/approval_form_data', 2, reason, $(this));
+    // })
     $(document).on('change', '#change_block_id', function () {
         var block_id = $(this).val();
         districtclass.getGpByBlock('/district_unemp_allow/get_gp_by_block', block_id);

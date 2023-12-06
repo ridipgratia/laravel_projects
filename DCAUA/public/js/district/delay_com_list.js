@@ -61,7 +61,20 @@ $(document).ready(function () {
     $(document).on('submit', '#search_date_block_gp_id', function (e) {
         districtclass.serachBlockGpDates('district_delay_com/search_block_gp_dates', e, 'add_dc');
     });
+    // Approved Form By District
     $(document).on('click', '#approved_district_btn', function () {
         districtclass.approvalMethod('/district_delay_com/approval_form_data', 3, null, $(this));
+    });
+    // Open reason Section
+    $(document).on('click', '#reject_district_btn', function () {
+        $('.district_reason_div').eq(0).attr('style', 'display:flex !important');
+    });
+    $(document).on('click', '#form_reason_cancel', function () {
+        $('.district_reason_div').eq(0).attr('style', 'display:none !important');
+    });
+    $(document).on('click', '#form_reject_btn', function () {
+        var reason = $('#form_reason').val();
+        console.log(reason);
+        districtclass.approvalMethod('/district_delay_com/approval_form_data', 2, reason, $(this));
     });
 })

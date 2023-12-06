@@ -54,3 +54,20 @@
     border: 1px solid black;
     font-size: 15px;
 }
+
+.district_reason_div{
+    padding: 10px 10px;
+    background: #DCDCDC;
+    display: none !important;
+}
+.district_reason_div p{
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 4px 0px !important;
+}
+.district_reason_div textarea{
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
