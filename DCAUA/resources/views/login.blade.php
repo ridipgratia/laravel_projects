@@ -14,8 +14,13 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    @if (Auth::user())
+    <link rel="stylesheet" href="{{ asset('css/dash_hover.css') }}">
+    
+    @endif
     
 
 </head>
