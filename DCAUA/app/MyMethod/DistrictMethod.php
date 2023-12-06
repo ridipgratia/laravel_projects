@@ -395,7 +395,8 @@ class DistrictMethod
             <p class="delay_para_head para_head">Date Deposited To Bank</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
             <p class="delay_para_head para_head">Date of Submited </p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p><button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
+            <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
+            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
             class="fa-solid fa-file"></i></button>
     <button id="approved_district_btn" class="btn btn-primary btn-success"
         value="' . $delay_form_data[0]->id . '">Accept</button>
