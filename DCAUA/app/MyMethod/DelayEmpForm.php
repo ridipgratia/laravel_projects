@@ -212,28 +212,28 @@ class DelayEmpForm
                     $state_icon[1] = '<i class="fa-solid fa-check"></i>';
                 }
                 if ($form_data[0]->state_approval == 2) {
-                    $edit_btn[1] = '<button class="form_edit_btn"><i class="fa-solid fa-pen-to-square"></i></button>';
+                    $edit_btn[1] = '<button class="form_edit_btn col-3"><i class="fa-solid fa-pen-to-square"></i></button>';
                 }
             }
-            $progress_div = '<div class="flex_div main_progress_div">
-            <div class="flex_div progres_div">
-                <p>Level</p>
-                <p>Status</p>
-                <p>Reason</p>
+            $progress_div = '<div class="d-flex col-12 border flex-column justify-content-center main_progress_div">
+            <div class="d-flex progres_div gap-2">
+                <p class="col-3 ">Level</p>
+                <p class="col-3 ">Status</p>
+                <p class="col-3 ">Reason</p>
             </div>
-            <div class="flex_div progres_div_1">
-                <p>District</p>
-                <div class="flex_div progres_div_2">
-                    <p>' . $state_icon[0] . '</p>
+            <div class="d-flex progres_div_1 align-items-center  gap-2">
+                <p class="col-3 ">District</p>
+                <div class="d-flex progres_div_2 col-3">
+                    <p class="col-12 ">' . $state_icon[0] . '</p>
                 </div>
-                <p>' . $form_data[0]->district_remarks . '</p>' . $edit_btn[0] . '
+                <p class="col-3 ">' . $form_data[0]->district_remarks . '</p>' . $edit_btn[0] . '
             </div>
-            <div class="flex_div progres_div_1">
-                <p>State</p>
-                <div class="flex_div progres_div_2">
-                    <p>' . $state_icon[1] . '</p>
+            <div class="d-flex progres_div_1  gap-2">
+                <p class="col-3 ">State</p>
+                <div class="d-flex progres_div_2">
+                    <p class="col-3 ">' . $state_icon[1] . '</p>
                 </div>
-                <p>' . $form_data[0]->state_remarks . '</p>' . $edit_btn[1] . '
+                <p class="col-3 ">' . $form_data[0]->state_remarks . '</p>' . $edit_btn[1] . '
             </div>
         </div>';
         }
