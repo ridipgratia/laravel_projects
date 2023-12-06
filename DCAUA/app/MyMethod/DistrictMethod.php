@@ -320,23 +320,45 @@ class DistrictMethod
             $content = "<p>No data Found</p>";
         } else {
             $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
-            $content = '<p class="delay_para_head para_head">Work Code Number</p>
-    <p class="delay_para para_1">' . $delay_form_data[0]->code_number . '</p>
-    <p class="delay_para_head para_head">MR Number</p>
-    <p class="delay_para para_1">' . $delay_form_data[0]->mr_number . '</p>
-    <p class="delay_para_head para_head">Person Responsible For Delay</p>
-    <p class="delay_para para_1">' . $delay_form_data[0]->person_delay . '</p>
-    <p class="delay_para_head para_head">Designation Responsible For Delay</p>
-    <p class="delay_para para_1">' . $delay_form_data[0]->designation_delay . '</p>
-    <p class="delay_para_head para_head">Recovered Amount</p>
-    <p class="delay_para para_1">' . $delay_form_data[0]->recover_amount . '</p>
-    <p class="delay_para_head para_head">Date Amount Recovered</p>
-    <p class="delay_para para_1">' . $delay_form_data[0]->date_recover_amount . '</p>
-    <p class="delay_para_head para_head">Date Deposited To Bank</p>
-    <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
-    <p class="delay_para_head para_head">Date of Submited </p>
-    <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
-    <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+            //         $content = '<p class="delay_para_head para_head">Work Code Number</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->code_number . '</p>
+            // <p class="delay_para_head para_head">MR Number</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->mr_number . '</p>
+            // <p class="delay_para_head para_head">Person Responsible For Delay</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->person_delay . '</p>
+            // <p class="delay_para_head para_head">Designation Responsible For Delay</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->designation_delay . '</p>
+            // <p class="delay_para_head para_head">Recovered Amount</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->recover_amount . '</p>
+            // <p class="delay_para_head para_head">Date Amount Recovered</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->date_recover_amount . '</p>
+            // <p class="delay_para_head para_head">Date Deposited To Bank</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
+            // <p class="delay_para_head para_head">Date of Submited </p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
+            // <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+            $content = `<p class="delay_para_head para_head">Work Code Number</p>
+                        <p class="delay_para para_1"> Form1 </p>
+                        <p class="delay_para_head para_head">MR Number</p>
+                        <p class="delay_para para_1"> Form1</p>
+                        <p class="delay_para_head para_head">Person Responsible For Delay</p>
+                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para_head para_head">Designation Responsible For Delay</p>
+                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para_head para_head">Recovered Amount</p>
+                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para_head para_head">Date Amount Recovered</p>
+                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para_head para_head">Date Deposited To Bank</p>
+                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para_head para_head">Date of Submited </p>
+                        <p class="delay_para para_1">Form1</p>
+                        <button id="show_form_document" class="btn btn-primary" value="img_url"><i
+                                class="fa-solid fa-file"></i></button>
+                        <button id="accept_form" class="btn btn-primary btn-success"
+                            value="Accept_button">Accept</button>
+                        <button id="reject_form" class="btn btn-primary btn-danger"
+                            value="Reject_button">Reject</button>`;
         }
         return $content;
     }
