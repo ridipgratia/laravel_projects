@@ -90,18 +90,26 @@ class UnempAllowance extends Controller
                 $approval_index = $_GET['approval_index'];
                 $reason = $_GET['aproval_reason'];
                 $check_reason = true;
-                if ($approval_index != 1) {
+                if ($approval_index == 2) {
                     if ($reason === "") {
                         $check_reason = false;
                     }
+                } else {
+                    $reason = NULL;
                 }
                 if ($check_reason) {
-                    if (DistrictMethod::approvalMethod('add_unemp_allowance', $form_id, $approval_index, $reason)) {
-                        $status = 200;
-                        $message = "Approval Submited";
+                    $request_id = DistrictMethod::getRequestID('add_unemp_allowance', $form_id);
+                    if ($request_id) {
+                        if (DistrictMethod::approvalMethod('unemp_form_status', $request_id[0]->request_id, $approval_index, $reason)) {
+                            $status = 200;
+                            $message = "Approval Submited";
+                        } else {
+                            $status = 400;
+                            $message = "Try Later , Problem At Database !";
+                        }
                     } else {
                         $status = 400;
-                        $message = "Try Later , Problem At Database !";
+                        $message = "Form Not Found !";
                     }
                 } else {
                     $status = 400;

@@ -30,6 +30,7 @@ class DelayCompensationList extends Controller
             $delay_form_id = $_GET['delay_form_id'];
             if (isset($delay_form_id)) {
                 $content = DistrictMethod::viewFormData('add_dc', $delay_form_id);
+                
             } else {
                 $content = "<p>No Data</p>";
             }
@@ -102,18 +103,26 @@ class DelayCompensationList extends Controller
                 $approval_index = $_GET['approval_index'];
                 $reason = $_GET['aproval_reason'];
                 $check_reason = true;
-                if ($approval_index != 1) {
+                if ($approval_index == 2) {
                     if ($reason === "") {
                         $check_reason = false;
                     }
+                } else {
+                    $reason = NULL;
                 }
                 if ($check_reason) {
-                    if (DistrictMethod::approvalMethod('add_dc', $form_id, $approval_index, $reason)) {
-                        $status = 200;
-                        $message = "Approval Submited";
+                    $request_id = DistrictMethod::getRequestID('add_dc', $form_id);
+                    if ($request_id) {
+                        if (DistrictMethod::approvalMethod('delay_form_status', $request_id[0]->request_id, $approval_index, $reason)) {
+                            $status = 200;
+                            $message = "Approval Submited";
+                        } else {
+                            $status = 400;
+                            $message = "Try Later , Problem At Database !";
+                        }
                     } else {
                         $status = 400;
-                        $message = "Try Later , Problem At Database !";
+                        $message = "Form Not Found !";
                     }
                 } else {
                     $status = 400;

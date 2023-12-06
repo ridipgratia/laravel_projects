@@ -38,9 +38,6 @@ $(document).ready(function () {
     $(document).on('click', '#view_form_btn', function () {
         districtclass.viewApprovalData('/district_delay_com/view_approval_form', $(this));
     });
-    $(document).on('click', '#approved_btn', function () {
-        districtclass.approvalMethod('/district_delay_com/approval_form_data', 1, null, $(this));
-    });
     $(document).on('click', '#reject_btn', function () {
         // districtclass.approvalMethod('/district_delay_com/approval_form_data', 2,null, $(this));
         $('#reject_reason_div').css('display', 'flex');

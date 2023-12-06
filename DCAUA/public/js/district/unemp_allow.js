@@ -58,4 +58,8 @@ $(document).ready(function () {
     $(document).on('submit', '#search_date_block_gp_id', function (e) {
         districtclass.serachBlockGpDates('district_unemp_allow/search_block_gp_dates', e, 'unemp_allow');
     });
+    // Approved Form 
+    $(document).on('click', '#approved_district_btn', function () {
+        districtclass.approvalMethod('/district_unemp_allow/approval_form_data', 3, null, $(this));
+    });
 });

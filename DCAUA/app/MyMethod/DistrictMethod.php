@@ -337,28 +337,28 @@ class DistrictMethod
             // <p class="delay_para_head para_head">Date of Submited </p>
             // <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
             // <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
-            $content = `<p class="delay_para_head para_head">Work Code Number</p>
-                        <p class="delay_para para_1"> Form1 </p>
+            $content = '<p class="delay_para_head para_head">Work Code Number</p>
+                        <p class="delay_para para_1"> ' . $delay_form_data[0]->code_number . ' </p>
                         <p class="delay_para_head para_head">MR Number</p>
-                        <p class="delay_para para_1"> Form1</p>
+                        <p class="delay_para para_1"> ' . $delay_form_data[0]->mr_number . '</p>
                         <p class="delay_para_head para_head">Person Responsible For Delay</p>
-                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para para_1">' . $delay_form_data[0]->person_delay . '</p>
                         <p class="delay_para_head para_head">Designation Responsible For Delay</p>
-                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para para_1">' . $delay_form_data[0]->designation_delay . '</p>
                         <p class="delay_para_head para_head">Recovered Amount</p>
-                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para para_1">' . $delay_form_data[0]->recover_amount . '</p>
                         <p class="delay_para_head para_head">Date Amount Recovered</p>
-                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para para_1">' . $delay_form_data[0]->date_recover_amount . '</p>
                         <p class="delay_para_head para_head">Date Deposited To Bank</p>
-                        <p class="delay_para para_1">Form1</p>
+                        <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
                         <p class="delay_para_head para_head">Date of Submited </p>
-                        <p class="delay_para para_1">Form1</p>
-                        <button id="show_form_document" class="btn btn-primary" value="img_url"><i
+                        <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
+                        <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
                                 class="fa-solid fa-file"></i></button>
-                        <button id="accept_form" class="btn btn-primary btn-success"
-                            value="Accept_button">Accept</button>
+                        <button id="approved_district_btn" class="btn btn-primary btn-success"
+                            value="' . $delay_form_data[0]->id . '">Accept</button>
                         <button id="reject_form" class="btn btn-primary btn-danger"
-                            value="Reject_button">Reject</button>`;
+                            value="' . $delay_form_data[0]->id . '">Reject</button>';
         }
         return $content;
     }
@@ -371,6 +371,26 @@ class DistrictMethod
             $content = "<p>No data Found</p>";
         } else {
             $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
+            // $content = '<p class="delay_para_head para_head">Work Code Number</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->card_number . '</p>
+            // <p class="delay_para_head para_head">MR Number</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->work_demand . '</p>
+            // <p class="delay_para_head para_head">Total Day of Unemployement</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->total_day_unemple . '</p>
+            // <p class="delay_para_head para_head">Person Responsible For Delay</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->person_delay . '</p>
+            // <p class="delay_para_head para_head">Designation Responsible For Delay</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->designation_delay . '</p>
+            // <p class="delay_para_head para_head">Recovered Amount</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->recover_amount . '</p>
+            // <p class="delay_para_head para_head">Date Amount Recovered</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->date_recover_amount . '</p>
+            // <p class="delay_para_head para_head">Date Deposited To Bank</p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
+            // <p class="delay_para_head para_head">Date of Submited </p>
+            // <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
+            // <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+
             $content = '<p class="delay_para_head para_head">Work Code Number</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->card_number . '</p>
             <p class="delay_para_head para_head">MR Number</p>
@@ -388,20 +408,32 @@ class DistrictMethod
             <p class="delay_para_head para_head">Date Deposited To Bank</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->date_deposite_bank . '</p>
             <p class="delay_para_head para_head">Date of Submited </p>
-            <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
-            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Upload Document</button>';
+            <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p><button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
+            class="fa-solid fa-file"></i></button>
+    <button id="approved_district_btn" class="btn btn-primary btn-success"
+        value="' . $delay_form_data[0]->id . '">Accept</button>
+    <button id="reject_form" class="btn btn-primary btn-danger"
+        value="' . $delay_form_data[0]->id . '">Reject</button>';
         }
         return $content;
     }
-    public static function approvalMethod($table, $form_id, $approval_index, $reason)
+    public static function getRequestID($table, $id)
+    {
+        $request_id = DB::table($table)
+            ->where('district_id', Auth::user()->district)
+            ->where('id', $id)
+            ->select('request_id')
+            ->get();
+        return $request_id;
+    }
+    public static function approvalMethod($table, $request_id, $approval_index, $reason)
     {
         $success = false;
         $today = date('Y-m-d');
         try {
             DB::table($table)
-                ->where('district_id', Auth::user()->district)
-                ->where('id', $form_id)
-                ->update(['approval_status' => $approval_index, 'app_rej_date' => $today, 'remarks' => $reason]);
+                ->where('form_request_id', $request_id)
+                ->update(['district_approval' => $approval_index, 'district_approval_date' => $today, 'district_remarks' => $reason]);
             $success = true;
         } catch (Exception $e) {
             $success = false;
