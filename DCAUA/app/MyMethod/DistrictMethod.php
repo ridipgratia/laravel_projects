@@ -379,9 +379,9 @@ class DistrictMethod
             $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
 
 
-            $content = '<p class="delay_para_head para_head">Work Code Number</p>
+            $content = '<p class="delay_para_head para_head">Work Card Number</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->card_number . '</p>
-            <p class="delay_para_head para_head">MR Number</p>
+            <p class="delay_para_head para_head">Work Demand</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->work_demand . '</p>
             <p class="delay_para_head para_head">Total Day of Unemployement</p>
             <p class="delay_para para_1">' . $delay_form_data[0]->total_day_unemple . '</p>
@@ -453,6 +453,35 @@ class DistrictMethod
             <p class="delay_para para_1"> ' . $form_data[0]->code_number . ' </p>
             <p class="delay_para_head para_head">MR Number</p>
             <p class="delay_para para_1"> ' . $form_data[0]->mr_number . '</p>
+            <p class="delay_para_head para_head">Person Responsible For Delay</p>
+            <p class="delay_para para_1">' . $form_data[0]->person_delay . '</p>
+            <p class="delay_para_head para_head">Designation Responsible For Delay</p>
+            <p class="delay_para para_1">' . $form_data[0]->designation_delay . '</p>
+            <p class="delay_para_head para_head">Recovered Amount</p>
+            <p class="delay_para para_1">' . $form_data[0]->recover_amount . '</p>
+            <p class="delay_para_head para_head">Date Amount Recovered</p>
+            <p class="delay_para para_1">' . $form_data[0]->date_recover_amount . '</p>
+            <p class="delay_para_head para_head">Date Deposited To Bank</p>
+            <p class="delay_para para_1">' . $form_data[0]->date_deposite_bank . '</p>
+            <p class="delay_para_head para_head">Date of Submited </p>
+            <p class="delay_para para_1">' . $form_data[0]->date_of_submit . '</p>
+            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
+                    class="fa-solid fa-file"></i></button>';
+        }
+        return $content;
+    }
+    public static function viewUnempApprovedData($form_data){
+        $content = '';
+        if (count($form_data) == 0) {
+            $content = '<p>No Data</p>';
+        } else {
+            $img_url = Storage::url($form_data[0]->bank_statement_url);
+            $content = '<p class="delay_para_head para_head">Work Card Number</p>
+            <p class="delay_para para_1"> ' . $form_data[0]->card_number . ' </p>
+            <p class="delay_para_head para_head">Work Demand</p>
+            <p class="delay_para para_1"> ' . $form_data[0]->work_demand . '</p>
+            <p class="delay_para_head para_head">Total Day Unemployed</p>
+            <p class="delay_para para_1"> ' . $form_data[0]->total_day_unemple . '</p>
             <p class="delay_para_head para_head">Person Responsible For Delay</p>
             <p class="delay_para para_1">' . $form_data[0]->person_delay . '</p>
             <p class="delay_para_head para_head">Designation Responsible For Delay</p>
