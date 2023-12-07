@@ -315,7 +315,9 @@ class DistrictMethod
     public static function viewFormData($table, $delay_form_id)
     {
         $district_code = Auth::user()->district;
-        $delay_form_data = DB::table($table)->where('district_id', $district_code)->where('id', $delay_form_id)->get();
+        $delay_form_data = DB::table($table)
+            ->where('district_id', $district_code)
+            ->where('id', $delay_form_id)->get();
         if (count($delay_form_data) == 0) {
             $content = "<p>No data Found</p>";
         } else {
@@ -354,16 +356,15 @@ class DistrictMethod
                         <p class="delay_para_head para_head">Date of Submited </p>
                         <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
                         <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
-                                class="fa-solid fa-file"></i></button>
-                        <button id="approved_district_btn" class="btn btn-primary btn-success"
-                            value="' . $delay_form_data[0]->id . '">Accept</button>
-                        <button id="reject_district_btn" class="btn btn-primary btn-danger"
-                            value="' . $delay_form_data[0]->id . '">Reject</button><div class="d-flex flex-column col-12 mt-4 district_reason_div">
-                            <p class="col-md-6 col-8">Reason for rejection</p>
-                            <textarea class="form-control col-md-4 mb-2" id="form_reason" name="editor" rows="3" style="width:70%; resize:none;"></textarea>
-                           <button class="col-md-4 col-8 btn btn-success mb-2" id="form_reject_btn" value="' . $delay_form_data[0]->id . '">Submit</button>
-                           <button class="col-md-4 col-8 btn btn-warning" id="form_reason_cancel" value="' . $delay_form_data[0]->id . '">Cancel</button>                        
-                           </div>';
+                                class="fa-solid fa-file"></i></button><button id="approved_district_btn" class="btn btn-primary btn-success"
+                                value="' . $delay_form_data[0]->id . '">Accept</button>
+                            <button id="reject_district_btn" class="btn btn-primary btn-danger"
+                                value="' . $delay_form_data[0]->id . '">Reject</button><div class="d-flex flex-column col-12 mt-4 district_reason_div">
+                                <p class="col-md-6 col-8">Reason for rejection</p>
+                                <textarea class="form-control col-md-4 mb-2" id="form_reason" name="editor" rows="3" style="width:70%; resize:none;"></textarea>
+                               <button class="col-md-4 col-8 btn btn-success mb-2" id="form_reject_btn" value="' . $delay_form_data[0]->id . '">Submit</button>
+                               <button class="col-md-4 col-8 btn btn-warning" id="form_reason_cancel" value="' . $delay_form_data[0]->id . '">Cancel</button>                        
+                               </div>';
         }
         return $content;
     }
@@ -432,5 +433,75 @@ class DistrictMethod
             $success = false;
         }
         return $success;
+    }
+    public static function viewApprovedData($table, $id)
+    {
+        $form_data = DB::table($table)
+            ->where('district_id', Auth::user()->district)
+            ->where('id', $id)
+            ->get();
+        return $form_data;
+    }
+    public static function viewDelayApprovedData($form_data)
+    {
+        $content = '';
+        if (count($form_data) == 0) {
+            $content = '<p>No Data</p>';
+        } else {
+            $img_url = Storage::url($form_data[0]->bank_statement_url);
+            $content = '<p class="delay_para_head para_head">Work Code Number</p>
+            <p class="delay_para para_1"> ' . $form_data[0]->code_number . ' </p>
+            <p class="delay_para_head para_head">MR Number</p>
+            <p class="delay_para para_1"> ' . $form_data[0]->mr_number . '</p>
+            <p class="delay_para_head para_head">Person Responsible For Delay</p>
+            <p class="delay_para para_1">' . $form_data[0]->person_delay . '</p>
+            <p class="delay_para_head para_head">Designation Responsible For Delay</p>
+            <p class="delay_para para_1">' . $form_data[0]->designation_delay . '</p>
+            <p class="delay_para_head para_head">Recovered Amount</p>
+            <p class="delay_para para_1">' . $form_data[0]->recover_amount . '</p>
+            <p class="delay_para_head para_head">Date Amount Recovered</p>
+            <p class="delay_para para_1">' . $form_data[0]->date_recover_amount . '</p>
+            <p class="delay_para_head para_head">Date Deposited To Bank</p>
+            <p class="delay_para para_1">' . $form_data[0]->date_deposite_bank . '</p>
+            <p class="delay_para_head para_head">Date of Submited </p>
+            <p class="delay_para para_1">' . $form_data[0]->date_of_submit . '</p>
+            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
+                    class="fa-solid fa-file"></i></button>';
+        }
+        return $content;
+    }
+    public static function checkApprovalStatus($table, $request_id)
+    {
+        $status_icon = ['<i class="fa-solid fa-hourglass-half"></i>'];
+        $revert_btn = [''];
+        $progress_div = '';
+        $form_data = DB::table($table)
+            ->where('form_request_id', $request_id)
+            ->get();
+        if (count($form_data) != 0) {
+            if ($form_data[0]->state_approval == 2) {
+                $status_icon[0] = '<i class="fa-solid fa-xmark"></i>';
+                $revert_btn[0] = '<button class="form_edit_btn col-3"><i class="fa-solid fa-pen-to-square"></i></button>';
+            } else if ($form_data[0]->state_approval == 3) {
+                $status_icon[0] = '<i class="fa-solid fa-check"></i>';
+            }
+            $progress_div = '<div class="d-flex col-12 border flex-column justify-content-center main_progress_div">
+                    <div class="d-flex progres_div gap-2">
+                        <p class="col-3 ">Level</p>
+                        <p class="col-3 ">Status</p>
+                        <p class="col-3 ">Reason</p>
+                    </div>
+                    <div class="d-flex progres_div_1 align-items-center  gap-2">
+                        <p class="col-3 ">State</p>
+                        <div class="d-flex progres_div_2 col-3">
+                            <p class="col-12 ">' . $status_icon[0] . '</p>
+                        </div>
+                        <p class="col-3 ">' . $form_data[0]->state_remarks . '</p>' . $revert_btn[0] . '
+                    </div>
+                </div>';
+        } else {
+            $progress_div = '<p>No Progress Found </p>';
+        }
+        return $progress_div;
     }
 }

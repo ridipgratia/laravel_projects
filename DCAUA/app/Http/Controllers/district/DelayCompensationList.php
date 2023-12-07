@@ -82,14 +82,41 @@ class DelayCompensationList extends Controller
         if ($request->ajax()) {
             if (isset($_GET['delay_form_id'])) {
                 $delay_form_id = $_GET['delay_form_id'];
-                $main_content = DistrictMethod::viewFormData('add_dc', $delay_form_id);
-                $approval_btn = '<div class="d-flex col-12 mt-2 justify-content-around approval_btn_div"><button id="approved_btn" value="' . $delay_form_id . '">Approve</button><button id="reject_btn" value="' . $delay_form_id . '">Reject</button></div>';
-                $reason_content = '<div class="flex_div" id="reject_reason_div"><textarea name="aproval_reason" class="col-8" id="aproval_reason"></textarea><button id="reject_reason_submit" value="' . $delay_form_id . '">Submit</button></div>';
-                $content = $main_content . $approval_btn . $reason_content;
-            } else {
-                $content = "<p>No Data</p>";
+                //     $main_content = DistrictMethod::viewFormData('add_dc', $delay_form_id);
+                //     $request_id = DistrictMethod::getRequestID('add_dc', $delay_form_id);
+                //     $progress_div = null;
+                //     if (count($request_id) != 0) {
+                //         $progress_div = null;
+                //     }
+                //     $progress_div = '<div class="d-flex col-12 border flex-column justify-content-center main_progress_div">
+                //     <div class="d-flex progres_div gap-2">
+                //         <p class="col-3 ">Level</p>
+                //         <p class="col-3 ">Status</p>
+                //         <p class="col-3 ">Reason</p>
+                //     </div>
+                //     <div class="d-flex progres_div_1 align-items-center  gap-2">
+                //         <p class="col-3 ">District</p>
+                //         <div class="d-flex progres_div_2 col-3">
+                //             <p class="col-12 "><i class="fa-solid fa-xmark"></i></p>
+                //         </div>
+                //         <p class="col-3 ">just testing reason.</p><button class="form_edit_btn col-3"><i class="fas fa-undo"></i></button>
+                //     </div>
+                // </div>';
+                //     $content = $main_content . $progress_div;
+                // } else {
+                //     $content = "<p>No Data</p>";
+                // }
+                $main_content = '';
+                $form_data = DistrictMethod::viewApprovedData('add_dc', $delay_form_id);
+                if (count($form_data) != 0) {
+                    $content = DistrictMethod::viewDelayApprovedData($form_data);
+                    $progress_div = DistrictMethod::checkApprovalStatus('delay_form_status', $form_data[0]->request_id);
+                    $main_content = $content . $progress_div;
+                } else {
+                    $main_content = '<p>No Data Found !</p>';
+                }
+                return response()->json(['status' => 200, 'message' => $main_content]);
             }
-            return response()->json(['status' => 200, 'message' => $content]);
         }
     }
     public function approval_form_data(Request $request)

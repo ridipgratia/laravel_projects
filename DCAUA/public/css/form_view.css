@@ -47,6 +47,9 @@
     justify-content: center;
     align-items: center;
 }
+.progres_div_1 button{
+    color: white;
+}
 .form_edit_btn{
     background: transparent;
     border: none;
