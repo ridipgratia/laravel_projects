@@ -47,5 +47,13 @@ $(document).ready(function () {
     // Get Search Pending Form List Delay
     $(document).on('submit', '#search_date_district_block_gp_id', function (e) {
         stateclass.serachByDisBloGpDatesPending('/delay_compensation/pending_filter_list', e, 'add_dc');
-    })
+    });
+    $(document).on('click', '#state_delay_form_btn', function () {
+        console.log("Ok");
+        stateclass.viewFormData("/delay_compensation/view_form_by_id", $(this));
+    });
+    $(document).on('click', '#show_form_document', function () {
+        var $link = $(this).val();
+        window.open($link, 'Document');
+    });
 });

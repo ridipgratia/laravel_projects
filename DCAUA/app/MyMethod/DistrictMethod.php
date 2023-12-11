@@ -363,7 +363,7 @@ class DistrictMethod
                                 <p class="col-md-6 col-8">Reason for rejection</p>
                                 <textarea class="form-control col-md-4 mb-2" id="form_reason" name="editor" rows="3" style="width:70%; resize:none;"></textarea>
                                <button class="col-md-4 col-8 btn btn-success mb-2" id="form_reject_btn" value="' . $delay_form_data[0]->id . '">Submit</button>
-                               <button class="col-md-4 col-8 btn btn-warning" id="form_reason_cancel" value="' . $delay_form_data[0]->id . '">Cancel</button>                        
+                               <button class="col-md-4 col-8 btn btn-warning" id="form_reason_cancel" value="' . $delay_form_data[0]->id . '">Cancel</button>
                                </div>';
         }
         return $content;

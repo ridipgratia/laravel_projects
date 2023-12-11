@@ -48,6 +48,7 @@ $(document).ready(function () {
     // View All Data By ID
 
     $(document).on('click', '#state_delay_form_btn', function () {
+        console.log("Ok");
         stateclass.viewFormData("/delay_compensation/view_form_by_id", $(this));
     });
     // View Delay Document 
