@@ -394,5 +394,38 @@ class StateClass {
             }
         });
     }
+    async approvalMethod(url, approval_index, approval_reason, btn) {
+        var form_id = btn.val();
+        $.ajax({
+            type: "get",
+            url: url,
+            data: {
+                form_id: form_id,
+                approval_index: approval_index,
+                approval_reason: approval_reason
+            },
+            success: function (result) {
+
+                if (result.status == 200) {
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        'info'
+                    ).then(() => {
+                        location.reload();
+                    })
+                }
+                else {
+                    Swal.fire(
+                        'information',
+                        result.message,
+                        'info'
+                    )
+                }
+            }, error: function (data) {
+                console.log(data);
+            }
+        });
+    }
 }
 export default StateClass;

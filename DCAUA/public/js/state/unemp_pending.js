@@ -46,6 +46,11 @@ $(document).ready(function () {
     stateclass.getPendingFormList('/unemp_allow/pending_list_data', 'unemp_allow');
     $(document).on('submit', '#search_date_district_block_gp_id', function (e) {
         stateclass.serachByDisBloGpDatesPending('/unemp_allow/pending_filter_list', e, 'unemp_allow');
-    })
-
+    });
+    $(document).on('click', '#reject_state_btn', function () {
+        $('.district_reason_div').eq(0).attr('style', 'display:flex !important');
+    });
+    $(document).on('click', '#form_reason_cancel', function () {
+        $('.district_reason_div').eq(0).attr('style', 'display:none !important');
+    });
 });

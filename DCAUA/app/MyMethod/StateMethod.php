@@ -532,4 +532,34 @@ class StateMethod
         }
         return $check;
     }
+
+    // Get Request Form ID
+    public static function getRequestID($table, $form_id)
+    {
+        $request_id = DB::table($table)
+            ->where('id', $form_id)
+            ->select('request_id')
+            ->get();
+        return $request_id;
+    }
+
+    // Aproval MEthod 
+    public static function approvalMethod($table, $request_id, $approval_index, $reason)
+    {
+        $chck = false;
+        $today = date('Y-m-d');
+        try {
+            DB::table($table)
+                ->where('form_request_id', $request_id)
+                ->update([
+                    'state_approval' => $approval_index,
+                    'state_remarks' => $reason,
+                    'state_approval_date' => $today
+                ]);
+            $check = true;
+        } catch (Exception $err) {
+            $check = false;
+        }
+        return $check;
+    }
 }

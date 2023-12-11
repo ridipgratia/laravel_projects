@@ -120,4 +120,7 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
     Route::post('/delay_compensation/pending_filter_list', [DelayCompensationController::class, 'pending_filter_data']);
     // Get Search Pending data Unemploye 
     Route::post('/unemp_allow/pending_filter_list', [UnempAllowController::class, 'pending_filter_list']);
+
+    // Delay Approved Pending Route 
+    Route::get('/delay_compensation/approved_pending_form', [DelayCompensationController::class, 'approved_pending_form']);
 });
