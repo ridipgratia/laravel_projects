@@ -53,4 +53,29 @@ $(document).ready(function () {
     $(document).on('click', '#form_reason_cancel', function () {
         $('.district_reason_div').eq(0).attr('style', 'display:none !important');
     });
+    $(document).on('click', '#state_delay_form_btn', function () {
+        console.log("Ok");
+        stateclass.viewFormData("/delay_compensation/view_form_by_id", $(this));
+    });
+    $(document).on('click', '#show_form_document', function () {
+        var $link = $(this).val();
+        window.open($link, 'Document');
+    });
+
+    // Reject Reason Section
+    $(document).on('click', '#reject_state_btn', function () {
+        $('.district_reason_div').eq(0).attr('style', 'display:flex !important');
+    });
+    $(document).on('click', '#form_reason_cancel', function () {
+        $('.district_reason_div').eq(0).attr('style', 'display:none !important');
+    });
+
+    // Approved Method 
+    $(document).on('click', '#approved_state_btn', function () {
+        stateclass.approvalMethod('/delay_compensation/approved_pending_form', 3, null, $(this));
+    });
+    $(document).on('click', '#form_reject_btn', function () {
+        var reason = $('#form_reason').val();
+        stateclass.approvalMethod('/delay_compensation/approved_pending_form', 2, reason, $(this));
+    });
 });
