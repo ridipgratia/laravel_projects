@@ -123,4 +123,5 @@ Route::group(['middleware' => ['CheckStateAuth']], function () {
 
     // Delay Approved Pending Route 
     Route::get('/delay_compensation/approved_pending_form', [DelayCompensationController::class, 'approved_pending_form']);
+    // Route::get('/delay_compensation/approved_pending_form', [DelayCompensationController::class, 'approved_pending_form']);
 });
