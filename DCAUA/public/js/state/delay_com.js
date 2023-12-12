@@ -61,5 +61,4 @@ $(document).ready(function () {
         stateclass.serachByDisBloGpDates('/delay_compensation/search_query', e, 'add_dc');
     });
 
-    Testig Push
 })
