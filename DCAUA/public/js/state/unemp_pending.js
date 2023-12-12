@@ -72,10 +72,10 @@ $(document).ready(function () {
 
     // Approved Method 
     $(document).on('click', '#approved_state_btn', function () {
-        stateclass.approvalMethod('/delay_compensation/approved_pending_form', 3, null, $(this));
+        stateclass.approvalMethod('/unemp_allow/unemp_pending_form', 3, null, $(this));
     });
     $(document).on('click', '#form_reject_btn', function () {
         var reason = $('#form_reason').val();
-        stateclass.approvalMethod('/delay_compensation/approved_pending_form', 2, reason, $(this));
+        stateclass.approvalMethod('/unemp_allow/unemp_pending_form', 2, reason, $(this));
     });
 });

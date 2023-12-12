@@ -60,5 +60,8 @@ $(document).ready(function () {
     $(document).on('submit', '#search_date_district_block_gp_id', function (e) {
         stateclass.serachByDisBloGpDates('/delay_compensation/search_query', e, 'add_dc');
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4acd534d7c466ce8e5852213bd6898bd4b541966
 })

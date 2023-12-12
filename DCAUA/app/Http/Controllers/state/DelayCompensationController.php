@@ -79,15 +79,15 @@ class DelayCompensationController extends Controller
             <p class="delay_para para_1">' . $delay_form_data[0]->date_of_submit . '</p>
             <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
             class="fa-solid fa-file"></i></button>
-            <button id="approved_state_btn" class="btn btn-primary btn-success"
-                value="' . $delay_form_data[0]->id . '">Accept</button>
-            <button id="reject_state_btn" class="btn btn-primary btn-danger"
-                value="' . $delay_form_data[0]->id . '">Reject</button><div class="d-flex flex-column col-12 mt-4 district_reason_div">
-                <p class="col-md-6 col-8">Reason for rejection</p>
-                <textarea class="form-control col-md-4 mb-2" id="form_reason" name="editor" rows="3" style="width:70%; resize:none;"></textarea>
-            <button class="col-md-4 col-8 btn btn-success mb-2" id="form_reject_btn" value="' . $delay_form_data[0]->id . '">Submit</button>
-            <button class="col-md-4 col-8 btn btn-warning" id="form_reason_cancel" value="' . $delay_form_data[0]->id . '">Cancel</button>
-            </div>';
+        <button id="approved_state_btn" class="btn btn-primary btn-success"
+            value="' . $delay_form_data[0]->id . '">Accept</button>
+        <button id="reject_state_btn" class="btn btn-primary btn-danger"
+            value="' . $delay_form_data[0]->id . '">Reject</button><div class="d-flex flex-column col-12 mt-4 district_reason_div">
+            <p class="col-md-6 col-8">Reason for rejection</p>
+            <textarea class="form-control col-md-4 mb-2" id="form_reason" name="editor" rows="3" style="width:70%; resize:none;"></textarea>
+        <button class="col-md-4 col-8 btn btn-success mb-2" id="form_reject_btn" value="' . $delay_form_data[0]->id . '">Submit</button>
+        <button class="col-md-4 col-8 btn btn-warning" id="form_reason_cancel" value="' . $delay_form_data[0]->id . '">Cancel</button>
+        </div>';
                 }
             } else {
                 $content = "<p>No Data</p>";

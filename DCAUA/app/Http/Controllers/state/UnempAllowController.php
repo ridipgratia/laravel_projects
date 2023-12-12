@@ -148,4 +148,45 @@ class UnempAllowController extends Controller
             return response()->json(['status' => $stauts, 'message' => $message]);
         }
     }
+
+    public function unemp_pending_form(Request $request)
+    {
+        if ($request->ajax()) {
+            $status = 400;
+            $message = null;
+            if (isset($_GET['form_id']) && isset($_GET['approval_index'])) {
+                $form_id = $_GET['form_id'];
+                $approval_index = $_GET['approval_index'];
+                $approval_reason = $_GET['approval_reason'];
+                $check_reason = true;
+                if ($approval_index == 2) {
+                    if ($approval_reason === "") {
+                        $check_reason = false;
+                    }
+                } else {
+                    $approval_reason = NULL;
+                }
+                if ($check_reason) {
+                    $request_id = StateMethod::getRequestID('add_unemp_allowance', $form_id);
+                    if (count($request_id) == 0) {
+                        $message = "Form Not Found !";
+                    } else {
+                        $check = StateMethod::approvalMethod('unemp_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
+                        if ($check) {
+                            $status = 200;
+                            $message = "Approval Submited";
+                        } else {
+                            $message = "Server Error Try Later !";
+                        }
+                    }
+                } else {
+                    $message = "Please Fill A Reaon For Rejection";
+                }
+            } else {
+                $status = 400;
+                $message = "Try Later ";
+            }
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
+    }
 }
