@@ -404,6 +404,9 @@ class StateClass {
                 approval_index: approval_index,
                 approval_reason: approval_reason
             },
+            beforeSend: function () {
+                btn.html("Processing Request");
+            },
             success: function (result) {
 
                 if (result.status == 200) {
@@ -414,6 +417,7 @@ class StateClass {
                     ).then(() => {
                         location.reload();
                     })
+                    console.log(result.message);
                 }
                 else {
                     Swal.fire(
@@ -421,11 +425,15 @@ class StateClass {
                         result.message,
                         'info'
                     )
+                    console.log(result.message);
                 }
+                btn.html("Accepted");
             }, error: function (data) {
                 console.log(data);
+                btn.html("Accepted");
             }
         });
+
     }
 }
 export default StateClass;

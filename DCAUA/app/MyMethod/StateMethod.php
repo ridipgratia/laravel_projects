@@ -544,10 +544,17 @@ class StateMethod
     }
 
     // Aproval MEthod 
-    public static function approvalMethod($table, $request_id, $approval_index, $reason)
+    public static function approvalMethod($main_table, $table, $request_id, $approval_index, $reason)
     {
         $chck = false;
         $today = date('Y-m-d');
+        if ($approval_index == 3) {
+            DB::table($main_table)
+                ->where('request_id', $request_id)
+                ->update([
+                    'approval_status' => 3
+                ]);
+        }
         try {
             DB::table($table)
                 ->where('form_request_id', $request_id)
@@ -561,5 +568,76 @@ class StateMethod
             $check = false;
         }
         return $check;
+    }
+    public static function approvalNotification($notify_data)
+    {
+        try {
+            DB::table('notification')
+                ->insert([
+                    'district_id' => $notify_data['district_id'],
+                    'block_id' => $notify_data['block_id'],
+                    'description' => $notify_data['description'],
+                    'date' => $notify_data['today'],
+                    "created_at" =>  date('Y-m-d H:i:s'),
+                    "updated_at" => date('Y-m-d H:i:s'),
+                    'subject' => $notify_data['subject']
+                ]);
+            return true;
+        } catch (Exception $err) {
+            return false;
+        }
+    }
+    public static function getRequestFormData($table, $request_id)
+    {
+        $check = false;
+        try {
+            $data = DB::table($table)
+                ->where('request_id', $request_id)
+                ->select('district_id', 'block_id', 'gp_id')
+                ->get();
+            $check = true;
+        } catch (Exception $err) {
+            $check = false;
+        }
+        if ($check) {
+            return $data;
+        } else {
+            return NULL;
+        }
+    }
+    public static function getNotifyEmail($district_id, $block_id)
+    {
+        $check = true;
+        $emails = [
+            'District' => null,
+            'Block' => null
+        ];
+        try {
+            $email = DB::table('login_details')
+                ->where('district', $district_id)
+                ->where('block', NULL)
+                ->select('login_email')
+                ->get();
+            $check = true;
+            if (count($email) != 0) {
+                $emails['District'] = $email[0]->login_email;
+            }
+        } catch (Exception $err) {
+            $check = false;
+        }
+        try {
+            $email = DB::table('login_details')
+                ->where('district', $district_id)
+                ->where('block', $block_id)
+                ->select('login_email')
+                ->get();
+            $check = true;
+        } catch (Exception $err) {
+            $check = false;
+        }
+        if (count($email) != 0) {
+            $emails['Block'] = $email[0]->login_email;
+        }
+        return [$emails, $check];
     }
 }

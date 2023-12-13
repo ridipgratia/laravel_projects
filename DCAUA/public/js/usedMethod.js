@@ -21,6 +21,7 @@ class usedMethod {
                     $('#block_name').html((block_name) ? block_name : "All Block");
                     $('#notify_link').attr('href', file_url);
                     $('#notify_link').html((file_url) ? 'Document' : 'No Document');
+                    $('#notify_sub').html(result.message[0].subject);
                     $('#notify_des').html(result.message[0].description);
                 } else {
                     Swal.fire(

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\state;
 
 use App\Http\Controllers\Controller;
+use App\MyMethod\MailSender;
 use App\MyMethod\StateMethod;
 use Exception;
 use Illuminate\Http\Request;
@@ -169,10 +170,81 @@ class DelayCompensationController extends Controller
                     if (count($request_id) == 0) {
                         $message = "Form Not Found !";
                     } else {
-                        $check = StateMethod::approvalMethod('delay_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
+                        // $check = StateMethod::approvalMethod('add_dc', 'delay_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
+                        $check = true;
                         if ($check) {
-                            $status = 200;
-                            $message = "Approval Submited";
+                            $request_form_data = StateMethod::getRequestFormData('add_dc', $request_id[0]->request_id);
+                            if ($request_form_data) {
+                                $subject = "";
+                                $body = "";
+                                if ($approval_index == 3) {
+                                    $body = "Your Form Request ID " . $request_id[0]->request_id . " has been approved by state .";
+                                    $subject = "Request Form Successfully Approved By State";
+                                } else {
+                                    $subject = "Request Form Rejected By State";
+                                    $body = "Your Form Request ID " . $request_id[0]->request_id . " Has Been Rejected By State as " . $approval_reason;
+                                }
+                                $notification = [
+                                    'district_id' => $request_form_data[0]->district_id,
+                                    'block_id' => $request_form_data[0]->block_id,
+                                    'gp_id' => $request_form_data[0]->gp_id,
+                                    'subject' => $subject,
+                                    'description' => $body,
+                                    'today' => date('Y-m-d')
+                                ];
+                                // $check = StateMethod::approvalNotification($notification);
+                                $check = true;
+                                if ($check) {
+                                    // $check = MailSender::sendMailer();
+                                    $notify_email = StateMethod::getNotifyEmail($request_form_data[0]->district_id, $request_form_data[0]->block_id);
+                                    if ($notify_email[1]) {
+                                        $email_data = [
+                                            'subject' => 'Approval Email',
+                                        ];
+                                        $check_email_msg = [
+                                            'District' => '',
+                                            'Block' => ''
+                                        ];
+                                        $check__msg = [
+                                            'District' => '',
+                                            'Block' => ''
+                                        ];
+                                        foreach ($notify_email[0] as $email_key => $email_value) {
+                                            if ($email_value) {
+                                                $check = MailSender::sendMailer($email_data, $email_value, 'mail_blades.notification');
+                                                if (!$check) {
+                                                    $check_email_msg[$email_key] = $email_key;
+                                                } else {
+                                                    $check__msg[$email_key] = $email_key;
+                                                }
+                                            } else {
+                                                $check_email_msg[$email_key] = $email_key;
+                                            }
+                                        }
+                                        if ($check__msg['District'] != '' || $check__msg['Block'] != '') {
+                                            $message = "Email Send To " . $check__msg['District'] . ' ' . $check__msg['Block'] . ' . <br>';
+                                        }
+                                        if ($check_email_msg['District'] != '' || $check_email_msg['Block'] != '') {
+                                            $message = $message . " And Email Not Send To " . $check_email_msg['District'] . ' ' . $check_email_msg['Block'] . ' .';
+                                        }
+                                        $message .= " <b>Approval Submited <b>";
+                                        $status = 200;
+                                        // $message = $data;
+                                    } else {
+                                        $message = "Aproval Submited But Email Not Send ";
+                                    }
+                                    // if ($check) {
+                                    //     $status = 200;
+                                    //     $message = $notify_email;
+                                    // } else {
+                                    //     $message = "Approval Submited But Mail Not Send !";
+                                    // }
+                                } else {
+                                    $message = "Server Error ! Notification Not Send But Form Approved";
+                                }
+                            } else {
+                                $message = "Server Error !  But Form Approved";
+                            }
                         } else {
                             $message = "Server Error Try Later !";
                         }

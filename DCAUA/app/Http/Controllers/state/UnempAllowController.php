@@ -171,7 +171,7 @@ class UnempAllowController extends Controller
                     if (count($request_id) == 0) {
                         $message = "Form Not Found !";
                     } else {
-                        $check = StateMethod::approvalMethod('unemp_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
+                        $check = StateMethod::approvalMethod('add_unemp_allowance', 'unemp_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
                         if ($check) {
                             $status = 200;
                             $message = "Approval Submited";

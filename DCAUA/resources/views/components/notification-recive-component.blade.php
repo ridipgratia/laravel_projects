@@ -14,7 +14,7 @@
                 <p class=" recive_notify_para"><i class="fa-solid fa-envelope"></i></p>
                 <p class="d-flex flex-wrap flex-column recive_notify_para"><span>admin@gamil.com
                         (State)
-                    </span><span>{{ $notification->description }}</span>
+                    </span><span>{{ $notification->subject }}</span>
                 </p>
                 <p class="col-1 recive_notify_para new_notify">{{ $notification->new }}</p>
             </div>

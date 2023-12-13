@@ -9,6 +9,7 @@
         <div class="d-flex flex-wrap col-12 justify-content-center full_notify_text_div">
             <p style="display:{{ $userLevel }}" class="col-10 full_notify_text">Notify Block - <span
                     id="block_name">Kamrup</span> </p>
+            <p class="col-10 full_notify_text" id="notify_sub">Form Subject</p>
             <p class="col-10 full_notify_text" id="notify_des">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                 Culpa nam
                 corporis possimus atque esse sapiente fuga architecto libero quae, sequi fugit, eius quas qui eveniet

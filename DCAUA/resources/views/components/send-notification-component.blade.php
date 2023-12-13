@@ -30,9 +30,13 @@
                     <button type="button" class="col-6" id="send_notify_file_btn"><i class="fa-solid fa-file"></i>
                         Upload Document</button>
                 </div>
+                <div class="d-flex col-md-11 col-12 flex-wrap flex-column send_notify_div_2">
+                    <p>Enter Notification Subject ...</p>
+                    <input type="text" name="notify_name" class="col-8 p-1" placeholder="Enter Subject">
+                </div>
                 <div class="d-flex col-md-11 col-12 flex-wrap send_notify_div_2">
                     <p class="col-11">Type Your Discription</p>
-                    <textarea class="col-12" name="notify_text" id=""></textarea>
+                    <textarea class="col-12" name="notify_text" id="" placeholder="Add Description Here"></textarea>
                 </div>
                 <button type="submit" class="col-3 send_notify_btn">Send ...</button>
             </div>
