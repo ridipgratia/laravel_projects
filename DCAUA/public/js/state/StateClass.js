@@ -406,6 +406,7 @@ class StateClass {
             },
             beforeSend: function () {
                 btn.html("Processing Request");
+                btn.attr('disabled', 'true');
             },
             success: function (result) {
 
@@ -428,9 +429,11 @@ class StateClass {
                     console.log(result.message);
                 }
                 btn.html("Accepted");
+                btn.attr('disabled', 'false');
             }, error: function (data) {
                 console.log(data);
                 btn.html("Accepted");
+                btn.attr('disabled', 'false');
             }
         });
 

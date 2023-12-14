@@ -170,8 +170,7 @@ class DelayCompensationController extends Controller
                     if (count($request_id) == 0) {
                         $message = "Form Not Found !";
                     } else {
-                        // $check = StateMethod::approvalMethod('add_dc', 'delay_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
-                        $check = true;
+                        $check = StateMethod::approvalMethod('add_dc', 'delay_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
                         if ($check) {
                             $request_form_data = StateMethod::getRequestFormData('add_dc', $request_id[0]->request_id);
                             if ($request_form_data) {
@@ -192,8 +191,7 @@ class DelayCompensationController extends Controller
                                     'description' => $body,
                                     'today' => date('Y-m-d')
                                 ];
-                                // $check = StateMethod::approvalNotification($notification);
-                                $check = true;
+                                $check = StateMethod::approvalNotification($notification);
                                 if ($check) {
                                     // $check = MailSender::sendMailer();
                                     $notify_email = StateMethod::getNotifyEmail($request_form_data[0]->district_id, $request_form_data[0]->block_id);
