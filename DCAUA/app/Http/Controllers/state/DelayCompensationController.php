@@ -197,7 +197,8 @@ class DelayCompensationController extends Controller
                                     $notify_email = StateMethod::getNotifyEmail($request_form_data[0]->district_id, $request_form_data[0]->block_id);
                                     if ($notify_email[1]) {
                                         $email_data = [
-                                            'subject' => 'Approval Email',
+                                            'subject' => $subject,
+                                            'body'=> $body
                                         ];
                                         $check_email_msg = [
                                             'District' => '',

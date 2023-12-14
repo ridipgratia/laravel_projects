@@ -571,7 +571,7 @@ class StateMethod
     }
     public static function approvalNotification($notify_data)
     {
-        try {
+        // try {
             DB::table('notification')
                 ->insert([
                     'district_id' => $notify_data['district_id'],
@@ -583,9 +583,9 @@ class StateMethod
                     'subject' => $notify_data['subject']
                 ]);
             return true;
-        } catch (Exception $err) {
-            return false;
-        }
+        // } catch (Exception $err) {
+        //     return false;
+        // }
     }
     public static function getRequestFormData($table, $request_id)
     {

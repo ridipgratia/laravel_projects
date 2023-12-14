@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <p>From State </p>
+  
+    <p>{{$data['body']}}</p>
 </body>
 
 </html>
