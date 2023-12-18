@@ -264,5 +264,33 @@ class DistrictClass {
             }
         });
     }
+    async revertForm(btn, url) {
+        $.ajax({
+            type: "get",
+            url: url,
+            data: {
+                request_id: btn.val(),
+            },
+            success: function (result) {
+                if (result.status == 200) {
+                    Swal.fire(
+                        "Success",
+                        result.message,
+                        "success"
+                    ).then(() => {
+                        location.reload();
+                    })
+                } else {
+                    Swal.fire(
+                        "Information",
+                        result.message,
+                        "info"
+                    )
+                }
+            }, error: function (data) {
+                console.log(data);
+            }
+        });
+    }
 }
 export default DistrictClass;

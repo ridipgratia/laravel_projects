@@ -211,8 +211,8 @@ class DelayEmpForm
                 } else if ($form_data[0]->state_approval == 3) {
                     $state_icon[1] = '<i class="fa-solid fa-check"></i>';
                 }
-                if ($form_data[0]->state_approval == 2) {
-                    $edit_btn[1] = '<button class="form_edit_btn col-3"><i class="fa-solid fa-pen-to-square"></i></button>';
+                if ($form_data[0]->state_approval == 2 && $form_data[0]->district_approval == 2) {
+                    $edit_btn[0] = '<button class="form_edit_btn col-3"><i class="fa-solid fa-pen-to-square"></i></button>';
                 }
             }
             $progress_div = '<div class="d-flex col-12 border flex-column justify-content-center main_progress_div">
@@ -230,8 +230,8 @@ class DelayEmpForm
             </div>
             <div class="d-flex progres_div_1  gap-2">
                 <p class="col-3 ">State</p>
-                <div class="d-flex progres_div_2">
-                    <p class="col-3 ">' . $state_icon[1] . '</p>
+                <div class="d-flex progres_div_2 col-3">
+                    <p class="col-12 ">' . $state_icon[1] . '</p>
                 </div>
                 <p class="col-3 ">' . $form_data[0]->state_remarks . '</p>' . $edit_btn[1] . '
             </div>

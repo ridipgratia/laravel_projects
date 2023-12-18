@@ -75,4 +75,8 @@ Route::group(['middleware' => ['CheckDistrictAuth']], function () {
     Route::get('/district_notification', [NotificationController::class, 'index']);
     // View Full Notification 
     Route::get('/district/view_full_notification', [NotificationController::class, 'view_full_notification']);
+    // Delay Revert Form To Block
+    Route::get('/delay/revert_form', [DelayCompensationList::class, 'revert_form']);
+    // Unemployement Revert Form To Block
+    Route::get('/unemp/revert_form', [UnempAllowance::class, 'revert_form']);
 });

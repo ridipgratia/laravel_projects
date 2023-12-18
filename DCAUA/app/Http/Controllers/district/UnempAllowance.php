@@ -127,7 +127,7 @@ class UnempAllowance extends Controller
                 if ($check_reason) {
                     $request_id = DistrictMethod::getRequestID('add_unemp_allowance', $form_id);
                     if ($request_id) {
-                        if (DistrictMethod::approvalMethod('unemp_form_status', $request_id[0]->request_id, $approval_index, $reason)) {
+                        if (DistrictMethod::approvalMethod('add_unemp_allowance', 'unemp_form_status', $request_id[0]->request_id, $approval_index, $reason)) {
                             $status = 200;
                             $message = "Approval Submited";
                         } else {
@@ -157,5 +157,21 @@ class UnempAllowance extends Controller
         $gp_name = $request->gp_name;
         $result = DistrictMethod::searchByBlockGpDates($form_date, $to_date, $block_name, $gp_name, 'add_unemp_allowance', 'unemp_form_status', 3);
         return response()->json(['status' => $result[0], 'message' => $result[1]]);
+    }
+    public function revert_form(Request $request)
+    {
+        if ($request->ajax()) {
+            $status = 400;
+            $message = null;
+            $request_id = $_GET['request_id'];
+            $check = DistrictMethod::revertFormMethod('unemp_form_status', $request_id);
+            if ($check) {
+                $message = "Form Reverted Successfully";
+                $status = 200;
+            } else {
+                $message = "Server Error Try Again !";
+            }
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
     }
 }

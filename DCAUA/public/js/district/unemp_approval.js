@@ -44,7 +44,7 @@ $(document).ready(function () {
         // districtclass.approvalMethod('/district_delay_com/approval_form_data', 2,null, $(this));
         $('#reject_reason_div').css('display', 'flex');
     });
-    
+
     $(document).on('change', '#change_block_id', function () {
         var block_id = $(this).val();
         districtclass.getGpByBlock('/district_unemp_allow/get_gp_by_block', block_id);
@@ -52,5 +52,9 @@ $(document).ready(function () {
     // Search Filter
     $(document).on('submit', '#search_date_block_gp_id', function (e) {
         districtclass.serachBlockGpDates('/district_unemp_allow/pending_search_block_gp_dates', e, 'unemp_allow');
+    });
+    // Revert Form To Block
+    $(document).on('click', '#revert_btn', function () {
+        districtclass.revertForm($(this), '/unemp/revert_form');
     });
 });
