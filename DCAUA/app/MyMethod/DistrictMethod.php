@@ -7,6 +7,7 @@ use DatePeriod;
 use DateTime;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -420,14 +421,16 @@ class DistrictMethod
             ->get();
         return $request_id;
     }
-    public static function approvalMethod($table, $request_id, $approval_index, $reason)
+    public static function approvalMethod($main_table, $table, $request_id, $approval_index, $reason)
     {
         $success = false;
         $today = date('Y-m-d');
         try {
-            DB::table($table)
-                ->where('form_request_id', $request_id)
-                ->update(['district_approval' => $approval_index, 'district_approval_date' => $today, 'district_remarks' => $reason]);
+            DB::table($table . ' as sub_table')
+                ->where('sub_table.form_request_id', $request_id)
+                ->where('main_table.district_id', Auth::user()->district)
+                ->join($main_table . ' as main_table', 'main_table.request_id', '=', 'sub_table.form_request_id')
+                ->update(['sub_table.district_approval' => $approval_index, 'sub_table.district_approval_date' => $today, 'sub_table.district_remarks' => $reason]);
             $success = true;
         } catch (Exception $e) {
             $success = false;
@@ -470,7 +473,8 @@ class DistrictMethod
         }
         return $content;
     }
-    public static function viewUnempApprovedData($form_data){
+    public static function viewUnempApprovedData($form_data)
+    {
         $content = '';
         if (count($form_data) == 0) {
             $content = '<p>No Data</p>';
@@ -510,7 +514,7 @@ class DistrictMethod
         if (count($form_data) != 0) {
             if ($form_data[0]->state_approval == 2) {
                 $status_icon[0] = '<i class="fa-solid fa-xmark"></i>';
-                $revert_btn[0] = '<button class="form_edit_btn col-3"><i class="fa-solid fa-pen-to-square"></i></button>';
+                $revert_btn[0] = '<button class="form_edit_btn col-3" id="revert_btn" value="' . Crypt::encryptString($request_id) . '"><i class="fas fa-undo"></i></button>';
             } else if ($form_data[0]->state_approval == 3) {
                 $status_icon[0] = '<i class="fa-solid fa-check"></i>';
             }
@@ -532,5 +536,21 @@ class DistrictMethod
             $progress_div = '<p>No Progress Found </p>';
         }
         return $progress_div;
+    }
+    // Revert Form To Block
+    public static function revertFormMethod($table, $request_id)
+    {
+        try {
+            DB::table($table)
+                ->where('form_request_id', Crypt::decryptString($request_id))
+                ->where('state_approval', 2)
+                ->update([
+                    'district_approval' => 2,
+                    'district_remarks' => (DB::select('select state_remarks from ' . $table . ' where form_request_id = "' . Crypt::decryptString($request_id) . '" ')[0]->state_remarks)
+                ]);
+            return true;
+        } catch (Exception $err) {
+            return false;
+        }
     }
 }
