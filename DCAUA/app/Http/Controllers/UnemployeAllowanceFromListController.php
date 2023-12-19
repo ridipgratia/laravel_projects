@@ -114,9 +114,13 @@ class UnemployeAllowanceFromListController extends Controller
                         <input type="date" class="delay_para para_1" value="' . $delay_form_data[0]->date_deposite_bank . '">
                         <p class="delay_para_head para_head para_head_edit">Select Your Document </p>
                         <input type="file" class="delay_para para_1" >
-                        <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Document</button>
-                        <button id="show_form_document" class="btn btn-primary" value="' . $request_id . '">Submit Form</button>
-                        <button id="show_form_document" class="btn btn-primary" value="' . $request_id . '">Delete Form</button>
+                        <div>
+                            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Document</button>
+                        </div>
+                        <div class="mt-3 gap-2">
+                            <button id="show_form_document" class="btn btn-danger" value="' . $request_id . '">Delete Form</button>
+                            <button id="show_form_document" class="btn btn-success" value="' . $request_id . '">Submit Form</button>
+                        </div>
                         </form>';
                         return $content;
                     }
