@@ -3,6 +3,8 @@
 }
 .from_list_show_div_1{
     width: 100%;
+    align-items: flex-start;
+    align-content: flex-start;
     padding: 5px 10px;
     font-family: 'Roboto' sans-serif;
 }
@@ -70,4 +72,7 @@
     font-size: 14px;
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
+}
+.para_head_edit{
+    font-weight: bold;
 }

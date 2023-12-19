@@ -5,7 +5,9 @@ namespace App\MyMethod;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\Table\Table;
 
@@ -202,7 +204,7 @@ class DelayEmpForm
                     $state_icon[0] = '<i class="fa-solid fa-check"></i>';
                 }
                 if ($form_data[0]->district_approval == 2) {
-                    $edit_btn[0] = '<button class="form_edit_btn col-3" id="edit_form_btn" value="' . $register_id. '"><i class="fa-solid fa-pen-to-square"></i></button>';
+                    $edit_btn[0] = '<button class="form_edit_btn col-3" id="edit_form_btn" value="' . $register_id . '"><i class="fa-solid fa-pen-to-square"></i></button>';
                 }
             }
             if ($form_data[0]->state_approval == 1 || $form_data[0]->state_approval == 2 || $form_data[0]->state_approval == 3) {
@@ -212,7 +214,7 @@ class DelayEmpForm
                     $state_icon[1] = '<i class="fa-solid fa-check"></i>';
                 }
                 if ($form_data[0]->state_approval == 2 && $form_data[0]->district_approval == 2) {
-                    $edit_btn[0] = '<button class="form_edit_btn col-3" id="edit_form_btn" value="' .$register_id. '"><i class="fa-solid fa-pen-to-square"></i></button>';
+                    $edit_btn[0] = '<button class="form_edit_btn col-3" id="edit_form_btn" value="' . Crypt::encryptString($register_id) . '"><i class="fa-solid fa-pen-to-square"></i></button>';
                 }
             }
             $progress_div = '<div class="d-flex col-12 border flex-column justify-content-center main_progress_div">
@@ -239,39 +241,35 @@ class DelayEmpForm
         }
         return $progress_div;
     }
-    // Edit reverted Form for Block
-    public static function editFormMethod($table, $request_id)
+    // Check Form Reject
+    public static function checkFormReject($table, $request_id)
     {
-        $form_data = DB::table($table)
-            ->where('form_request_id', $register_id)
-            ->get();
-
-        $content = '';
-        if (count($form_data) == 0) {
-            $content = '<p>No Data</p>';
-        } else {
-            $img_url = Storage::url($form_data[0]->bank_statement_url);
-            $content = '<p class="delay_para_head para_head">Work Card Number</p>
-            <p class="delay_para para_1"> ' . $form_data[0]->card_number . ' </p>
-            <p class="delay_para_head para_head">Work Demand</p>
-            <p class="delay_para para_1"> ' . $form_data[0]->work_demand . '</p>
-            <p class="delay_para_head para_head">Total Day Unemployed</p>
-            <p class="delay_para para_1"> ' . $form_data[0]->total_day_unemple . '</p>
-            <p class="delay_para_head para_head">Person Responsible For Delay</p>
-            <p class="delay_para para_1">' . $form_data[0]->person_delay . '</p>
-            <p class="delay_para_head para_head">Designation Responsible For Delay</p>
-            <p class="delay_para para_1">' . $form_data[0]->designation_delay . '</p>
-            <p class="delay_para_head para_head">Recovered Amount</p>
-            <p class="delay_para para_1">' . $form_data[0]->recover_amount . '</p>
-            <p class="delay_para_head para_head">Date Amount Recovered</p>
-            <p class="delay_para para_1">' . $form_data[0]->date_recover_amount . '</p>
-            <p class="delay_para_head para_head">Date Deposited To Bank</p>
-            <p class="delay_para para_1">' . $form_data[0]->date_deposite_bank . '</p>
-            <p class="delay_para_head para_head">Date of Submited </p>
-            <p class="delay_para para_1">' . $form_data[0]->date_of_submit . '</p>
-            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '"><i
-                    class="fa-solid fa-file"></i></button>';
+        try {
+            $form = DB::table($table)
+                ->where('form_request_id', Crypt::decryptString($request_id))
+                ->where('district_approval', 2)
+                ->where('state_approval', 2)
+                ->get();
+            if (count($form) == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception $err) {
+            return false;
         }
-        return $content;
+    }
+    // Get All Form Data 
+    public static  function getAllFormData($table, $request_id)
+    {
+        try {
+            $form_data = DB::table($table)
+                ->where('submited_by', Auth::user()->login_id)
+                ->where('request_id', Crypt::decryptString($request_id))
+                ->get();
+            return $form_data;
+        } catch (Exception $err) {
+            return NULL;
+        }
     }
 }

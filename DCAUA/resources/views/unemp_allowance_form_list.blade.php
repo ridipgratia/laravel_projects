@@ -79,6 +79,7 @@
     {{-- All Code Of Ajax Related --}}
 
     <script src="{{ asset('js/unemp_allow_from_list.js') }}"></script>
+    <script type="module" src="{{ asset('js/edit_form_unemp.js') }}"></script>
     <script src="{{ asset('js/sidenav.js') }}"></script>
 </body>
 

@@ -46,20 +46,13 @@ class usedMethod {
             },
             datatype: 'html',
             success: function (result) {
-                if (result.status == 200) {
-                    console.log("Success status");
-                    $('.delay_show_div_1').eq(0).html(result);
-                    // $('#show_delay_form_data').modal('show');
-                    console.log("Working usedMethod")
-                } else {
-                    console.log("Failure status");
-                    console.log("Not working usedMethod");
-                }
+                $('.edit_form_div').eq(0).html(result);
+                // $('#show_delay_form_data').modal('show');
             },
             error: function (data) {
                 console.log(data);
             }
         });
-    }   
+    }
 }
 export default usedMethod;
