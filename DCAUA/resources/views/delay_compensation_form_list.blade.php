@@ -81,6 +81,8 @@
     {{-- All Code Of Ajax Related --}}
 
     <script src="{{ asset('js/delay_compensation_form_list.js') }}"></script>
+    <script type="module" src="{{ asset('js/edit_form_block.js') }}"></script>
+    <!-- <script src="{{ asset('js/usedMethod.js') }}"></script> -->
     <script src="{{ asset('js/sidenav.js') }}"></script>
 </body>
 

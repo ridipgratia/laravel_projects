@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
     // Initialze datatable Here 
 
@@ -167,4 +169,5 @@ $(document).ready(function () {
             }
         });
     })
+    
 });

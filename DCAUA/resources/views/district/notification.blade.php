@@ -66,17 +66,17 @@
     <script src="{{ asset('js/sidenav.js') }}"></script>
     <script type="module" src="{{ asset('js/district/notification.js') }}"></script>
     <script>
-        var json_data = '<?php echo json_encode($notifications); ?>';
-        var json_obj_data = JSON.parse(json_data);
-        var count_new = 0;
-        json_obj_data.forEach(element => {
-            if (element.new === "new") {
-                count_new++;
-            }
-        });
-        if (count_new != 0) {
-            document.getElementById('count_new').innerHTML = "new " + count_new;
-        }
+        // var json_data = '<?php echo json_encode($notifications); ?>';
+        // var json_obj_data = JSON.parse(json_data);
+        // var count_new = 0;
+        // json_obj_data.forEach(element => {
+        //     if (element.new === "new") {
+        //         count_new++;
+        //     }
+        // });
+        // if (count_new != 0) {
+        //     document.getElementById('count_new').innerHTML = "new " + count_new;
+        // }
     </script>
 </body>
 
