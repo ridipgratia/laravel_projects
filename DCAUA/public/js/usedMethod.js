@@ -54,5 +54,40 @@ class usedMethod {
             }
         });
     }
+    async submitEditForm(form, url, btn) {
+        let form_data = new FormData(form[0]);
+        var request_id = btn.val();
+        form_data.append('request_id', request_id);
+        await $.ajax({
+            type: "post",
+            url: url,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (result.status == 200) {
+                    Swal.fire(
+                        'success',
+                        result.message,
+                        'info'
+                    ).then(() => {
+                        location.reload();
+                    })
+                } else {
+                    Swal.fire(
+                        'Information',
+                        result.message,
+                        'info'
+                    )
+                }
+            }, error: function (data) {
+                console.log(data);
+            }
+        });
+    }
 }
 export default usedMethod;

@@ -93,33 +93,34 @@ class UnemployeAllowanceFromListController extends Controller
                         return "<p>No data Found</p>";
                     } else {
                         $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
-                        $request_id = $delay_form_data[0]->request_id;
+                        // $request_id = $delay_form_data[0]->request_id;
                         // $approval_form_status = DelayEmpForm::chekcFormStatus('delay_form_status', $request_id);
                         $content = '<form id="submit_edit_form" class="flex_div delay_show_div_1 from_list_show_div_1" style="width:100%;">
+                        <input type="hidden" value="' . csrf_token() . '" name="_token">
                     <p class="delay_para_head para_head para_head_edit">Card Number</p>
-                        <input type="text" class="delay_para para_1" value="' . $delay_form_data[0]->card_number . '" >
+                        <input type="text" name="card_number" class="delay_para para_1" value="' . $delay_form_data[0]->card_number . '" >
                         <p class="delay_para_head para_head para_head_edit">Work Demand</p>
-                        <input type="text" class="delay_para para_1" value="' . $delay_form_data[0]->work_demand . '">
+                        <input type="text" name="work_demand" class="delay_para para_1" value="' . $delay_form_data[0]->work_demand . '">
                         <p class="delay_para_head para_head para_head_edit">Total Day Unemployed</p>
-                        <input type="text" class="delay_para para_1" value="' . $delay_form_data[0]->total_day_unemple . '">
+                        <input type="text" name="total_day_unemploye" class="delay_para para_1" value="' . $delay_form_data[0]->total_day_unemple . '">
                         <p class="delay_para_head para_head para_head_edit">Person Responsible For Delay</p>
-                        <input type="text" class="delay_para para_1" value="' . $delay_form_data[0]->person_delay . '">
+                        <input type="text" name="person_delay" class="delay_para para_1" value="' . $delay_form_data[0]->person_delay . '">
                         <p class="delay_para_head para_head para_head_edit">Designation Amount</p>
-                        <input type="text" class="delay_para para_1" value="' . $delay_form_data[0]->designation_delay . '">
+                        <input type="text" name="designation_delay" class="delay_para para_1" value="' . $delay_form_data[0]->designation_delay . '">
                         <p class="delay_para_head para_head para_head_edit">Amount Recovered</p>
-                        <input type="text" class="delay_para para_1" value="' . $delay_form_data[0]->recover_amount . '">
+                        <input type="number" name="recover_amount" class="delay_para para_1" value="' . $delay_form_data[0]->recover_amount . '">
                         <p class="delay_para_head para_head para_head_edit">Date Recovered Amount</p>
-                        <input type="date" class="delay_para para_1" value="' . $delay_form_data[0]->date_recover_amount . '">
+                        <input type="date" name="date_recover_amount" class="delay_para para_1" value="' . $delay_form_data[0]->date_recover_amount . '">
                         <p class="delay_para_head para_head para_head_edit">Date Deposite Bank </p>
-                        <input type="date" class="delay_para para_1" value="' . $delay_form_data[0]->date_deposite_bank . '">
+                        <input type="date" name="date_deposite_bank" class="delay_para para_1" value="' . $delay_form_data[0]->date_deposite_bank . '">
                         <p class="delay_para_head para_head para_head_edit">Select Your Document </p>
-                        <input type="file" class="delay_para para_1" >
+                        <input type="file" name="bank_statement_url" class="delay_para para_1" accept="application/pdf">
                         <div>
                             <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Document</button>
                         </div>
                         <div class="mt-3 gap-2">
                             <button id="show_form_document" class="btn btn-danger" value="' . $request_id . '">Delete Form</button>
-                            <button id="show_form_document" class="btn btn-success" value="' . $request_id . '">Submit Form</button>
+                            <button id="update_edit_form" class="btn btn-success" value="' . $request_id . '">Submit Form</button>
                         </div>
                         </form>';
                         return $content;
@@ -130,6 +131,37 @@ class UnemployeAllowanceFromListController extends Controller
             } else {
                 return "<p>No data</p>";
             }
+        }
+    }
+    // Submit Edit Form Data 
+    public function updateEditForm(Request $request)
+    {
+        if ($request->ajax()) {
+            $update_fields = [
+                "card_number" => $request->card_number,
+                "work_demand" => $request->work_demand,
+                "total_day_unemple" => $request->total_day_unemploye,
+                "person_delay" => $request->person_delay,
+                "designation_delay" => $request->designation_delay,
+                "recover_amount" => $request->recover_amount,
+                "date_recover_amount" => $request->date_recover_amount,
+                "date_deposite_bank" => $request->date_deposite_bank,
+                "bank_statement_url" => $request->bank_statement_url,
+                "form_update_date" => date('Y-m-d')
+            ];
+            $check_fields = [
+                'card_number' => 'required',
+                'work_demand' => 'required',
+                'total_day_unemploye' => 'required',
+                'person_delay' => 'required',
+                'designation_delay' => 'required|',
+                'recover_amount' => 'required|integer',
+                'date_recover_amount' => 'required|date',
+                'date_deposite_bank' => 'required|date',
+                'bank_statement_url' => 'required|max:3072|mimes:pdf',
+            ];
+            $response = DelayEmpForm::updateAllFormData('add_unemp_allowance', 'unemp_form_status', $request, $update_fields, $check_fields);
+            return response()->json(['status' => $response[0], 'message' => $response[1]]);
         }
     }
 }

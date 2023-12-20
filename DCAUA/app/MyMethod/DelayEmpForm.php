@@ -6,9 +6,11 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use Exception;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use League\CommonMark\Extension\Table\Table;
 
 class DelayEmpForm
@@ -271,5 +273,126 @@ class DelayEmpForm
         } catch (Exception $err) {
             return NULL;
         }
+    }
+    // Check Form Exists 
+    public static function checkFormExists($table, $request_id)
+    {
+        try {
+            return DB::table($table)
+                ->select('id')
+                ->where('request_id', Crypt::decryptString($request_id))
+                ->count();
+        } catch (Exception $err) {
+            return false;
+        }
+    }
+    // Get Submited By ID
+    public static function getSubmitedBy($table, $request_id)
+    {
+        try {
+            return DB::table($table)
+                ->where('request_id', Crypt::decryptString($request_id))
+                ->select('submited_by')
+                ->get();
+        } catch (Exception $err) {
+            return NULL;
+        }
+    }
+    // Update Edit Form Data In Database
+    public static function updateEditFormDatabase($table, $update_fields, $request_id)
+    {
+        try {
+            DB::table($table)
+                ->where('request_id', Crypt::decryptString($request_id))
+                ->update(
+                    $update_fields
+                );
+            return true;
+        } catch (Exception $err) {
+            return false;
+        }
+    }
+    public static function editDataUpdate($table, $request_id, $update_filed_data)
+    {
+        try {
+            DB::table($table)
+                ->where('form_request_id', $request_id)
+                ->update(
+                    $update_filed_data
+                );
+            return true;
+        } catch (Exception $err) {
+            return false;
+        }
+    }
+    // Revert Update Data From Database
+    public static function revertEditData($table, $request_id)
+    {
+        $update_fields_data = [
+            'district_approval' => 2,
+            'state_approval' => 2
+        ];
+        return DelayEmpForm::editDataUpdate($table, $request_id, $update_fields_data);
+    }
+    // Update Form data
+    public static function updateAllFormData($table, $sub_table, $request, $update_fields, $check_fileds)
+    {
+        $status = 400;
+        $message = null;
+        if (DelayEmpForm::checkFormExists($table, $request->request_id)) {
+            if (DelayEmpForm::checkFormReject($sub_table, $request->request_id)) {
+                $error_message = [
+                    'required' => '* :attribute Is Required Field',
+                    'mimes' => '* :attribute Is Only Accept PDF',
+                    'date' => '* :attribute Is Date Format',
+                    'integer' => '* :attribute Is Number Format',
+                    'max' => '* File Size Only 3mb',
+                ];
+                $validator = Validator::make(
+                    $request->all(),
+                    $check_fileds,
+                    $error_message
+                );
+                if ($validator->fails()) {
+                    foreach ($validator->errors()->all() as $errors) {
+                        $message .= $errors . '<br>';
+                    }
+                } else {
+                    $submited_by = DelayEmpForm::getSubmitedBy($table, $request->request_id);
+                    if ($submited_by) {
+                        $update_fields_data = [
+                            'district_approval' => 1,
+                            'state_approval' => 1
+                        ];
+                        $check = DelayEmpForm::editDataUpdate($sub_table, Crypt::decryptString($request->request_id), $update_fields_data);
+                        if ($check) {
+                            $bank_statement_url = $request->file('bank_statement_url')->store('public/images/' . $submited_by[0]->submited_by . '/unemploye_allowance');
+                            $update_fields['bank_statement_url'] = $bank_statement_url;
+                            $check_update = DelayEmpForm::updateEditFormDatabase($table, $update_fields, $request->request_id);
+                            if ($check_update) {
+                                $message = "Successfully Update Form Data";
+                                $status = 200;
+                            } else {
+                                $check = DelayEmpForm::revertEditData($sub_table, Crypt::decryptString($request->request_id));
+                                if ($check) {
+                                    $message = "Server Error Please Try Later In Update Data!";
+                                } else {
+                                    $message = "Revert Failed Please Contact Developers";
+                                }
+                            }
+                        } else {
+                            $message = "Server Error Please Try Later";
+                        }
+                    } else {
+                        $message = "Server Error Please Try Later 1!";
+                    }
+                }
+            } else {
+                $message = "Form Is Not Editable !";
+            }
+        } else {
+            $message = "Request Form Not Found !";
+        }
+        return [$status, $message];
     }
 }
