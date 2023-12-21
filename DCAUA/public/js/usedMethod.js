@@ -89,5 +89,24 @@ class usedMethod {
             }
         });
     }
+    async deleteForm(btn, url) {
+        var request_id=btn.val();
+        console.log(request_id);
+        $.ajax({
+            type: "get",
+            url: url,
+            data: {
+                request_id: request_id,
+            },
+            success: function (result) {
+                console.log(result);
+                // $('.edit_form_div').eq(0).html(result);
+                // $('#show_delay_form_data').modal('show');
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
 }
 export default usedMethod;

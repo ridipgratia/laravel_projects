@@ -8,4 +8,8 @@ $(document).ready(function () {
         e.preventDefault();
         usedmethod.submitEditForm($('#submit_edit_form'), '/delay_compensation_form_list/update_edit_form', $(this));
     });
+    $(document).on('click', '#delete_form_btn', async function (e) {
+        usedmethod.deleteForm($(this), '/delay_compensation_form_list/delete_form');
+    });
 });
+

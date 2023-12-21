@@ -122,7 +122,7 @@ class DelayConpensationFormListController extends Controller
                             <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Document</button>
                         </div>
                         <div class="mt-3 gap-2">
-                            <button type="button" id="show_form_document" class="btn btn-danger" value="' . $request_id . '">Delete Form</button>
+                            <button type="button" id="delete_form_btn" class="btn btn-danger" value="' . $request_id . '">Delete Form</button>
                             <button type="button" id="update_edit_form" class="btn btn-success" value="' . $request_id . '">Submit Form</button>
                         </div>
                         </form>';
@@ -164,5 +164,28 @@ class DelayConpensationFormListController extends Controller
             $response = DelayEmpForm::updateAllFormData('add_dc', 'delay_form_status', $request, $update_fields, $check_fields);
             return response()->json(['status' => $response[0], 'message' => $response[1]]);
         }
+    }
+    // Delete form
+    public static function deleteFormMethod(Request $request)
+    {
+
+        // console.log("dc controller");
+        // if ($request->ajax()) {
+        //     $request_id = $_GET['request_id'];
+        //     console.log("dc controller");
+            // if (isset($request_id)) {
+            //     if (DelayEmpForm::checkFormReject('delay_form_status', $request_id)) {
+            //         $delay_form_data = DelayEmpForm::deleteForm('add_dc', $request_id);
+            //         if ($delay_form_data == NULL) {
+            //             return "<p>No data Found</p>";
+            //         } else {
+            //             return "<p>Can delete data</p>";
+            //         }
+            //     }
+            // }
+        // }
+        $request_id=$_GET['request_id'];
+        $response = DelayEmpForm::deleteForm('add_dc', $request->request_id);
+        return response()->json(['status' => 200, 'message' => $request_id]);
     }
 }

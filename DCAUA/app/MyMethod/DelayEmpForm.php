@@ -395,4 +395,13 @@ class DelayEmpForm
         }
         return [$status, $message];
     }
+    // Delete form 
+    public static function deleteForm($table, $request_id)
+    {
+        try{
+            return "done";
+        }catch(Exception $err){
+            return "not done";
+        }
+    }
 }
