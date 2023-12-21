@@ -168,24 +168,10 @@ class DelayConpensationFormListController extends Controller
     // Delete form
     public static function deleteFormMethod(Request $request)
     {
-
-        // console.log("dc controller");
-        // if ($request->ajax()) {
-        //     $request_id = $_GET['request_id'];
-        //     console.log("dc controller");
-            // if (isset($request_id)) {
-            //     if (DelayEmpForm::checkFormReject('delay_form_status', $request_id)) {
-            //         $delay_form_data = DelayEmpForm::deleteForm('add_dc', $request_id);
-            //         if ($delay_form_data == NULL) {
-            //             return "<p>No data Found</p>";
-            //         } else {
-            //             return "<p>Can delete data</p>";
-            //         }
-            //     }
-            // }
-        // }
-        $request_id=$_GET['request_id'];
-        $response = DelayEmpForm::deleteForm('add_dc', $request->request_id);
-        return response()->json(['status' => 200, 'message' => $request_id]);
+        if ($request->ajax()) {
+            $request_id = $_GET['request_id'];
+            $response = DelayEmpForm::deleteForm('add_dc', 'delay_form_status', $request_id);
+            return response()->json(['status' => $response[0], 'message' => $response[1]]);
+        }
     }
 }

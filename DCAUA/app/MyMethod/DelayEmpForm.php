@@ -395,13 +395,50 @@ class DelayEmpForm
         }
         return [$status, $message];
     }
-    // Delete form 
-    public static function deleteForm($table, $request_id)
+    // Delete Form table
+    public static function deleteFormTable($table, $request_id, $column_name)
     {
-        try{
-            return "done";
-        }catch(Exception $err){
-            return "not done";
+        try {
+            DB::table($table)
+                ->where($column_name, Crypt::decryptString($request_id))
+                ->delete();
+            return true;
+        } catch (Exception $err) {
+            return false;
         }
+    }
+    // Delete form 
+    public static function deleteForm($table, $sub_table, $request_id)
+    {
+        $status = 400;
+        $message = null;
+        if (DelayEmpForm::checkFormExists($table, $request_id)) {
+            if (DelayEmpForm::checkFormReject($sub_table, $request_id)) {
+                $tables = [
+                    $table => 'request_id',
+                    $sub_table => 'form_request_id'
+                ];
+                $check = false;
+                foreach ($tables as $table_key => $table_value) {
+                    if (DelayEmpForm::deleteFormTable($table_key, $request_id, $table_value)) {
+                        $check = true;
+                    } else {
+                        $check = false;
+                        break;
+                    }
+                }
+                if ($check) {
+                    $message = "Form Deleted Successfully";
+                    $status = 200;
+                } else {
+                    $message = "Server Error While Deleting Form data";
+                }
+            } else {
+                $message = "Form Can't Be Deleted !";
+            }
+        } else {
+            $message = "Request Form Not Found";
+        }
+        return [$status, $message];
     }
 }

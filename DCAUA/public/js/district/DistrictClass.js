@@ -179,11 +179,11 @@ class DistrictClass {
                                 approval_status = "Approved";
                             }
                             if (table === 'add_dc') {
-                                dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].code_number, result.message[i][j].mr_number, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='view_form_btn' class="approval_btn" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                                dataTable.row.add([incre, result.message[i][j].request_id, result.message[i][j].code_number, result.message[i][j].mr_number, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='view_form_btn' class="approval_btn" value="${result.message[i][j].main_id}">View</button>`]).draw(false);
                                 incre++;
                             }
                             else if (table === 'unemp_allow') {
-                                dataTable.row.add([(i + 1), result.message[i][j].request_id, result.message[i][j].card_number, result.message[i][j].work_demand, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='view_form_btn' class="approval_btn" value="${result.message[i][j].id}">View</button>`]).draw(false);
+                                dataTable.row.add([(i + 1), result.message[i][j].request_id, result.message[i][j].card_number, result.message[i][j].work_demand, result.message[i][j].recover_amount, result.message[i][j].date_of_submit, approval_status, `<button id='view_form_btn' class="approval_btn" value="${result.message[i][j].main_id}">View</button>`]).draw(false);
                                 incre++;
                             }
                         }
