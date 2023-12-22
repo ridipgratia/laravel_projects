@@ -15,7 +15,10 @@ class DelayCompensationController extends Controller
 {
     public function all_list()
     {
-        return view('state.delay_compensation');
+        $districts = StateMethod::getDistricts();
+        return view('state.delay_compensation', [
+            'districts' => $districts,
+        ]);
     }
     // Get Blocks By District Code
     public function get_blocks(Request $request)
@@ -110,7 +113,10 @@ class DelayCompensationController extends Controller
     }
     public function pending_list(Request $request)
     {
-        return view('state.delay_pending');
+        $districts = StateMethod::getDistricts();
+        return view('state.delay_pending', [
+            'districts' => $districts,
+        ]);
     }
     public function pending_list_data(Request $request)
     {
@@ -198,7 +204,7 @@ class DelayCompensationController extends Controller
                                     if ($notify_email[1]) {
                                         $email_data = [
                                             'subject' => $subject,
-                                            'body'=> $body
+                                            'body' => $body
                                         ];
                                         $check_email_msg = [
                                             'District' => '',

@@ -14,7 +14,12 @@ class DelayCompensationList extends Controller
 {
     public function index()
     {
-        return view('district.delay_compensation_list');
+        $district_name = DistrictMethod::getDistrictName();
+        $block_names = DistrictMethod::getBlocksName();
+        return view('district.delay_compensation_list', [
+            'district_name' => $district_name,
+            'block_names' => $block_names,
+        ]);
     }
     public function form_list(Request $request)
     {
@@ -70,7 +75,12 @@ class DelayCompensationList extends Controller
     }
     public function approval_list()
     {
-        return view('district.delay_approval');
+        $district_name = DistrictMethod::getDistrictName();
+        $block_names = DistrictMethod::getBlocksName();
+        return view('district.delay_approval', [
+            'district_name' => $district_name,
+            'block_names' => $block_names,
+        ]);
     }
     public function load_approval_list()
     {

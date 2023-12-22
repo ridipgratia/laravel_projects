@@ -1,3 +1,7 @@
+@php
+    $district_name = $requireData[0];
+    $block_names = $requireData[1];
+@endphp
 <div class="d-flex flex-wrap mt-2 ">
     <form action="" id="search_date_block_gp_id" class="d-flex col-12 flex-wrap">
         @csrf

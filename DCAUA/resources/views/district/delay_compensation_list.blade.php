@@ -11,8 +11,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
 
@@ -22,7 +21,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/delay_form_list.css') }}">
-    
+
 
     {{-- ADD CSS FILE FOR DATA TABLE STYLING  --}}
     <link rel="stylesheet" href="{{ asset('css/data_table.css') }}">
@@ -49,7 +48,10 @@
 
                 {{-- Serach By Block And GP Name And Dates  --}}
 
-                <x-search-by-block-gp-component>
+                @php
+                    $require_data = [$district_name, $block_names];
+                @endphp
+                <x-search-by-block-gp-component :requireData=$require_data>
 
                 </x-search-by-block-gp-component>
                 {{-- Datatable Start --}}

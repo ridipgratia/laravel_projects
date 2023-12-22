@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\MyMethod\DelayEmpForm;
+use App\MyMethod\DistrictMethod;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
@@ -17,7 +18,14 @@ class DelayConpensationFormListController extends Controller
     public function create()
     {
         // Load Delay Form List
-        return view('delay_compensation_form_list');
+        $district_name = DelayEmpForm::getDistrictName(Auth::user()->district);
+        $block_name = DelayEmpForm::getBlockName(Auth::user()->block);
+        $gp_names = DelayEmpForm::getGPName(Auth::user()->block);
+        return view('delay_compensation_form_list', [
+            'district_name' => $district_name,
+            'block_name' => $block_name,
+            'gp_names' => $gp_names
+        ]);
     }
     public function form_list(Request $request)
     {

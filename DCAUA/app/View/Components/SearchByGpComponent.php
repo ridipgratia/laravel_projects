@@ -13,9 +13,10 @@ class SearchByGpComponent extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $requireData;
+    public function __construct($requireData)
     {
-        //
+        $this->requireData = $requireData;
     }
 
     /**
@@ -25,13 +26,9 @@ class SearchByGpComponent extends Component
      */
     public function render()
     {
-        $district_name = DelayEmpForm::getDistrictName(Auth::user()->district);
-        $block_name = DelayEmpForm::getBlockName(Auth::user()->block);
-        $gp_names = DelayEmpForm::getGPName(Auth::user()->block);
-        return view('components.search-by-gp-component', [
-            'district_name' => $district_name,
-            'block_name' => $block_name,
-            'gp_names' => $gp_names
-        ]);
+        // $district_name = DelayEmpForm::getDistrictName(Auth::user()->district);
+        // $block_name = DelayEmpForm::getBlockName(Auth::user()->block);
+        // $gp_names = DelayEmpForm::getGPName(Auth::user()->block);
+        return view('components.search-by-gp-component');
     }
 }

@@ -14,7 +14,10 @@ class UnempAllowController extends Controller
 {
     public function all_list()
     {
-        return view('state.unemp_allow');
+        $districts = StateMethod::getDistricts();
+        return view('state.unemp_allow', [
+            'districts' => $districts,
+        ]);
     }
     // Get Blocks By District Code
     public function get_blocks(Request $request)
@@ -109,7 +112,10 @@ class UnempAllowController extends Controller
     }
     public function pending_list(Request $request)
     {
-        return view('state.unemp_pending');
+        $districts = StateMethod::getDistricts();
+        return view('state.unemp_pending', [
+            'districts' => $districts,
+        ]);
     }
     public function pending_list_data(Request $request)
     {
@@ -172,22 +178,22 @@ class UnempAllowController extends Controller
                     if (count($request_id) == 0) {
                         $message = "Form Not Found !";
                     } else {
-            //             $check = StateMethod::approvalMethod('add_unemp_allowance', 'unemp_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
-            //             if ($check) {
-            //                 $status = 200;
-            //                 $message = "Approval Submited";
-            //             } else {
-            //                 $message = "Server Error Try Later !";
-            //             }
-            //         }
-            //     } else {
-            //         $message = "Please Fill A Reaon For Rejection";
-            //     }
-            // } else {
-            //     $status = 400;
-            //     $message = "Try Later ";
-            // }
-            // return response()->json(['status' => $status, 'message' => $message]);
+                        //             $check = StateMethod::approvalMethod('add_unemp_allowance', 'unemp_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
+                        //             if ($check) {
+                        //                 $status = 200;
+                        //                 $message = "Approval Submited";
+                        //             } else {
+                        //                 $message = "Server Error Try Later !";
+                        //             }
+                        //         }
+                        //     } else {
+                        //         $message = "Please Fill A Reaon For Rejection";
+                        //     }
+                        // } else {
+                        //     $status = 400;
+                        //     $message = "Try Later ";
+                        // }
+                        // return response()->json(['status' => $status, 'message' => $message]);
 
 
                         $check = StateMethod::approvalMethod('add_unemp_allowance', 'unemp_form_status', $request_id[0]->request_id, $approval_index, $approval_reason);
@@ -218,7 +224,7 @@ class UnempAllowController extends Controller
                                     if ($notify_email[1]) {
                                         $email_data = [
                                             'subject' => $subject,
-                                            'body'=>$body
+                                            'body' => $body
                                         ];
                                         $check_email_msg = [
                                             'District' => '',
@@ -275,7 +281,7 @@ class UnempAllowController extends Controller
                 $status = 400;
                 $message = "Try Later ";
             }
-            return response()->json(['status' => $status, 'message' => $message]);   
+            return response()->json(['status' => $status, 'message' => $message]);
         }
     }
 }

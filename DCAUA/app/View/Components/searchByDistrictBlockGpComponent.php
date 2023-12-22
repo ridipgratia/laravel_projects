@@ -12,9 +12,10 @@ class searchByDistrictBlockGpComponent extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $districts;
+    public function __construct($districts)
     {
-        //
+        $this->districts = $districts;
     }
 
     /**
@@ -24,9 +25,7 @@ class searchByDistrictBlockGpComponent extends Component
      */
     public function render()
     {
-        $districts = StateMethod::getDistricts();
-        return view('components.search-by-district-block-gp-component', [
-            'districts' => $districts,
-        ]);
+        // $districts = StateMethod::getDistricts();
+        return view('components.search-by-district-block-gp-component');
     }
 }

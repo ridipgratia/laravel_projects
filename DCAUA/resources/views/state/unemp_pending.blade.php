@@ -28,7 +28,7 @@
 
             </x-state-nav-component>
             {{-- User List Table  --}}
-            <x-search-by-district-block-gp-component>
+            <x-search-by-district-block-gp-component :districts=$districts>
 
             </x-search-by-district-block-gp-component>
             {{-- Datatable Start --}}

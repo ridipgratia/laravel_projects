@@ -51,7 +51,10 @@
 
                 {{-- Serach By Block And GP Name And Dates  --}}
 
-                <x-search-by-block-gp-component>
+                @php
+                    $require_data = [$district_name, $block_names];
+                @endphp
+                <x-search-by-block-gp-component :requireData=$require_data>
 
                 </x-search-by-block-gp-component>
                 {{-- Datatable Start --}}

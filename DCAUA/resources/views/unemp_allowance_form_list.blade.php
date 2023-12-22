@@ -46,8 +46,10 @@
                 {{-- Add Serach Module By Dates and GP Names --}}
 
                 {{-- <x-serach-from-component></x-serach-from-component> --}}
-
-                <x-search-by-gp-component>
+                @php
+                    $require_data = [$district_name, $block_name, $gp_names];
+                @endphp
+                <x-search-by-gp-component :requireData=$require_data>
 
                 </x-search-by-gp-component>
                 {{-- Datatable Start --}}

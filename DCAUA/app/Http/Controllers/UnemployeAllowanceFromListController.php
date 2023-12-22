@@ -15,7 +15,14 @@ class UnemployeAllowanceFromListController extends Controller
 {
     public function create()
     {
-        return view('unemp_allowance_form_list');
+        $district_name = DelayEmpForm::getDistrictName(Auth::user()->district);
+        $block_name = DelayEmpForm::getBlockName(Auth::user()->block);
+        $gp_names = DelayEmpForm::getGPName(Auth::user()->block);
+        return view('unemp_allowance_form_list', [
+            'district_name' => $district_name,
+            'block_name' => $block_name,
+            'gp_names' => $gp_names
+        ]);
     }
     public function form_list(Request $request)
     {

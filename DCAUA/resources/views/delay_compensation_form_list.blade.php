@@ -50,7 +50,10 @@
 
                 {{-- Serach By GP Name  --}}
 
-                <x-search-by-gp-component>
+                @php
+                    $require_data = [$district_name, $block_name, $gp_names];
+                @endphp
+                <x-search-by-gp-component :requireData=$require_data>
 
                 </x-search-by-gp-component>
                 {{-- Datatable Start --}}

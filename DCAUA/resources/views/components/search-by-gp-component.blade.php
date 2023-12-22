@@ -1,3 +1,8 @@
+@php
+    $district_name = $requireData[0];
+    $block_name = $requireData[1];
+    $gp_names = $requireData[2];
+@endphp
 <div class="d-flex flex-wrap mt-2 ">
     <form action="" id="serach_form_date" class="d-flex col-12 flex-wrap">
         @csrf

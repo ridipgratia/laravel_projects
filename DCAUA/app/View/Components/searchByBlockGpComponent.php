@@ -12,9 +12,10 @@ class searchByBlockGpComponent extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $requireData;
+    public function __construct($requireData)
     {
-        //
+        $this->requireData = $requireData;
     }
 
     /**
