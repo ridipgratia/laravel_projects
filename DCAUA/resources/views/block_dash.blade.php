@@ -85,6 +85,24 @@
         //         });
         //     }
         // }
+
+        var json_data = '<?php echo json_encode($new_notify); ?>';
+        var json_obj_data = JSON.parse(json_data);
+        if (json_obj_data != 0) {
+            document.getElementById('count_new').innerHTML = "new " + json_obj_data;
+            if ('Notification' in window) {
+                Notification.requestPermission().then(function(permision) {
+                    if (permision === 'granted') {
+                        var notification = new Notification('Notification', {
+                            body: 'You Have New Notification !'
+                        });
+                        setTimeout(function() {
+                            notification.close();
+                        }, 5000);
+                    }
+                });
+            }
+        }
     </script>
 </body>
 

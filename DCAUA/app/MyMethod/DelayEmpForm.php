@@ -181,6 +181,8 @@ class DelayEmpForm
     public static function checkFormPending($table)
     {
         $form_list = DB::table($table)
+            ->where('district_id', Auth::user()->district)
+            ->where('block_id', Auth::user()->block)
             ->where('approval_status', '<>', 3)
             ->count();
         if ($form_list == 0) {
