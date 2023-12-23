@@ -34,13 +34,23 @@ class DelayEmpForm
     // get Approval data
     public static function getApproaveData($table)
     {
-        $form_list = DB::table($table)->where('submited_by', Auth::user()->login_id)->where('approval_status', 1)->select('id', 'request_id', 'date_of_submit')->get();
+        $form_list = DB::table($table)
+            ->where('submited_by', Auth::user()->login_id)
+            ->where('approval_status', 3)
+            ->select(
+                'id',
+                'request_id',
+                'date_of_submit'
+            )->get();
         return $form_list;
     }
     // Check Is FTO No Exists 
     public static function checkIsFTO($table, $form_id)
     {
-        $FTO_lists = DB::table($table)->where('submited_by', Auth::user()->login_id)->where('form_id', $form_id)->select('id')->get();
+        $FTO_lists = DB::table($table)
+            ->where('submited_by', Auth::user()->login_id)
+            ->where('form_id', $form_id)
+            ->select('id')->get();
         if (count($FTO_lists) == 0) {
             return false;
         } else {
@@ -50,7 +60,10 @@ class DelayEmpForm
     // Check Form ID Avaible Or Not 
     public static function checkFormIDAvai($table, $form_id)
     {
-        $check_form_id = DB::table($table)->where('submited_by', Auth::user()->login_id)->where('id', $form_id)->select('id')->get();
+        $check_form_id = DB::table($table)
+            ->where('submited_by', Auth::user()->login_id)
+            ->where('id', $form_id)
+            ->select('id')->get();
         if (count($check_form_id) == 0) {
             return false;
         } else {
@@ -60,7 +73,11 @@ class DelayEmpForm
     // Check Approval Status Of Form ID
     public static function checkApprovalStatus($table, $form_id)
     {
-        $check_approval = DB::table($table)->where('submited_by', Auth::user()->login_id)->where('id', $form_id)->where('approval_status', 1)->select('id')->get();
+        $check_approval = DB::table($table)
+            ->where('submited_by', Auth::user()->login_id)
+            ->where('id', $form_id)
+            ->where('approval_status', 3)
+            ->select('id')->get();
         if (count($check_approval) == 0) {
             return false;
         } else {
@@ -70,7 +87,10 @@ class DelayEmpForm
     // Get FTO Number 
     public static function getFTOData($table, $form_id)
     {
-        $get_FTO_data = DB::table($table)->where('submited_by', Auth::user()->login_id)->where('form_id', $form_id)->get();
+        $get_FTO_data = DB::table($table)
+            ->where('submited_by', Auth::user()->login_id)
+            ->where('form_id', $form_id)
+            ->get();
         return $get_FTO_data;
     }
     //  Get District Name

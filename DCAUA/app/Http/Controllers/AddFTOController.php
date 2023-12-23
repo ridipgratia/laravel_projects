@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\MyMethod\DelayEmpForm;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class AddFTOController extends Controller
 {
@@ -32,6 +33,7 @@ class AddFTOController extends Controller
             } else {
                 $form_list->action_btn = "Add FTO";
             }
+            $form_list->id = Crypt::encryptString($form_list->id);
         }
         return $form_lists;
     }
@@ -52,6 +54,7 @@ class AddFTOController extends Controller
     public function add_fto($table_1, $table_2)
     {
         $form_id = $_GET['form_id'];
+        $form_id = Crypt::decryptString($form_id);
         $status = null;
         $message = null;
         if (isset($form_id)) {
@@ -111,22 +114,40 @@ class AddFTOController extends Controller
                             $status = 400;
                             $message = "FTO Number Already Added";
                         } else {
+                            $check = false;
                             try {
-                                date_default_timezone_set('Asia/Kolkata');
-                                $add_date = date("Y-m-d");
-                                DB::table($table_2)->insert([
-                                    'form_id' => $form_id,
-                                    'FTO_no' => $fto_no,
-                                    'add_date' => $add_date,
-                                    'submited_by' => Auth::user()->login_id,
-                                    "created_at" =>  date('Y-m-d H:i:s'),
-                                    "updated_at" => date('Y-m-d H:i:s')
-                                ]);
-                                $status = 200;
-                                $message = "FTO No Is Added !";
+                                $request_id = DB::table($table_1)
+                                    ->where('submited_by', Auth::user()->login_id)
+                                    ->where('id', $form_id)
+                                    ->select(
+                                        'request_id'
+                                    )
+                                    ->get();
+                                $check = true;
                             } catch (Exception $err) {
-                                $status = 400;
-                                $message = "Error Executed ! Please Try Again ";
+                                $check = false;
+                            }
+                            if ($check) {
+                                try {
+                                    date_default_timezone_set('Asia/Kolkata');
+                                    $add_date = date("Y-m-d");
+                                    DB::table($table_2)->insert([
+                                        'form_id' => $form_id,
+                                        'FTO_no' => $fto_no,
+                                        'add_date' => $add_date,
+                                        'submited_by' => Auth::user()->login_id,
+                                        "created_at" =>  date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                        'form_request_id' => $request_id[0]->request_id
+                                    ]);
+                                    $status = 200;
+                                    $message = "FTO No Is Added !";
+                                } catch (Exception $err) {
+                                    $status = 400;
+                                    $message = "Error Executed ! Please Try Again ";
+                                }
+                            } else {
+                                $message = "Server Error Try Later ";
                             }
                         }
                     } else {
