@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\MyMethod\StateMethod;
 use App\MyMethod\AddUserByState;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class AddCEOController extends Controller
 {
@@ -54,7 +55,7 @@ class AddCEOController extends Controller
                         DB::table('login_details')->insert([
                             'login_id' => $record_id,
                             'login_email' => $email,
-                            'login_password' => 'password',
+                            'login_password' => Hash::make('password'),
                             'role' => 2,
                             'district' => $district_id,
                             'login_name' => $name,

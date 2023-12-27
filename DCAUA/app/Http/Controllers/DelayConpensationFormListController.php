@@ -127,7 +127,7 @@ class DelayConpensationFormListController extends Controller
                         <p class="delay_para_head para_head para_head_edit">Select Your Document </p>
                         <input type="file" name="bank_statement_url" class="delay_para para_1" accept="application/pdf" >
                         <div>
-                            <button id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Document</button>
+                            <button  type="button" id="show_form_document" class="btn btn-primary" value="' . $img_url . '">View Document</button>
                         </div>
                         <div class="mt-3 gap-2">
                             <button type="button" id="delete_form_btn" class="btn btn-danger" value="' . $request_id . '">Delete Form</button>
@@ -137,10 +137,10 @@ class DelayConpensationFormListController extends Controller
                         return $content;
                     }
                 } else {
-                    return "<p>No Data </p>";
+                    return "<p>No Data 2</p>";
                 }
             } else {
-                return "<p>No data</p>";
+                return "<p>No data </p>";
             }
         }
     }

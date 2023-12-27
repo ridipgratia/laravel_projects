@@ -8,6 +8,7 @@ use App\MyMethod\StateMethod;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AddPOController extends Controller
 {
@@ -57,7 +58,7 @@ class AddPOController extends Controller
                         DB::table('login_details')->insert([
                             'login_id' => $record_id,
                             'login_email' => $email,
-                            'login_password' => 'password',
+                            'login_password' => Hash::make('password'),
                             'role' => 1,
                             'district' => $district_id_2,
                             'block' => $district_id,

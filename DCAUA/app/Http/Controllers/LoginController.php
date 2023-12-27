@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -38,20 +39,25 @@ class LoginController extends Controller
                 $user_details = DB::table('login_details')
                     ->where('role', $role)
                     ->where('login_email', $email)
-                    ->where('login_password', $password)
+                    // ->where('login_password',  $password)
                     ->where('active', 1)
                     ->get();
                 if (count($user_details) == 0) {
                     $status = 400;
                     $message = "please Check Your Credentials Kindly Contact Adminstrator ";
                 } else {
-                    $login_data = User::where('login_email', $email)
-                        ->where('role', $role)
-                        ->where('active',1)
-                        ->first();
-                    Auth::login($login_data);
-                    $status = 200;
-                    $message = "Logged In";
+                    if (Hash::check($password, $user_details[0]->login_password)) {
+                        $login_data = User::where('login_email', $email)
+                            ->where('role', $role)
+                            ->where('active', 1)
+                            ->first();
+                        Auth::login($login_data);
+                        $status = 200;
+                        $message = "Logged In";
+                    } else {
+                        $status = 400;
+                        $message = "please Check Your Credentials Kindly Contact Adminstrator ";
+                    }
                 }
             }
             return response()->json(['status' => $status, 'message' => $message, 'role' => $role]);

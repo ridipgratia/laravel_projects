@@ -213,6 +213,7 @@ class StateClass {
             type: "get",
             url: url,
             success: function (result) {
+                console.log(result);
                 var dataTable = $('#users-table').DataTable();
                 dataTable.clear().draw();
                 var approval_status = null;
@@ -228,10 +229,10 @@ class StateClass {
                     //     approval_status = "Accepted";
                     // }
                     if (table === 'add_dc') {
-                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].code_number, result.message[i].mr_number, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i].main_id}">View</button>`]).draw(false);
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].code_number, result.message[i].mr_number, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
                     }
                     else if (table === 'unemp_allow') {
-                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].card_number, result.message[i].work_demand, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i].main_id}">View</button>`]).draw(false);
+                        dataTable.row.add([(i + 1), result.message[i].request_id, result.message[i].card_number, result.message[i].work_demand, result.message[i].recover_amount, result.message[i].date_of_submit, approval_status, `<button id='state_delay_form_btn' class="btn btn-primary" value="${result.message[i].id}">View</button>`]).draw(false);
                     }
                 }
             },
@@ -248,8 +249,8 @@ class StateClass {
                 var dataTable = $('#users-table').DataTable();
                 dataTable.clear().draw();
                 var approval_status = null;
-                console.log(result.message);
                 if (result.status == 200) {
+                    console.log(result);
                     for (var i = 0; i < result.message.length; i++) {
                         if (result.message[i].district_approval == 3) {
                             approval_status = "Pending";
@@ -270,6 +271,7 @@ class StateClass {
     }
     async viewFormData(url, btn) {
         var delay_form_id = btn.val();
+        console.log(delay_form_id);
         $.ajax({
             type: "get",
             url: url,

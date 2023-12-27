@@ -228,7 +228,7 @@ class DelayEmpForm
                     $state_icon[0] = '<i class="fa-solid fa-check"></i>';
                 }
                 if ($form_data[0]->district_approval == 2) {
-                    $edit_btn[0] = '<button class="form_edit_btn col-3 m-2" id="edit_form_btn" value="' . $register_id . '"><i class="fa-solid fa-pen-to-square"></i></button>';
+                    $edit_btn[0] = '<button class="form_edit_btn col-3 m-2" id="edit_form_btn" value="' . Crypt::encryptString($register_id) . '"><i class="fa-solid fa-pen-to-square"></i></button>';
                 }
             }
             if ($form_data[0]->state_approval == 1 || $form_data[0]->state_approval == 2 || $form_data[0]->state_approval == 3) {
@@ -272,7 +272,7 @@ class DelayEmpForm
             $form = DB::table($table)
                 ->where('form_request_id', Crypt::decryptString($request_id))
                 ->where('district_approval', 2)
-                ->where('state_approval', 2)
+                ->orWhere('state_approval', 2)
                 ->get();
             if (count($form) == 0) {
                 return false;

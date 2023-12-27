@@ -59,7 +59,7 @@ class UnempAllowController extends Controller
                     ->where('id', $delay_form_id)
                     ->get();
                 if (count($delay_form_data) == 0) {
-                    $content = "<p>No data Found</p>";
+                    $content = "<p>No data Found </p>";
                 } else {
                     $img_url = Storage::url($delay_form_data[0]->bank_statement_url);
                     $content = '<p class="delay_para_head para_head">Work Code Number</p>
